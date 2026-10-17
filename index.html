@@ -187,6 +187,19 @@ button{font-family:var(--font-u)}
 /* ---------- report view ---------- */
 .report-wrap{max-width:860px;margin:0 auto;padding:40px 20px 80px}
 .report-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.modal-mask{position:fixed;inset:0;background:rgba(10,22,40,.55);display:flex;align-items:center;justify-content:center;z-index:99;padding:20px}
+.modal-mask[hidden]{display:none}
+.modal{background:#fff;border-radius:16px;max-width:440px;width:100%;padding:26px;box-shadow:0 20px 60px rgba(10,22,40,.25);box-sizing:border-box}
+.modal h3{font-size:19px;margin:0 0 6px;letter-spacing:-.3px}
+.modal p{font-size:13.5px;color:var(--c-muted);margin:0 0 14px;line-height:1.55}
+.modal input[type=email]{width:100%;box-sizing:border-box;border:1.5px solid var(--c-line);border-radius:10px;padding:12px 14px;font-size:16px;margin-bottom:10px;font-family:inherit}
+.modal input[type=email]:focus{outline:none;border-color:var(--c-blue)}
+.modal label{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--c-muted);line-height:1.5;cursor:pointer}
+.modal label input{margin-top:2px}
+.modal-err{color:#C0392B;font-size:12.5px;margin:8px 0 0;display:none}
+.modal-btns{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.modal-btns .btn{flex:1;min-height:44px}
+.modal-btns .btn-ghost{flex:0 0 auto}
 .report-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:8px;flex-wrap:wrap}
 .report-head h1{font-size:clamp(24px,3vw,32px);letter-spacing:-.4px}
 .report-meta{font-size:13px;color:var(--c-muted);margin-bottom:26px}
@@ -233,7 +246,7 @@ button{font-family:var(--font-u)}
 /* ---------- print ---------- */
 @media print{
   body{background:#fff;font-size:12px}
-  .site-head,.urgency,.hero,.stats,.section,.cta-band,.site-foot,.report-actions,.head-cta,.head-nav,.lang-switch{display:none!important}
+  .site-head,.urgency,.hero,.stats,.section,.cta-band,.site-foot,.report-actions,.head-cta,.head-nav,.lang-switch,.modal-mask{display:none!important}
   .report-wrap{padding:0;max-width:100%}
   .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid;padding:18px;margin-bottom:14px}
   .report-head h1{font-size:22px}
@@ -492,6 +505,21 @@ button{font-family:var(--font-u)}
   </div>
 </main>
 
+<!-- ===== EMAIL GATE MODAL ===== -->
+<div class="modal-mask" id="emailModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3 data-i18n="emTitle">Keep your report &amp; get updates</h3>
+    <p data-i18n="emDesc">Enter your email to download the PDF and receive rare AI Act deadline reminders. No spam — unsubscribe anytime.</p>
+    <input type="email" id="emInput" data-i18n-ph="emPh" placeholder="you@company.com" autocomplete="email">
+    <label><input type="checkbox" id="emConsent"> <span data-i18n="emConsentText">I agree to receive this report and occasional AI Act compliance updates.</span></label>
+    <div class="modal-err" id="emErr"></div>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" id="emSkip" data-i18n="emSkip">Skip &amp; download</button>
+      <button class="btn btn-primary" id="emSubmit" data-i18n="emSend">Email me the PDF</button>
+    </div>
+  </div>
+</div>
+
 <script>
 'use strict';
 var $=function(s){return document.querySelector(s);};
@@ -560,6 +588,11 @@ en:{
   footExplore:'Explore',footResources:'Resources',footRes1:'EU Commission \u2014 AI Act',footRes2:'AI Act implementation timeline',
   footDisc:'<b>Disclaimer.</b> AI Act Check is a screening tool based on Regulation (EU) 2024/1689 as amended by the Digital Omnibus. It provides general information and indicative risk assessments only. It does not constitute legal, regulatory or professional advice. Compliance decisions should be made with a qualified lawyer, particularly for high-risk AI systems. All figures \u2014 including fines and application dates \u2014 reflect official EU sources at the time of writing and may change.',
   backBtn:'Back',printBtn:'Export as PDF',restartBtn:'Take it again',
+  emTitle:'Keep your report & get updates',
+  emDesc:'Enter your email to download the PDF and receive rare AI Act deadline reminders. No spam — unsubscribe anytime.',
+  emPh:'you@company.com',emConsentText:'I agree to receive this report and occasional AI Act compliance updates.',
+  emSkip:'Skip & download',emSend:'Email me the PDF',emSending:'Sending...',
+  emErrEmail:'Please enter a valid email address.',emErrConsent:'Please tick the consent box to continue.',
   repH1:'EU AI Act Readiness Report',
   repMetaPrefix:'Prepared in your browser \u00b7 {d} \u00b7 Screening tool \u2014 not legal advice',
   repScore:'Your risk score',repWhy:'Why this score',repStand:'Where you stand',repOblig:'Obligations that apply to you',repAct:'What to do next',
@@ -644,6 +677,11 @@ zh:{
   footExplore:'导航',footResources:'资源',footRes1:'欧盟委员会——AI 法案',footRes2:'AI 法案实施时间表',
   footDisc:'<b>免责声明。</b>AI Act Check 是基于 Regulation (EU) 2024/1689（含 Digital Omnibus 修订）的筛查工具，仅提供一般信息与指示性风险评估，不构成法律、监管或专业意见。合规决策应由具备资质的律师做出，尤其是高风险 AI 系统。文中所有数据——包括罚款与适用日期——均依据撰写时欧盟官方来源，可能发生变化。',
   backBtn:'返回',printBtn:'导出 PDF',restartBtn:'重新测试',
+  emTitle:'保存报告，并接收更新',
+  emDesc:'输入邮箱下载 PDF，并接收难得一见的 AI 法案截止提醒。绝不群发垃圾邮件——随时可退订。',
+  emPh:'you@company.com',emConsentText:'我同意接收本报告，以及偶尔的 AI 法案合规更新邮件。',
+  emSkip:'跳过并直接下载',emSend:'发我 PDF',emSending:'发送中...',
+  emErrEmail:'请输入有效的邮箱地址。',emErrConsent:'请勾选同意选项后继续。',
   repH1:'欧盟 AI 法案合规就绪报告',
   repMetaPrefix:'浏览器本地生成 \u00b7 {d} \u00b7 筛查工具——不构成法律意见',
   repScore:'你的风险评分',repWhy:'评分依据',repStand:'你的处境',repOblig:'适用于你的义务',repAct:'下一步行动',
@@ -905,7 +943,7 @@ function gaugeSVG(score,color){
 }
 
 /* ================= VIEWS ================= */
-var answers={},qIdx=0;
+var answers={},qIdx=0,lastReport=null;
 function showView(v){
   ['landing','quiz','report'].forEach(function(name){
     $('#view-'+name).hidden=name!==v;
@@ -997,6 +1035,7 @@ function renderReport(){
   html+='<div class="note-box">'+t('scoreMethod')+'</div>';
 
   $('#repBody').innerHTML=html;
+  lastReport=r;
   showView('report');
 }
 /* ================= BOOT ================= */
@@ -1040,7 +1079,40 @@ function boot(){
     selectOption(parseInt(b.getAttribute('data-i'),10));
   });
   $('#qBack').addEventListener('click',function(){if(qIdx>0){qIdx--;renderQuestion();}});
-  $('#repPrint').addEventListener('click',function(){window.print();});
+  /* ================= EMAIL GATE ================= */
+  var FORMSPREE_ENDPOINT='https://formspree.io/f/YOUR_FORM_ID'; /* ← 注册 formspree.io 后，把表单地址替换到这里（替换 YOUR_FORM_ID）。未替换前用户可直接下载，不影响使用。 */
+  function openEmailModal(){
+    $('#emErr').style.display='none';
+    $('#emailModal').hidden=false;
+    setTimeout(function(){$('#emInput').focus();},60);
+  }
+  function closeEmailModal(){$('#emailModal').hidden=true;}
+  function submitEmailAndPrint(){
+    var em=$('#emInput').value.trim();
+    var ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+    var er=$('#emErr');
+    if(!ok){er.textContent=t('emErrEmail');er.style.display='block';return;}
+    if(!$('#emConsent').checked){er.textContent=t('emErrConsent');er.style.display='block';return;}
+    var btn=$('#emSubmit');btn.textContent=t('emSending');btn.disabled=true;
+    var body={email:em,score:(lastReport?lastReport.score:''),band:(lastReport?lastReport.band.key:''),role:(lastReport?lastReport.role:''),timestamp:new Date().toISOString()};
+    var sent=function(){
+      try{localStorage.setItem('aiac-email',em);}catch(e){}
+      closeEmailModal();
+      btn.textContent=t('emSend');btn.disabled=false;
+      window.print();
+    };
+    if(FORMSPREE_ENDPOINT.indexOf('YOUR_FORM_ID')>-1){sent();return;}
+    fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:JSON.stringify(body)}).then(sent).catch(sent);
+  }
+  $('#repPrint').addEventListener('click',function(){
+    var saved=null;try{saved=localStorage.getItem('aiac-email');}catch(e){}
+    if(saved){window.print();return;}
+    openEmailModal();
+  });
+  $('#emSubmit').addEventListener('click',submitEmailAndPrint);
+  $('#emSkip').addEventListener('click',function(){closeEmailModal();window.print();});
+  $('#emailModal').addEventListener('click',function(e){if(e.target===this)closeEmailModal();});
+  $('#emInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitEmailAndPrint();});
   $('#repRestart').addEventListener('click',function(){answers={};startQuiz(0);});
   $('#brandLink').addEventListener('click',function(){showView('landing');});
   document.querySelectorAll('a[data-sec]').forEach(function(a){

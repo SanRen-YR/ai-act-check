@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Act Check — Free EU AI Act compliance self-assessment</title>
+<meta name="description" content="Answer 16 questions and get a plain-English EU AI Act risk report in 10 minutes. No sign-up, no data collection — your answers never leave your browser.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z' fill='%2314439F'/%3E%3Cpath d='M8.5 12l2.5 2.5 5-5' fill='none' stroke='%23F2B31A' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --c-bg:#F5F7FB;
+  --c-surface:#FFFFFF;
+  --c-ink:#0F1F38;
+  --c-navy:#16365C;
+  --c-blue:#14439F;
+  --c-gold:#F2B31A;
+  --c-gold-soft:#FDF3D8;
+  --c-muted:#5A6B85;
+  --c-line:#DCE4F0;
+  --c-low:#2E8B57;
+  --c-watch:#B97A00;
+  --c-elev:#D85D1F;
+  --c-crit:#C0392B;
+  --c-red-soft:#FCEBE7;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(15,31,56,.06),0 8px 24px rgba(15,31,56,.07);
+  --font-d:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --font-u:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-u);background:var(--c-bg);color:var(--c-ink);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.serif{font-family:var(--font-d);line-height:1.15;font-weight:700}
+p{color:var(--c-ink)}
+a{color:var(--c-blue)}
+button{font-family:var(--font-u)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.section{padding:64px 0}
+@media(max-width:640px){.section{padding:44px 0}}
+
+/* ---------- header ---------- */
+.site-head{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--c-line)}
+.head-in{display:flex;align-items:center;gap:16px;max-width:1080px;margin:0 auto;padding:14px 20px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--c-ink)}
+.brand svg{width:26px;height:26px;flex:none}
+.brand b{font-size:17px;letter-spacing:-.2px}
+.brand small{display:block;font-size:11px;color:var(--c-muted);font-weight:500;letter-spacing:.3px}
+.head-nav{display:flex;gap:22px;margin-left:auto;align-items:center}
+.head-nav a{color:var(--c-navy);text-decoration:none;font-size:14.5px;font-weight:500}
+.head-nav a:hover{color:var(--c-blue)}
+.lang-switch{display:inline-flex;border:1.5px solid var(--c-line);border-radius:9px;overflow:hidden;flex:none}
+.lang-btn{border:0;background:#fff;color:var(--c-muted);font-size:13px;font-weight:600;padding:7px 12px;cursor:pointer;min-height:38px}
+.lang-btn.active{background:var(--c-navy);color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font-weight:600;font-size:15px;text-decoration:none;border-radius:10px;padding:12px 20px;transition:transform .12s ease,box-shadow .12s ease,background .12s ease;min-height:44px}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--c-blue);color:#fff;box-shadow:0 6px 16px rgba(20,67,159,.28)}
+.btn-primary:hover{background:#12398A}
+.btn-gold{background:var(--c-gold);color:#3A2C00;box-shadow:0 6px 16px rgba(242,179,26,.3)}
+.btn-gold:hover{background:#E0A40E}
+.btn-ghost{background:transparent;color:var(--c-navy);border:1.5px solid var(--c-line)}
+.btn-ghost:hover{border-color:var(--c-blue);color:var(--c-blue)}
+.btn-sm{padding:9px 15px;font-size:14px;min-height:40px}
+.head-cta{margin-left:4px}
+@media(max-width:760px){
+  .head-nav{display:none}
+  .head-cta{margin-left:auto}
+  .head-cta .btn{padding:9px 14px;font-size:14px}
+}
+
+/* ---------- urgency strip ---------- */
+.urgency{background:var(--c-gold-soft);border-bottom:1px solid #F0DFAE}
+.urgency-in{max-width:1080px;margin:0 auto;padding:11px 20px;font-size:14px;color:#5C4A08;display:flex;gap:10px;align-items:flex-start}
+.urgency-in svg{flex:none;margin-top:3px}
+
+/* ---------- hero ---------- */
+.hero{padding:72px 0 64px;background:linear-gradient(180deg,#FFFFFF 0%,var(--c-bg) 100%)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;max-width:1080px;margin:0 auto;padding:0 20px}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;background:var(--c-gold-soft);color:#6B5200;border:1px solid #F0DFAE;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;margin-bottom:22px}
+.hero h1{font-size:clamp(34px,4.6vw,54px);letter-spacing:-.6px;margin-bottom:18px}
+.hero h1 em{font-style:normal;color:var(--c-blue)}
+.hero-sub{font-size:clamp(16px,1.6vw,19px);color:var(--c-muted);max-width:560px;margin-bottom:30px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:34px}
+.hero-note{font-size:13.5px;color:var(--c-muted);display:flex;gap:16px;flex-wrap:wrap}
+.hero-note span{display:inline-flex;align-items:center;gap:6px}
+.hero-note svg{color:var(--c-low)}
+.demo-card{background:var(--c-surface);border:1px solid var(--c-line);border-radius:18px;box-shadow:var(--shadow);padding:26px 24px}
+.demo-card .dc-label{font-size:12px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;color:var(--c-muted);margin-bottom:12px}
+.demo-card h3{font-size:21px;margin-bottom:8px}
+.demo-card p{font-size:14.5px;color:var(--c-muted);margin-bottom:20px}
+.demo-opts{display:flex;flex-direction:column;gap:10px}
+.demo-opts button{text-align:left;border:1.5px solid var(--c-line);background:#fff;border-radius:11px;padding:13px 16px;font-size:15px;font-weight:500;color:var(--c-ink);cursor:pointer;transition:border-color .12s ease,background .12s ease;min-height:48px}
+.demo-opts button:hover{border-color:var(--c-blue);background:#F3F7FF}
+.demo-foot{margin-top:16px;font-size:12.5px;color:var(--c-muted)}
+.demo-sample{margin-top:14px;width:100%;border:1.5px dashed var(--c-line);background:#F8FAFE;border-radius:11px;padding:12px 16px;font-size:14px;font-weight:600;color:var(--c-blue);cursor:pointer;min-height:48px;transition:border-color .12s ease,background .12s ease}
+.demo-sample:hover{border-color:var(--c-blue);background:#F3F7FF}
+@media(max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .hero{padding:48px 0 44px}
+}
+
+/* ---------- stats ---------- */
+.stats{background:var(--c-navy);color:#fff}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1080px;margin:0 auto;padding:38px 20px}
+.stat b{display:block;font-family:var(--font-d);font-size:clamp(26px,2.6vw,34px);letter-spacing:-.4px;margin-bottom:4px}
+.stat span{font-size:13.5px;color:#BFD0E8;line-height:1.45;display:block}
+@media(max-width:760px){.stats-grid{grid-template-columns:repeat(2,1fr);gap:20px;padding:30px 20px}}
+
+/* ---------- how ---------- */
+.sec-head{max-width:640px;margin-bottom:40px}
+.sec-head .kicker{font-size:12.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--c-blue);margin-bottom:10px}
+.sec-head h2{font-size:clamp(26px,3vw,36px);letter-spacing:-.4px;margin-bottom:12px}
+.sec-head p{color:var(--c-muted);font-size:16.5px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.step{background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--radius);padding:26px 24px;position:relative}
+.step .num{font-family:var(--font-d);font-size:30px;font-weight:700;color:var(--c-gold);display:block;margin-bottom:12px}
+.step h3{font-size:18.5px;margin-bottom:8px}
+.step p{font-size:14.5px;color:var(--c-muted)}
+@media(max-width:820px){.steps{grid-template-columns:1fr}.step{padding:20px 20px}}
+
+/* ---------- tiers ---------- */
+.tiers{background:#EDF1F8}
+.tier{display:grid;grid-template-columns:190px 1fr;gap:20px;background:var(--c-surface);border:1px solid var(--c-line);border-left:6px solid var(--c-line);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+.tier .t-name{font-weight:700;font-size:17px}
+.tier .t-when{font-size:12.5px;color:var(--c-muted);margin-top:4px;font-weight:500}
+.tier .t-desc{font-size:14.5px;color:var(--c-ink)}
+.tier.crit{border-left-color:var(--c-crit)}
+.tier.crit .t-name{color:var(--c-crit)}
+.tier.high{border-left-color:var(--c-elev)}
+.tier.high .t-name{color:var(--c-elev)}
+.tier.lim{border-left-color:var(--c-watch)}
+.tier.lim .t-name{color:var(--c-watch)}
+.tier.min{border-left-color:var(--c-low)}
+.tier.min .t-name{color:var(--c-low)}
+@media(max-width:640px){.tier{grid-template-columns:1fr;gap:6px}}
+
+/* ---------- trust ---------- */
+.trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.trust{display:flex;gap:14px;align-items:flex-start;background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--radius);padding:20px}
+.trust svg{flex:none;color:var(--c-blue);margin-top:2px}
+.trust h3{font-size:16.5px;margin-bottom:4px}
+.trust p{font-size:14px;color:var(--c-muted)}
+@media(max-width:760px){.trust-grid{grid-template-columns:1fr}}
+
+/* ---------- faq ---------- */
+.faq details{background:var(--c-surface);border:1px solid var(--c-line);border-radius:12px;padding:18px 20px;margin-bottom:12px}
+.faq summary{cursor:pointer;font-weight:600;font-size:16px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";font-size:22px;color:var(--c-blue);font-weight:500;flex:none}
+.faq details[open] summary:after{content:"\2212"}
+.faq .faq-a{padding-top:12px;color:var(--c-muted);font-size:14.5px}
+.faq .faq-a b{color:var(--c-ink)}
+
+/* ---------- cta band ---------- */
+.cta-band{background:var(--c-blue);color:#fff;text-align:center;padding:64px 20px}
+.cta-band h2{color:#fff;font-size:clamp(26px,3vw,36px);letter-spacing:-.4px;margin-bottom:14px}
+.cta-band p{color:#C9D8F2;font-size:16.5px;max-width:560px;margin:0 auto 28px}
+
+/* ---------- footer ---------- */
+.site-foot{background:var(--c-ink);color:#9FB2CE;font-size:13.5px;padding:44px 0 36px}
+.site-foot p{color:#9FB2CE}
+.foot-grid{max-width:1080px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px}
+.foot-grid h4{color:#fff;font-size:14.5px;margin-bottom:12px;font-family:var(--font-u)}
+.foot-grid a{color:#9FB2CE;text-decoration:none;display:block;margin-bottom:8px}
+.foot-grid a:hover{color:#fff}
+.disclaimer{margin-top:32px;padding:20px 20px 0;border-top:1px solid #26395C;font-size:12.5px;color:#7E93B5;line-height:1.7}
+@media(max-width:700px){.foot-grid{grid-template-columns:1fr;gap:24px}}
+
+/* ---------- quiz view ---------- */
+.quiz-wrap{max-width:760px;margin:0 auto;padding:36px 20px 80px}
+.quiz-progress{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.quiz-progress .p-label{font-size:13px;font-weight:600;color:var(--c-muted);white-space:nowrap}
+.p-bar{flex:1;height:8px;background:#E3E9F4;border-radius:99px;overflow:hidden}
+.p-fill{height:100%;width:0;background:var(--c-blue);border-radius:99px;transition:width .25s ease}
+.quiz-card{background:var(--c-surface);border:1px solid var(--c-line);border-radius:18px;box-shadow:var(--shadow);padding:34px 32px}
+.q-cat{font-size:12px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--c-blue);margin-bottom:10px}
+.quiz-card h2{font-size:clamp(20px,2.6vw,26px);letter-spacing:-.3px;margin-bottom:10px}
+.q-help{font-size:14.5px;color:var(--c-muted);margin-bottom:22px}
+.q-opts{display:flex;flex-direction:column;gap:11px}
+.q-opts button{text-align:left;border:1.5px solid var(--c-line);background:#fff;border-radius:12px;padding:15px 17px;font-size:15.5px;font-weight:500;color:var(--c-ink);cursor:pointer;transition:border-color .12s ease,background .12s ease,box-shadow .12s ease;min-height:52px;line-height:1.4}
+.q-opts button:hover{border-color:var(--c-blue)}
+.q-opts button.sel{border-color:var(--c-blue);background:#F0F6FF;box-shadow:0 0 0 3px rgba(20,67,159,.12)}
+.quiz-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px}
+.q-extra{font-size:12.5px;color:var(--c-muted);margin-top:18px;line-height:1.55}
+@media(max-width:640px){.quiz-card{padding:26px 20px}.quiz-wrap{padding:24px 14px 60px}}
+
+/* ---------- report view ---------- */
+.report-wrap{max-width:860px;margin:0 auto;padding:40px 20px 80px}
+.report-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.report-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:8px;flex-wrap:wrap}
+.report-head h1{font-size:clamp(24px,3vw,32px);letter-spacing:-.4px}
+.report-meta{font-size:13px;color:var(--c-muted);margin-bottom:26px}
+.card{background:var(--c-surface);border:1px solid var(--c-line);border-radius:16px;box-shadow:var(--shadow);padding:28px;margin-bottom:20px}
+.card h2{font-size:20px;letter-spacing:-.2px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.card h2 svg{color:var(--c-blue)}
+.gauge-row{display:grid;grid-template-columns:230px 1fr;gap:28px;align-items:center}
+.gauge-wrap{text-align:center}
+.gauge-score{font-family:var(--font-d);font-size:44px;font-weight:700;line-height:1}
+.gauge-band{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;padding:4px 12px;border-radius:999px;color:#fff}
+.band-verdict{font-size:15px;margin-top:14px}
+.gauge-desc{font-size:14.5px;color:var(--c-muted)}
+.band-low{background:var(--c-low)}.band-watch{background:var(--c-watch)}.band-elev{background:var(--c-elev)}.band-crit{background:var(--c-crit)}
+@media(max-width:640px){.gauge-row{grid-template-columns:1fr;gap:20px}.gauge-wrap{order:-1}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;padding:6px 13px;border-radius:999px;background:#EDF1F8;color:var(--c-navy)}
+.chip.bad{background:var(--c-red-soft);color:var(--c-crit)}
+.chip.ok{background:#E7F4EC;color:var(--c-low)}
+.ob-table{width:100%;border-collapse:collapse;font-size:14.5px;table-layout:fixed}
+.ob-table th{text-align:left;font-size:12px;letter-spacing:.8px;text-transform:uppercase;color:var(--c-muted);padding:8px 10px;border-bottom:1px solid var(--c-line)}
+.ob-table td{padding:12px 10px;border-bottom:1px solid #EDF1F7;vertical-align:top;line-height:1.5}
+.ob-table td:first-child{font-weight:600}
+.ob-table .col-o{width:56%}.ob-table .col-s{width:44%}
+@media(max-width:640px){.ob-table{font-size:13.5px}.ob-table .col-o{width:100%;display:block}.ob-table .col-s{width:100%;display:block;padding-top:0;padding-bottom:12px}.ob-table thead{display:none}.ob-table tr{display:block;padding:6px 0}}
+.st{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.st-now{background:var(--c-red-soft);color:var(--c-crit)}
+.st-2027{background:#FDF3D8;color:#7A5B00}
+.st-check{background:#EDF1F8;color:var(--c-navy)}
+.st-na{background:#EDF1F8;color:var(--c-muted)}
+.action{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #EDF1F7}
+.action:last-child{border-bottom:0}
+.action .a-ico{flex:none;width:30px;height:30px;border-radius:50%;background:var(--c-gold-soft);color:#7A5B00;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;margin-top:2px}
+.action .a-title{font-weight:600;font-size:15px}
+.action .a-due{font-size:12px;font-weight:700;color:var(--c-elev);margin-top:2px}
+.action .a-desc{font-size:14px;color:var(--c-muted);margin-top:3px}
+.note-box{background:var(--c-gold-soft);border:1px solid #F0DFAE;border-radius:12px;padding:16px 18px;font-size:13.5px;color:#5C4A08;line-height:1.7}
+.disclaimer-box{font-size:12.5px;color:var(--c-muted);line-height:1.75;border-top:1px solid var(--c-line);padding-top:18px;margin-top:8px}
+.timeline-mini{display:flex;gap:0;margin-top:6px}
+.tl-item{flex:1;background:#EDF1F8;border-radius:10px;padding:12px;margin-right:10px;font-size:12.5px;line-height:1.5}
+.tl-item:last-child{margin-right:0}
+.tl-item b{display:block;font-size:12px;color:var(--c-blue);margin-bottom:3px}
+@media(max-width:640px){.timeline-mini{flex-direction:column;gap:8px}.tl-item{margin-right:0}}
+
+/* ---------- print ---------- */
+@media print{
+  body{background:#fff;font-size:12px}
+  .site-head,.urgency,.hero,.stats,.section,.cta-band,.site-foot,.report-actions,.head-cta,.head-nav,.lang-switch{display:none!important}
+  .report-wrap{padding:0;max-width:100%}
+  .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid;padding:18px;margin-bottom:14px}
+  .report-head h1{font-size:22px}
+  .gauge-score{font-size:30px}
+  @page{margin:16mm 14mm}
+  .action{break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+:focus-visible{outline:3px solid var(--c-gold);outline-offset:2px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="head-in">
+    <a class="brand" href="#/home" id="brandLink" aria-label="AI Act Check home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z" fill="#14439F"/><path d="M8.5 12l2.5 2.5 5-5" fill="none" stroke="#F2B31A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>AI Act Check</b><small data-i18n="brandTag">EU AI Act self-assessment</small></span>
+    </a>
+    <nav class="head-nav" id="headNav">
+      <a href="#/home" data-sec="how" data-i18n="nav1">How it works</a>
+      <a href="#/home" data-sec="tiers" data-i18n="nav2">Risk levels</a>
+      <a href="#/home" data-sec="faq" data-i18n="nav3">FAQ</a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="zh">中文</button>
+    </div>
+    <div class="head-cta"><button class="btn btn-primary btn-sm" id="headCta" data-i18n="ctaStart">Start the free check</button></div>
+  </div>
+</header>
+
+<!-- ===== VIEW: landing ===== -->
+<main id="view-landing">
+  <div class="urgency">
+    <div class="urgency-in">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A6D00" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+      <span data-i18n-html="urgency"><b>Enforcement is live.</b> The European Commission's AI Office has opened its first AI Act probe into OpenAI and Anthropic (Oct 2026). High-risk rules apply from 2&nbsp;Dec&nbsp;2027. Is your AI ready?</span>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="hero-kicker"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="heroKicker">Free &middot; 10 minutes &middot; No sign-up</span></span>
+        <h1 data-i18n-html="heroH1">Find out if your AI is compliant with the <em>EU AI Act</em> — before a fine finds you.</h1>
+        <p class="hero-sub" data-i18n="heroSub">A plain-English self-assessment for cross-border businesses. Answer 16 questions about how you use AI, and get a risk report with the exact obligations that apply to you — and what to fix, by when.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary" id="heroStart" data-i18n="startBtn">Start the free check</button>
+          <a class="btn btn-ghost" href="#/home" data-sec="how" data-i18n="howBtn">See how it works</a>
+        </div>
+        <div class="hero-note">
+          <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="note1">100% in your browser</span></span>
+          <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="note2">No data collected</span></span>
+          <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="note3">Works from anywhere</span></span>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="dc-label" data-i18n="demoLabel">Quick sample &middot; Question 1 of 16</div>
+        <h3 data-i18n="demoQ">Do you sell AI to customers in the EU?</h3>
+        <p data-i18n="demoP">The AI Act reaches businesses worldwide — it doesn't matter where you're incorporated.</p>
+        <div class="demo-opts">
+          <button id="demoYes" data-i18n="demoOpt1">Yes — we offer AI to EU users</button>
+          <button id="demoNo" data-i18n="demoOpt2">No — EU users can't access our AI</button>
+        </div>
+        <div class="demo-foot" data-i18n="demoFoot">Either way, you'll get a tailored report in minutes.</div>
+        <button type="button" class="demo-sample" id="demoReport" data-i18n="demoReport">Preview a sample report</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Key numbers">
+    <div class="stats-grid">
+      <div class="stat"><b data-i18n="stat1b">&euro;35M / 7%</b><span data-i18n="stat1t">Maximum fine for banned AI practices — of your worldwide annual turnover</span></div>
+      <div class="stat"><b data-i18n="stat2b">Feb 2025</b><span data-i18n="stat2t">When the first AI Act bans took effect — enforcement is already underway</span></div>
+      <div class="stat"><b data-i18n="stat3b">2 Dec 2027</b><span data-i18n="stat3t">When high-risk AI systems must be fully compliant</span></div>
+      <div class="stat"><b data-i18n="stat4b">&euro;0</b><span data-i18n="stat4t">Cost of this check — built for small teams without legal budgets</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker" data-i18n="howKicker">How it works</div>
+        <h2 data-i18n="howH2">From "no idea" to a plan, in one sitting</h2>
+        <p data-i18n="howP">You don't need a lawyer to know where you stand. This tool maps your answers to the AI Act's risk framework and tells you exactly what applies.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="num">01</span><h3 data-i18n="s1t">Answer 16 questions</h3><p data-i18n="s1d">About what your AI does, who uses it, and how you run it. Plain English, no legal jargon, roughly 10 minutes.</p></div>
+        <div class="step"><span class="num">02</span><h3 data-i18n="s2t">Get matched to the rules</h3><p data-i18n="s2d">We map your answers to the AI Act's risk tiers: banned practices, high-risk obligations, transparency duties and more.</p></div>
+        <div class="step"><span class="num">03</span><h3 data-i18n="s3t">Receive your action plan</h3><p data-i18n="s3d">A risk score plus a prioritised checklist of what to fix, and the enforcement deadline for each item. Export it as a PDF.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tiers" id="tiers">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker" data-i18n="tiersKicker">Risk levels</div>
+        <h2 data-i18n="tiersH2">The four tiers of the AI Act</h2>
+        <p data-i18n="tiersP">Which tier your AI falls into decides which obligations apply — and how urgent they are.</p>
+      </div>
+      <div class="tier crit">
+        <div><div class="t-name" data-i18n="tier1n">Unacceptable risk</div><div class="t-when" data-i18n="tier1w">Banned since Feb 2025</div></div>
+        <div class="t-desc" data-i18n="tier1d">Manipulative or deceptive AI, social scoring, exploitation of vulnerable people, untargeted facial-image scraping, and more. Using these is illegal, full stop — fines up to &euro;35M or 7% of turnover.</div>
+      </div>
+      <div class="tier high">
+        <div><div class="t-name" data-i18n="tier2n">High risk</div><div class="t-when" data-i18n="tier2w">Obligations from 2 Dec 2027</div></div>
+        <div class="t-desc" data-i18n="tier2d">AI used in recruitment, credit decisions, education, critical infrastructure and similar. Requires conformity assessment, technical documentation, data quality, logging, human oversight, and EU database registration.</div>
+      </div>
+      <div class="tier lim">
+        <div><div class="t-name" data-i18n="tier3n">Limited risk</div><div class="t-when" data-i18n="tier3w">Transparency duties — now</div></div>
+        <div class="t-desc" data-i18n="tier3d">Chatbots, virtual assistants and AI-generated content must be disclosed: tell users they're talking to AI, and label deepfakes and synthetic content (content-marking transition ends 2 Dec 2026).</div>
+      </div>
+      <div class="tier min">
+        <div><div class="t-name" data-i18n="tier4n">Minimal risk</div><div class="t-when" data-i18n="tier4w">No extra AI Act duties</div></div>
+        <div class="t-desc" data-i18n="tier4d">Most everyday AI — spam filters, product recommendations, basic automation. Other EU law (like GDPR) may still apply to the data involved.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="trust">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker" data-i18n="trustKicker">Why this check</div>
+        <h2 data-i18n="trustH2">Built for the teams the big compliance platforms ignore</h2>
+      </div>
+      <div class="trust-grid">
+        <div class="trust">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <div><h3 data-i18n="t1t">Privacy-first</h3><p data-i18n="t1d">Your answers are processed in your browser only. Nothing is stored, sent or tracked. We couldn't see them even if we wanted to.</p></div>
+        </div>
+        <div class="trust">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+          <div><h3 data-i18n="t2t">Plain English</h3><p data-i18n="t2d">No recitals, no articles, no legalese. You get the practical version: what applies, what to do, by when.</p></div>
+        </div>
+        <div class="trust">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <div><h3 data-i18n="t3t">10 minutes</h3><p data-i18n="t3d">Small teams don't have months for compliance projects. This fits in a coffee break — and doubles as your first compliance artefact.</p></div>
+        </div>
+        <div class="trust">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z"/></svg>
+          <div><h3 data-i18n="t4t">Honest scope</h3><p data-i18n="t4d">This is a screening tool, not legal advice — and it says so clearly. It shows you where to look; a lawyer confirms the details.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker" data-i18n="faqKicker">FAQ</div>
+        <h2 data-i18n="faqH2">Common questions</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary data-i18n="faq1q">Is this legal advice?</summary>
+          <div class="faq-a" data-i18n-html="faq1a"><b>No.</b> This tool performs a structured screening based on the AI Act and points you to the obligations that likely apply. It is not a legal opinion, and it can't replace a qualified lawyer for high-risk or borderline cases.</div>
+        </details>
+        <details>
+          <summary data-i18n="faq2q">Our company is not in the EU. Does this apply to us?</summary>
+          <div class="faq-a" data-i18n-html="faq2a"><b>Yes, in most cases.</b> The AI Act applies to any provider or deployer — wherever they are — whose AI system is placed on the EU market or used by people in the EU. That's exactly the situation of most cross-border e-commerce and AI companies.</div>
+        </details>
+        <details>
+          <summary data-i18n="faq3q">We build on OpenAI's API. Are we a "GPAI provider"?</summary>
+          <div class="faq-a" data-i18n-html="faq3a"><b>Usually not.</b> Calling a general-purpose model through an API generally makes you a provider or deployer of an AI <i>system</i>, not of the model itself. The questionnaire handles this distinction and tells you which side you're on.</div>
+        </details>
+        <details>
+          <summary data-i18n="faq4q">What about GDPR?</summary>
+          <div class="faq-a" data-i18n-html="faq4a">The AI Act and GDPR overlap but are separate laws. This check focuses on the AI Act and flags obvious GDPR items (like a privacy notice) where relevant — but it is not a GDPR audit. If you process EU personal data, get a GDPR review separately.</div>
+        </details>
+        <details>
+          <summary data-i18n="faq5q">What happens to my answers?</summary>
+          <div class="faq-a" data-i18n-html="faq5a"><b>Nothing.</b> Everything runs in your browser. You can close the tab and it's gone. When you export the report, the file is generated locally on your device.</div>
+        </details>
+        <details>
+          <summary data-i18n="faq6q">How accurate is the risk score?</summary>
+          <div class="faq-a" data-i18n-html="faq6a">The score reflects how many obligations likely apply to you and how prepared you look, based on standard AI Act interpretation. It's a prioritisation aid, not a certification. For high-risk or unclear cases, we recommend a short consultation with a qualified professional.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2 data-i18n="ctaH2">Ten minutes now beats a fine later.</h2>
+      <p data-i18n="ctaP">See exactly where your AI stands under the EU AI Act — and leave with a checklist, not anxiety.</p>
+      <button class="btn btn-gold" id="ctaStart" data-i18n="startBtn">Start the free check</button>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <div class="foot-grid">
+      <div>
+        <h4>AI Act Check</h4>
+        <p data-i18n="footBrand">A lightweight EU AI Act self-assessment for cross-border businesses, startups and solo operators who can't afford a compliance department.</p>
+      </div>
+      <div>
+        <h4 data-i18n="footExplore">Explore</h4>
+        <a href="#/home" data-sec="how" data-i18n="nav1">How it works</a>
+        <a href="#/home" data-sec="tiers" data-i18n="nav2">Risk levels</a>
+        <a href="#/home" data-sec="faq" data-i18n="nav3">FAQ</a>
+      </div>
+      <div>
+        <h4 data-i18n="footResources">Resources</h4>
+        <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener" data-i18n="footRes1">EU Commission — AI Act</a>
+        <a href="https://ai-act-service-desk.ec.europa.eu/en/ai-act/eu-ai-act-implementation-timeline" target="_blank" rel="noopener" data-i18n="footRes2">AI Act implementation timeline</a>
+      </div>
+    </div>
+    <div class="disclaimer" data-i18n-html="footDisc">
+      <b>Disclaimer.</b> AI Act Check is a screening tool based on Regulation (EU) 2024/1689 as amended by the Digital Omnibus. It provides general information and indicative risk assessments only. It does not constitute legal, regulatory or professional advice. Compliance decisions should be made with a qualified lawyer, particularly for high-risk AI systems. All figures — including fines and application dates — reflect official EU sources at the time of writing and may change.
+    </div>
+  </footer>
+</main>
+
+<!-- ===== VIEW: quiz ===== -->
+<main id="view-quiz" hidden>
+  <div class="quiz-wrap">
+    <div class="quiz-progress">
+      <span class="p-label" id="pLabel">1 / 16</span>
+      <div class="p-bar"><div class="p-fill" id="pFill"></div></div>
+    </div>
+    <div class="quiz-card">
+      <div class="q-cat" id="qCat"></div>
+      <h2 id="qText"></h2>
+      <p class="q-help" id="qHelp"></p>
+      <div class="q-opts" id="qOpts"></div>
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" id="qBack" data-i18n="backBtn" hidden>Back</button>
+        <span></span>
+      </div>
+      <p class="q-extra" id="qExtra"></p>
+    </div>
+  </div>
+</main>
+
+<!-- ===== VIEW: report ===== -->
+<main id="view-report" hidden>
+  <div class="report-wrap">
+    <div class="report-actions">
+      <button class="btn btn-primary" id="repPrint" data-i18n="printBtn">Export as PDF</button>
+      <button class="btn btn-ghost" id="repRestart" data-i18n="restartBtn">Take it again</button>
+    </div>
+    <div class="report-head">
+      <div>
+        <h1 data-i18n="repH1">EU AI Act Readiness Report</h1>
+        <p class="report-meta" id="repMeta"></p>
+      </div>
+    </div>
+    <div id="repBody"></div>
+    <div class="disclaimer-box" data-i18n-html="repDisc">
+      <b>Important.</b> This report is generated locally in your browser by AI Act Check, a screening tool based on Regulation (EU) 2024/1689 (as amended by the Digital Omnibus). It reflects indicative interpretation at the time of generation and does <b>not</b> constitute legal advice. Fines, dates and obligations can change; confirm critical items with a qualified lawyer, especially for high-risk AI systems.
+    </div>
+  </div>
+</main>
+
+<script>
+'use strict';
+var $=function(s){return document.querySelector(s);};
+var LANG='en';
+function t(key){var o=T[LANG];return (o&&o[key]!==undefined)?o[key]:T.en[key];}
+function L(s){return (LANG==='zh'&&s&&s[1]!==undefined)?s[1]:s[0];}
+
+/* ================= I18N DICTIONARY ================= */
+var T={
+en:{
+  brandTag:'EU AI Act self-assessment',
+  nav1:'How it works',nav2:'Risk levels',nav3:'FAQ',
+  ctaStart:'Start the free check',
+  urgency:'<b>Enforcement is live.</b> The European Commission\u2019s AI Office has opened its first AI Act probe into OpenAI and Anthropic (Oct 2026). High-risk rules apply from 2\u00a0Dec\u00a02027. Is your AI ready?',
+  heroKicker:'Free \u00b7 10 minutes \u00b7 No sign-up',
+  heroH1:'Find out if your AI is compliant with the <em>EU AI Act</em> \u2014 before a fine finds you.',
+  heroSub:'A plain-English self-assessment for cross-border businesses. Answer 16 questions about how you use AI, and get a risk report with the exact obligations that apply to you \u2014 and what to fix, by when.',
+  startBtn:'Start the free check',howBtn:'See how it works',
+  note1:'100% in your browser',note2:'No data collected',note3:'Works from anywhere',
+  demoLabel:'Quick sample \u00b7 Question 1 of 16',
+  demoQ:'Do you sell AI to customers in the EU?',
+  demoP:'The AI Act reaches businesses worldwide \u2014 it doesn\u2019t matter where you\u2019re incorporated.',
+  demoOpt1:'Yes \u2014 we offer AI to EU users',demoOpt2:'No \u2014 EU users can\u2019t access our AI',
+  demoFoot:'Either way, you\u2019ll get a tailored report in minutes.',
+  demoReport:'Preview a sample report \u2014 export-ready PDF included',
+  stat1b:'\u20ac35M / 7%',stat1t:'Maximum fine for banned AI practices \u2014 of your worldwide annual turnover',
+  stat2b:'Feb 2025',stat2t:'When the first AI Act bans took effect \u2014 enforcement is already underway',
+  stat3b:'2 Dec 2027',stat3t:'When high-risk AI systems must be fully compliant',
+  stat4b:'\u20ac0',stat4t:'Cost of this check \u2014 built for small teams without legal budgets',
+  howKicker:'How it works',howH2:'From \u201cno idea\u201d to a plan, in one sitting',
+  howP:'You don\u2019t need a lawyer to know where you stand. This tool maps your answers to the AI Act\u2019s risk framework and tells you exactly what applies.',
+  s1t:'Answer 16 questions',s1d:'About what your AI does, who uses it, and how you run it. Plain English, no legal jargon, roughly 10 minutes.',
+  s2t:'Get matched to the rules',s2d:'We map your answers to the AI Act\u2019s risk tiers: banned practices, high-risk obligations, transparency duties and more.',
+  s3t:'Receive your action plan',s3d:'A risk score plus a prioritised checklist of what to fix, and the enforcement deadline for each item. Export it as a PDF.',
+  tiersKicker:'Risk levels',tiersH2:'The four tiers of the AI Act',
+  tiersP:'Which tier your AI falls into decides which obligations apply \u2014 and how urgent they are.',
+  tier1n:'Unacceptable risk',tier1w:'Banned since Feb 2025',
+  tier1d:'Manipulative or deceptive AI, social scoring, exploitation of vulnerable people, untargeted facial-image scraping, and more. Using these is illegal, full stop \u2014 fines up to \u20ac35M or 7% of turnover.',
+  tier2n:'High risk',tier2w:'Obligations from 2 Dec 2027',
+  tier2d:'AI used in recruitment, credit decisions, education, critical infrastructure and similar. Requires conformity assessment, technical documentation, data quality, logging, human oversight, and EU database registration.',
+  tier3n:'Limited risk',tier3w:'Transparency duties \u2014 now',
+  tier3d:'Chatbots, virtual assistants and AI-generated content must be disclosed: tell users they\u2019re talking to AI, and label deepfakes and synthetic content (content-marking transition ends 2 Dec 2026).',
+  tier4n:'Minimal risk',tier4w:'No extra AI Act duties',
+  tier4d:'Most everyday AI \u2014 spam filters, product recommendations, basic automation. Other EU law (like GDPR) may still apply to the data involved.',
+  trustKicker:'Why this check',trustH2:'Built for the teams the big compliance platforms ignore',
+  t1t:'Privacy-first',t1d:'Your answers are processed in your browser only. Nothing is stored, sent or tracked. We couldn\u2019t see them even if we wanted to.',
+  t2t:'Plain English',t2d:'No recitals, no articles, no legalese. You get the practical version: what applies, what to do, by when.',
+  t3t:'10 minutes',t3d:'Small teams don\u2019t have months for compliance projects. This fits in a coffee break \u2014 and doubles as your first compliance artefact.',
+  t4t:'Honest scope',t4d:'This is a screening tool, not legal advice \u2014 and it says so clearly. It shows you where to look; a lawyer confirms the details.',
+  faqKicker:'FAQ',faqH2:'Common questions',
+  faq1q:'Is this legal advice?',
+  faq1a:'<b>No.</b> This tool performs a structured screening based on the AI Act and points you to the obligations that likely apply. It is not a legal opinion, and it can\u2019t replace a qualified lawyer for high-risk or borderline cases.',
+  faq2q:'Our company is not in the EU. Does this apply to us?',
+  faq2a:'<b>Yes, in most cases.</b> The AI Act applies to any provider or deployer \u2014 wherever they are \u2014 whose AI system is placed on the EU market or used by people in the EU. That\u2019s exactly the situation of most cross-border e-commerce and AI companies.',
+  faq3q:'We build on OpenAI\u2019s API. Are we a \u201cGPAI provider\u201d?',
+  faq3a:'<b>Usually not.</b> Calling a general-purpose model through an API generally makes you a provider or deployer of an AI <i>system</i>, not of the model itself. The questionnaire handles this distinction and tells you which side you\u2019re on.',
+  faq4q:'What about GDPR?',
+  faq4a:'The AI Act and GDPR overlap but are separate laws. This check focuses on the AI Act and flags obvious GDPR items (like a privacy notice) where relevant \u2014 but it is not a GDPR audit. If you process EU personal data, get a GDPR review separately.',
+  faq5q:'What happens to my answers?',
+  faq5a:'<b>Nothing.</b> Everything runs in your browser. You can close the tab and it\u2019s gone. When you export the report, the file is generated locally on your device.',
+  faq6q:'How accurate is the risk score?',
+  faq6a:'The score reflects how many obligations likely apply to you and how prepared you look, based on standard AI Act interpretation. It\u2019s a prioritisation aid, not a certification. For high-risk or unclear cases, we recommend a short consultation with a qualified professional.',
+  ctaH2:'Ten minutes now beats a fine later.',
+  ctaP:'See exactly where your AI stands under the EU AI Act \u2014 and leave with a checklist, not anxiety.',
+  footBrand:'A lightweight EU AI Act self-assessment for cross-border businesses, startups and solo operators who can\u2019t afford a compliance department.',
+  footExplore:'Explore',footResources:'Resources',footRes1:'EU Commission \u2014 AI Act',footRes2:'AI Act implementation timeline',
+  footDisc:'<b>Disclaimer.</b> AI Act Check is a screening tool based on Regulation (EU) 2024/1689 as amended by the Digital Omnibus. It provides general information and indicative risk assessments only. It does not constitute legal, regulatory or professional advice. Compliance decisions should be made with a qualified lawyer, particularly for high-risk AI systems. All figures \u2014 including fines and application dates \u2014 reflect official EU sources at the time of writing and may change.',
+  backBtn:'Back',printBtn:'Export as PDF',restartBtn:'Take it again',
+  repH1:'EU AI Act Readiness Report',
+  repMetaPrefix:'Prepared in your browser \u00b7 {d} \u00b7 Screening tool \u2014 not legal advice',
+  repScore:'Your risk score',repWhy:'Why this score',repStand:'Where you stand',repOblig:'Obligations that apply to you',repAct:'What to do next',
+  roleLabel:'Role identified:',roleProvider:'Provider (you build or sell the AI)',roleDeployer:'Deployer (you use a third-party AI)',roleBoth:'Provider and deployer',
+  scopeIn:'Your AI is likely <b>inside the scope</b> of the EU AI Act.',scopeOut:'Your AI appears to be <b>outside the scope</b> of the EU AI Act.',
+  tl1t:'Now',tl1d:'Transparency duties for chatbots and AI-generated content are in force.',
+  tl2t:'2 Dec 2026',tl2d:'Content-marking transition ends for systems already on the market.',
+  tl3t:'2 Dec 2027',tl3d:'High-risk AI obligations apply \u2014 conformity, registration, quality duties.',
+  obCol1:'Obligation',obCol2:'Status',stNow:'In force now',st2027:'From 2 Dec 2027',stCheck:'Check now',stNa:'Not applicable',
+  duePrefix:'Due: ',
+  gaugeDesc:'The score reflects how many AI Act obligations likely apply to you and how prepared you look. Higher = more exposure and more urgent work.',
+  scoreOf:'/100',gaugeAria:'Risk score {s} out of 100',
+  blLow:'Low',blWatch:'Watch',blElev:'Elevated',blCrit:'Critical',
+  vLow:'Minimal exposure today. Your AI looks unlikely to trigger heavy AI Act duties \u2014 keep an eye on new obligations and stay on top of transparency basics.',
+  vLowOut:'Note: GDPR and other EU laws may still apply to EU user data even though the AI Act does not.',
+  vWatch:'Obligations apply to you and some groundwork is needed. A small amount of focused work closes most of the gap.',
+  vElev:'Real compliance work is needed. High-risk or provider duties likely apply \u2014 treat this as your starting checklist and confirm details with a professional.',
+  vCrit:'High exposure. You likely face banned practices or full high-risk obligations. Stop, get qualified legal advice, and start remediating immediately.',
+  chipIn:'In EU scope',chipPro:'Prohibited practice flagged',chipHr:'High-risk use case',chipGpa:'GPAI provider',chipBot:'Chatbot / AI interaction',chipCon:'AI-generated content',
+  gBias:'Bias testing missing',gPriv:'Privacy notice unclear',gOver:'No human oversight',gDocs:'Technical documentation incomplete',gLog:'No activity logging',
+  okBias:'Bias / accuracy tested',okPriv:'Privacy notice in place',okOver:'Human oversight in place',okDocs:'Documentation kept',okLog:'Activity logging enabled',
+  scoreMethod:'<b>How this score is calculated.</b> Base 15 for being in scope, +20 per prohibited practice flagged (max +60), +18 for a high-risk use case, +10 for GPAI provider, +6 for chatbot and +5 for AI content generation, +3 per readiness gap (max +15), capped at 95. It is a prioritisation heuristic based on Regulation (EU) 2024/1689 as amended \u2014 not a certification and not legal advice.',
+  repDisc:'<b>Important.</b> This report is generated locally in your browser by AI Act Check, a screening tool based on Regulation (EU) 2024/1689 (as amended by the Digital Omnibus). It reflects indicative interpretation at the time of generation and does <b>not</b> constitute legal advice. Fines, dates and obligations can change; confirm critical items with a qualified lawyer, especially for high-risk AI systems.',
+  titleEn:'AI Act Check \u2014 Free EU AI Act compliance self-assessment'
+},
+zh:{
+  brandTag:'欧盟 AI 法案自查工具',
+  nav1:'使用方法',nav2:'风险等级',nav3:'常见问题',
+  ctaStart:'开始免费自查',
+  urgency:'<b>执法已启动。</b>欧盟委员会人工智能办公室本月已对 OpenAI、Anthropic 启动 AI 法案首个调查（2026 年 10 月）。高风险义务将于 2027 年 12 月 2 日生效。你的 AI 准备好了吗？',
+  heroKicker:'免费 \u00b7 10 分钟 \u00b7 无需注册',
+  heroH1:'在罚单找到你之前，测出你的 AI 是否符合<em>欧盟 AI 法案</em>。',
+  heroSub:'为跨境企业准备的通俗自查工具：回答 16 个关于你如何使用 AI 的问题，即可获得风险报告——哪些义务适用于你、该改什么、什么时候改。',
+  startBtn:'开始免费自查',howBtn:'了解原理',
+  note1:'100% 浏览器本地运行',note2:'不收集任何数据',note3:'全球可用',
+  demoLabel:'快速示例 \u00b7 第 1 / 16 题',
+  demoQ:'你向欧盟客户销售 AI 吗？',
+  demoP:'AI 法案管的是全球企业——你的公司注册地在哪里并不重要。',
+  demoOpt1:'是——我们向欧盟用户提供 AI',demoOpt2:'否——欧盟用户无法使用我们的 AI',
+  demoFoot:'无论哪种情况，几分钟内都能得到专属报告。',
+  demoReport:'预览示例报告——含导出 PDF',
+  stat1b:'\u20ac3500万 / 7%',stat1t:'禁止性实践最高罚款——按你的全球年营业额计算',
+  stat2b:'2025 年 2 月',stat2t:'首批禁令生效时间——执法已经启动',
+  stat3b:'2027 年 12 月 2 日',stat3t:'高风险 AI 系统须全面合规的截止日',
+  stat4b:'\u20ac0',stat4t:'本工具费用——为没有法务预算的小团队打造',
+  howKicker:'使用方法',howH2:'一次坐下，从\u201c完全不懂\u201d到\u201c心中有数\u201d',
+  howP:'你不必请律师也能知道自己的处境。工具把你的答案映射到 AI 法案的风险框架，告诉你到底哪些义务适用。',
+  s1t:'回答 16 个问题',s1d:'关于你的 AI 做什么、谁在用、你怎么运营。通俗易懂，无法律术语，约 10 分钟。',
+  s2t:'匹配到对应规则',s2d:'把你的答案映射到 AI 法案风险层级：禁止性实践、高风险义务、透明度义务等。',
+  s3t:'获得整改计划',s3d:'风险评分 + 按优先级排序的整改清单，每项标注执行截止日期，可导出 PDF。',
+  tiersKicker:'风险等级',tiersH2:'AI 法案的四个风险层级',
+  tiersP:'你的 AI 落在哪一层，决定了哪些义务适用、有多紧迫。',
+  tier1n:'不可接受风险',tier1w:'2025 年 2 月起已禁止',
+  tier1d:'操控或欺骗性 AI、社会评分、利用弱势群体、无差别抓取人脸等。使用即违法——最高罚款 3500 万欧元或全球营业额 7%。',
+  tier2n:'高风险',tier2w:'2027 年 12 月 2 日起承担义务',
+  tier2d:'用于招聘、信贷决策、教育、关键基础设施等领域。需合规评估、技术文档、数据质量、日志、人工监督，并在欧盟数据库注册。',
+  tier3n:'有限风险',tier3w:'透明度义务——现已生效',
+  tier3d:'聊天机器人、虚拟助手与 AI 生成内容必须披露：告知用户正在与 AI 对话，为深度伪造和合成内容打标（内容标识过渡期至 2026 年 12 月 2 日）。',
+  tier4n:'最小风险',tier4w:'无额外 AI 法案义务',
+  tier4d:'大多数日常 AI——垃圾邮件过滤、商品推荐、基础自动化。涉及的数据仍可能适用 GDPR 等其他欧盟法律。',
+  trustKicker:'为什么用它',trustH2:'为大型合规平台看不上的团队而做',
+  t1t:'隐私优先',t1d:'你的答案仅在浏览器本地处理，不存储、不上传、不追踪。就算我们想看也看不到。',
+  t2t:'通俗易懂',t2d:'没有冗长条文，没有法律黑话。你拿到的是实用版本：什么适用、做什么、何时做。',
+  t3t:'10 分钟',t3d:'小团队没有几个月做合规项目。这杯咖啡的时间就够——顺便还能作为你的第一份合规存档。',
+  t4t:'边界诚实',t4d:'这是筛查工具而非法律意见——产品里说得很清楚。它告诉你该看哪里，细节由律师确认。',
+  faqKicker:'常见问题',faqH2:'常见问题解答',
+  faq1q:'这是法律意见吗？',
+  faq1a:'<b>不是。</b>本工具基于 AI 法案做结构化筛查，指出可能适用的义务。它不是法律意见，不能替代具备资质的律师，尤其在高风险或边界情形。',
+  faq2q:'我们公司不在欧盟，也适用吗？',
+  faq2a:'<b>绝大多数情况适用。</b>AI 法案管辖任何提供者或部署者——无论身在何处——只要其 AI 系统进入欧盟市场或供欧盟境内人员使用。这正是多数跨境电商和 AI 公司的处境。',
+  faq3q:'我们用 OpenAI 的 API，算\u201c通用大模型提供者\u201d吗？',
+  faq3a:'<b>通常不算。</b>通过 API 调用通用大模型，一般使你成为 AI <i>系统</i>的提供者或部署者，而非模型本身的提供者。问卷会帮你区分这一点。',
+  faq4q:'GDPR 呢？',
+  faq4a:'AI 法案与 GDPR 有交集但彼此独立。本工具聚焦 AI 法案，并在相关处提示 GDPR 事项（如隐私声明）——但不是 GDPR 审计。若处理欧盟个人数据，请另行做 GDPR 审查。',
+  faq5q:'我的答案会怎样？',
+  faq5a:'<b>什么都不会发生。</b>一切在你的浏览器本地运行，关掉页面即消失。导出报告也是在本地生成文件。',
+  faq6q:'风险评分准确吗？',
+  faq6a:'评分反映有多少义务可能适用于你、你准备得如何，基于对 AI 法案的标准解读。它是优先级参考，不是认证。高风险或边界情形建议咨询专业人士。',
+  ctaH2:'现在花十分钟，胜过日后一张罚单。',
+  ctaP:'看清你的 AI 在欧盟 AI 法案下的处境——带走一份清单，而不是焦虑。',
+  footBrand:'面向跨境企业、创业团队和请不起合规部门的个人开发者的轻量级欧盟 AI 法案自查工具。',
+  footExplore:'导航',footResources:'资源',footRes1:'欧盟委员会——AI 法案',footRes2:'AI 法案实施时间表',
+  footDisc:'<b>免责声明。</b>AI Act Check 是基于 Regulation (EU) 2024/1689（含 Digital Omnibus 修订）的筛查工具，仅提供一般信息与指示性风险评估，不构成法律、监管或专业意见。合规决策应由具备资质的律师做出，尤其是高风险 AI 系统。文中所有数据——包括罚款与适用日期——均依据撰写时欧盟官方来源，可能发生变化。',
+  backBtn:'返回',printBtn:'导出 PDF',restartBtn:'重新测试',
+  repH1:'欧盟 AI 法案合规就绪报告',
+  repMetaPrefix:'浏览器本地生成 \u00b7 {d} \u00b7 筛查工具——不构成法律意见',
+  repScore:'你的风险评分',repWhy:'评分依据',repStand:'你的处境',repOblig:'适用于你的义务',repAct:'下一步行动',
+  roleLabel:'角色识别：',roleProvider:'提供者（你开发或销售 AI）',roleDeployer:'部署者（你使用第三方 AI）',roleBoth:'提供者兼部署者',
+  scopeIn:'你的 AI 很可能在欧盟 AI 法案的<b>管辖范围内</b>。',scopeOut:'你的 AI 看起来<b>不在</b>欧盟 AI 法案的管辖范围内。',
+  tl1t:'现在',tl1d:'聊天机器人与 AI 生成内容的透明度义务已生效。',
+  tl2t:'2026 年 12 月 2 日',tl2d:'已上市系统的内容标识过渡期截止。',
+  tl3t:'2027 年 12 月 2 日',tl3d:'高风险 AI 义务生效——合规评估、注册、质量要求。',
+  obCol1:'义务',obCol2:'状态',stNow:'现已生效',st2027:'2027 年 12 月 2 日起',stCheck:'建议立即核查',stNa:'不适用',
+  duePrefix:'截止：',
+  gaugeDesc:'评分反映有多少 AI 法案义务可能适用于你、你准备得如何。越高 = 暴露越大、越需要尽快行动。',
+  scoreOf:'/100',gaugeAria:'风险评分 {s}（满分 100）',
+  blLow:'低',blWatch:'关注',blElev:'偏高',blCrit:'严重',
+  vLow:'当前暴露度低。你的 AI 看起来不太会触发较重的 AI 法案义务——留意新义务，保持透明度基本功即可。',
+  vLowOut:'注意：即使 AI 法案不适用，GDPR 等其他欧盟法律仍可能适用于欧盟用户数据。',
+  vWatch:'已有义务适用于你，需要一些基础工作。少量针对性投入即可补上大部分差距。',
+  vElev:'需要真正的合规工作。高风险或提供者义务可能适用——把它当作你的起步清单，并向专业人士确认细节。',
+  vCrit:'暴露度很高。你可能面临禁止性实践或完整的高风险义务。立即停止、寻求合格法律意见，并马上开始整改。',
+  chipIn:'在欧盟管辖内',chipPro:'命中禁止性实践',chipHr:'高风险应用场景',chipGpa:'通用大模型提供者',chipBot:'聊天机器人 / AI 交互',chipCon:'AI 生成内容',
+  gBias:'缺少偏见测试',gPriv:'隐私声明缺失',gOver:'缺少人工监督',gDocs:'技术文档不完整',gLog:'无运行日志',
+  okBias:'已做偏见/准确性测试',okPriv:'已有隐私声明',okOver:'已设人工监督',okDocs:'已保留文档',okLog:'已开启运行日志',
+  scoreMethod:'<b>评分方法：</b>基数 15（在管辖范围内），每命中一项禁止性实践 +20（上限 +60），高风险场景 +18，通用大模型提供者 +10，聊天机器人 +6，AI 生成内容 +5，每项准备缺口 +3（上限 +15），总分上限 95。这是基于 Regulation (EU) 2024/1689（含修订）的优先级启发式算法——不是认证，也不是法律意见。',
+  repDisc:'<b>重要说明。</b>本报告由 AI Act Check 在你的浏览器本地生成，该工具基于 Regulation (EU) 2024/1689（含 Digital Omnibus 修订）。报告反映生成时的指示性解读，<b>不构成</b>法律意见。罚款、日期与义务可能变化；关键事项请与具备资质的律师确认，尤其是高风险 AI 系统。',
+  titleZh:'AI Act Check——欧盟 AI 法案免费合规自查'
+}
+};
+/* ================= QUESTION DATA (bilingual: [en, zh]) ================= */
+var QUESTIONS=[
+{id:'market',cat:['Scope','适用范围'],q:['Do you place an AI product or AI feature on the EU market, or offer it to users in the EU?','你向欧盟市场投放 AI 产品或功能，或向欧盟用户提供吗？'],
+ h:['The AI Act reaches providers and deployers worldwide. Your company\u2019s location does not matter \u2014 what matters is whether your AI is used by people in the EU.','AI 法案管辖全球提供者与部署者。你的公司注册地无关紧要——关键在于你的 AI 是否被欧盟境内人员使用。'],
+ opts:[
+  {t:['Yes \u2014 we sell or offer our AI to EU users','是——我们向欧盟用户销售或提供 AI'],f:{inScope:true},p:6},
+  {t:['No \u2014 EU users cannot access our AI','否——欧盟用户无法使用我们的 AI'],f:{inScope:false},p:0},
+  {t:['Not sure','不确定'],f:{inScope:true},p:4}],
+ extra:['Tip: \u201coffering to EU users\u201d includes a website in English that EU customers can buy from, an app in the EU app store, or an AI feature inside a service you sell there.','提示：\u201c向欧盟用户提供\u201d包括欧盟客户可购买的英文网站、欧盟应用商店的 App，或你在当地销售的服务中内置的 AI 功能。']},
+{id:'role',cat:['Scope','适用范围'],q:['What is your role with the AI?','你在 AI 中扮演什么角色？'],
+ h:['The Act distinguishes providers (you build or sell the AI) from deployers (you use an AI built by someone else). Both have duties, but different ones.','法案区分提供者（你开发或销售 AI）与部署者（你使用他人开发的 AI）。两者都有义务，但内容不同。'],
+ opts:[
+  {t:['We build or sell the AI to others (provider)','我们开发或向他人销售 AI（提供者）'],f:{role:'provider'},p:2},
+  {t:['We use a third-party AI in our business (deployer)','我们在业务中使用第三方 AI（部署者）'],f:{role:'deployer'},p:1},
+  {t:['Both \u2014 we build it and use it ourselves','两者都是——我们既开发也自用'],f:{role:'both'},p:3}],
+ extra:['','']},
+{id:'type',cat:['Scope','适用范围'],q:['Which best describes what your AI does?','你的 AI 主要做什么？'],
+ h:['Choose the closest option. This decides which part of the Act \u2014 transparency, high-risk, or nothing \u2014 most likely applies.','选择最接近的一项。这决定了法案的哪一部分最可能适用：透明度、高风险，或都不适用。'],
+ opts:[
+  {t:['Chatbot, voice assistant or AI support agent','聊天机器人、语音助手或 AI 客服'],f:{type:'chatbot'},p:2},
+  {t:['Generates content \u2014 text, images, video or audio','生成内容——文字、图片、视频或音频'],f:{type:'content'},p:2},
+  {t:['Makes or supports decisions about people (hiring, credit, pricing, evaluations)','对人的决策提供支持（招聘、信贷、定价、评估）'],f:{type:'decision'},p:4},
+  {t:['Recommends products or personalises content','商品推荐或内容个性化'],f:{type:'recsys'},p:1},
+  {t:['Internal automation (inventory, forecasting, admin)','内部自动化（库存、预测、行政）'],f:{type:'internal'},p:1},
+  {t:['Something else','其他'],f:{type:'other'},p:2}],
+ extra:['','']},
+{id:'manip',cat:['Prohibited practices','禁止性实践'],q:['Does your AI use manipulative or deceptive techniques \u2014 subliminal cues, hidden persuasion, or \u201cdark patterns\u201d \u2014 to push users into actions they would not otherwise take?','你的 AI 是否使用操控或欺骗手段——潜意识暗示、隐藏说服、\u201c暗黑模式\u201d——诱导用户做出本不会做的行为？'],
+ h:['Banned AI practices have been illegal since February 2025, regardless of company size or where you are based.','禁止性实践自 2025 年 2 月起违法，与公司规模、所在地无关。'],
+ opts:[
+  {t:['No','否'],f:{manip:false},p:0},
+  {t:['Yes','是'],f:{manip:true},p:0},
+  {t:['Not sure','不确定'],f:{manip:true},p:0}],
+ extra:['Worst case: fines up to \u20ac35 million or 7% of worldwide annual turnover. This is the reddest of red flags \u2014 get a lawyer involved immediately.','最坏情况：最高罚款 3500 万欧元或全球年营业额 7%。这是最严重的红旗——立即寻求律师介入。']},
+{id:'exploit',cat:['Prohibited practices','禁止性实践'],q:['Is your AI designed to exploit vulnerable groups \u2014 children, elderly people, people with disabilities \u2014 because of their age or condition?','你的 AI 是否因年龄或身体状况，专门利用弱势群体（儿童、老人、残障人士）？'],
+ h:['Exploiting vulnerabilities of specific groups is banned under Article 5.','利用特定群体弱点是法案第 5 条禁止的实践。'],
+ opts:[
+  {t:['No','否'],f:{exploit:false},p:0},
+  {t:['Yes','是'],f:{exploit:true},p:0}],
+ extra:['','']},
+{id:'social',cat:['Prohibited practices','禁止性实践'],q:['Does your AI evaluate or score people for social scoring, or predict an individual\u2019s risk of committing a crime based only on profiling?','你的 AI 是否对社会行为评分，或仅凭画像预测个人犯罪风险？'],
+ h:['Both are prohibited practices under the AI Act.','两者都是 AI 法案禁止的实践。'],
+ opts:[
+  {t:['No','否'],f:{social:false},p:0},
+  {t:['Yes','是'],f:{social:true},p:0}],
+ extra:['','']},
+{id:'bio',cat:['Prohibited practices','禁止性实践'],q:['Does your AI scrape facial images from the internet or CCTV to build a recognition database, categorise people by inferred sensitive traits, recognise emotions in workplaces or schools, or run real-time biometric identification for law enforcement?','你的 AI 是否从互联网或监控抓取人脸建立识别库、按敏感特征推断归类人群、在职场或学校进行情绪识别，或为执法目的进行实时远程生物识别？'],
+ h:['These are banned practices (with narrow exceptions for law-enforcement biometric ID in specific cases).','这些是禁止性实践（执法实时生物识别有极窄例外）。'],
+ opts:[
+  {t:['No \u2014 none of these','否——以上都没有'],f:{bio:false},p:0},
+  {t:['Yes \u2014 one or more of these','是——有一项或多项'],f:{bio:true},p:0}],
+ extra:['','']},
+{id:'hr',cat:['High risk','高风险'],q:['Is your AI used in any of these areas: recruitment or employment decisions, creditworthiness or insurance pricing for individuals, education admission or exam scoring, access to essential public or private services, critical infrastructure (traffic, water, energy), law enforcement, migration or justice \u2014 or biometric identification / emotion recognition?','你的 AI 是否用于以下领域：招聘或用工决策、个人信贷或保险定价、教育录取或考试评分、获取基本公共服务、关键基础设施（交通、供水、能源）、执法、移民或司法——或生物识别/情绪识别？'],
+ h:['These are the high-risk areas listed in Annex III of the Act. High-risk obligations apply from 2 December 2027, so this is your planning window.','这些是法案附件三所列高风险领域。高风险义务自 2027 年 12 月 2 日起生效，现在正是规划窗口。'],
+ opts:[
+  {t:['No \u2014 none of these areas','否——都不涉及'],f:{hr:false},p:0},
+  {t:['Yes \u2014 one or more of these areas','是——涉及一项或多项'],f:{hr:true},p:0},
+  {t:['Not sure','不确定'],f:{hr:true},p:0}],
+ extra:['If yes, you will need risk management, technical documentation, data-quality measures, logging, human oversight, a conformity assessment and registration in the EU database before 2 December 2027.','如果涉及，你需要在 2027 年 12 月 2 日前完成风险管理、技术文档、数据质量、日志、人工监督、合规评估与欧盟数据库注册。']},
+{id:'gpa',cat:['General-purpose AI','通用大模型'],q:['Do you train or provide your own foundation / general-purpose AI model \u2014 or substantially modify one \u2014 rather than simply calling an API like OpenAI or Google?','你是否训练或提供自己的基础/通用大模型——或对其进行大幅修改——而非仅调用 OpenAI、Google 等 API？'],
+ h:['GPAI providers have had obligations since August 2025 (documentation and copyright policy, with an open-source exemption). Calling an API does not make you a GPAI provider.','通用大模型提供者自 2025 年 8 月起有义务（文档与版权政策，含开源豁免）。调用 API 不使你成为通用大模型提供者。'],
+ opts:[
+  {t:['No \u2014 we use an existing API or open-source model','否——我们使用现有 API 或开源模型'],f:{gpa:false},p:0},
+  {t:['Yes \u2014 we train or provide our own model','是——我们训练或提供自己的模型'],f:{gpa:true},p:0},
+  {t:['We substantially fine-tune a model','我们对模型做了大幅微调'],f:{gpa:true},p:0}],
+ extra:['','']},
+{id:'chatbot',cat:['Transparency','透明度'],q:['Do customers or users interact with your AI \u2014 a chatbot, voice assistant or AI support agent \u2014 as if it were a person?','客户或用户是否会与你的 AI 交互——聊天机器人、语音助手或 AI 客服——如同与真人交流？'],
+ h:['Since August 2026, users must be clearly informed they are interacting with an AI system.','自 2026 年 8 月起，必须清楚告知用户他们正在与 AI 系统交互。'],
+ opts:[
+  {t:['No','否'],f:{chatbot:false},p:0},
+  {t:['Yes','是'],f:{chatbot:true},p:0}],
+ extra:['Fix: add a clear disclosure like \u201cYou are chatting with an AI assistant\u201d at the start of every conversation. This is the single most common gap for small companies.','修复：在每次对话开始时加入明确披露，如\u201c你正在与 AI 助手对话\u201d。这是小公司最常见的一个缺口。']},
+{id:'content',cat:['Transparency','透明度'],q:['Do you generate content with AI \u2014 product images, marketing text, video, audio \u2014 that could be mistaken for human-made or real content?','你是否用 AI 生成内容——商品图、营销文案、视频、音频——这些内容可能被误认为人工制作或真实内容？'],
+ h:['Providers and deployers must make AI-generated content identifiable, label deepfakes, and add machine-readable marks.','提供者与部署者必须让 AI 生成内容可被识别、标注深度伪造，并添加机器可读标记。'],
+ opts:[
+  {t:['No','否'],f:{content:false},p:0},
+  {t:['Yes','是'],f:{content:true},p:0}],
+ extra:['A transition for content-marking runs until 2 December 2026 for systems already on the market before 2 August 2026.','2026 年 8 月 2 日前已上市系统的内容标识过渡期至 2026 年 12 月 2 日。']},
+{id:'bias',cat:['Readiness','准备度'],q:['Have you tested your AI for bias or discriminatory outcomes \u2014 especially if it makes decisions about people?','你是否测试过 AI 的偏见或歧视性结果——尤其是当它对人做出决策时？'],
+ h:['High-risk systems must ensure data quality and minimise bias from 2 December 2027. Even today, testing is cheap insurance and good evidence.','高风险系统自 2027 年 12 月 2 日起必须保证数据质量并尽量减少偏见。即便现在，测试也是便宜的保险和有力的证据。'],
+ opts:[
+  {t:['Yes \u2014 tested and documented','是——已测试并留档'],f:{bias:'yes'},p:0},
+  {t:['No','否'],f:{bias:'no'},p:0},
+  {t:['Not applicable \u2014 our AI makes no decisions about people','不适用——我们的 AI 不对人做决策'],f:{bias:'na'},p:0}],
+ extra:['','']},
+{id:'privacy',cat:['Readiness','准备度'],q:['Do you have a published privacy notice and a lawful basis under GDPR for the personal data your AI processes (including EU user data)?','你是否发布隐私声明，并有处理 AI 涉及个人数据（含欧盟用户数据）的 GDPR 合法依据？'],
+ h:['Not an AI Act requirement per se, but the AI Act operates alongside GDPR \u2014 and EU customers increasingly expect it.','严格说这不是 AI 法案要求，但 AI 法案与 GDPR 并行实施——而且欧盟客户越来越看重这一点。'],
+ opts:[
+  {t:['Yes','是'],f:{privacy:'yes'},p:0},
+  {t:['No','否'],f:{privacy:'no'},p:0},
+  {t:['Not sure','不确定'],f:{privacy:'unsure'},p:0}],
+ extra:['','']},
+{id:'oversight',cat:['Readiness','准备度'],q:['Is there a person who can review, override or stop your AI\u2019s decisions when it affects people?','是否有专人能审查、否决或中止 AI 对他人有影响的决策？'],
+ h:['Human oversight is a core high-risk requirement and good practice for any consequential AI.','人工监督是高风险系统的核心要求，也是任何有后果的 AI 的良好实践。'],
+ opts:[
+  {t:['Yes','是'],f:{oversight:'yes'},p:0},
+  {t:['No','否'],f:{oversight:'no'},p:0},
+  {t:['Not applicable','不适用'],f:{oversight:'na'},p:0}],
+ extra:['','']},
+{id:'docs',cat:['Readiness','准备度'],q:['Do you keep technical documentation \u2014 what the AI does, where training data comes from, how it is tested and evaluated?','你是否保留技术文档——AI 做什么、训练数据来源、如何测试与评估？'],
+ h:['High-risk providers must produce detailed documentation. Even for others, it is your defence if questions come.','高风险提供者必须提交详细文档。对其他人而言，这也是被问询时的自保凭证。'],
+ opts:[
+  {t:['Yes \u2014 documented','是——已文档化'],f:{docs:'yes'},p:0},
+  {t:['Partially','部分'],f:{docs:'partial'},p:0},
+  {t:['No','否'],f:{docs:'no'},p:0}],
+ extra:['','']},
+{id:'logging',cat:['Readiness','准备度'],q:['Does your AI log its activity \u2014 inputs, decisions, timestamps \u2014 so outcomes can be traced?','你的 AI 是否记录运行日志——输入、决策、时间戳——以便结果可追溯？'],
+ h:['High-risk systems require activity logging for traceability from 2 December 2027.','高风险系统自 2027 年 12 月 2 日起要求运行日志以实现可追溯。'],
+ opts:[
+  {t:['Yes','是'],f:{logging:'yes'},p:0},
+  {t:['No','否'],f:{logging:'no'},p:0},
+  {t:['Not applicable','不适用'],f:{logging:'na'},p:0}],
+ extra:['','']}
+];
+/* ================= COMPUTE REPORT ================= */
+function bandOf(score){
+  if(score<=20) return {key:'low',label:['Low','低'],verdict:[t('vLow'),t('vLow')]};
+  if(score<=45) return {key:'watch',label:['Watch','关注'],verdict:[t('vWatch'),t('vWatch')]};
+  if(score<=70) return {key:'elev',label:['Elevated','偏高'],verdict:[t('vElev'),t('vElev')]};
+  return {key:'crit',label:['Critical','严重'],verdict:[t('vCrit'),t('vCrit')]};
+}
+function bandColor(key){return key==='low'?'#2E8B57':key==='watch'?'#B97A00':key==='elev'?'#D85D1F':'#C0392B';}
+
+function compute(ans){
+  var r={prohibited:[],gaps:[],ok:[],obligations:[],actions:[]};
+  var q=QUESTIONS;
+  var pick=function(id){var i=ans[id];return (i===undefined)?null:q.filter(function(x){return x.id===id;})[0].opts[i];};
+  var f=function(id){var o=pick(id);return o?!!o.f[id]:null;};
+
+  var market=pick('market'); r.inScope=market?market.f.inScope:true;
+  var role=pick('role'); r.role=role?role.f.role:'deployer';
+  var type=pick('type'); r.type=type?type.f.type:'other';
+
+  if(f('manip')) r.prohibited.push('m');
+  if(f('exploit')) r.prohibited.push('e');
+  if(f('social')) r.prohibited.push('s');
+  if(f('bio')) r.prohibited.push('b');
+  r.hr=!!f('hr');
+  r.gpa=!!f('gpa');
+  r.chatbot=!!f('chatbot')||r.type==='chatbot';
+  r.content=!!f('content')||r.type==='content';
+
+  var bias=pick('bias'); bias=bias?bias.f.bias:'na';
+  var privacy=pick('privacy'); privacy=privacy?privacy.f.privacy:'unsure';
+  var oversight=pick('oversight'); oversight=oversight?oversight.f.oversight:'na';
+  var docs=pick('docs'); docs=docs?docs.f.docs:'no';
+  var logging=pick('logging'); logging=logging?logging.f.logging:'na';
+  var decisions=r.hr||r.type==='decision';
+
+  if(bias==='yes') r.ok.push('okBias');
+  if(privacy==='yes') r.ok.push('okPriv');
+  if(oversight==='yes') r.ok.push('okOver');
+  if(docs==='yes') r.ok.push('okDocs');
+  if(logging==='yes') r.ok.push('okLog');
+
+  var score,band;
+  if(!r.inScope){
+    score=4; band=bandOf(4);
+    r.verdict=L(band.verdict)+' '+t('vLowOut');
+  }else{
+    var s=15;
+    s+=Math.min(60,r.prohibited.length*20);
+    if(r.hr) s+=18;
+    if(r.gpa) s+=10;
+    if(r.chatbot) s+=6;
+    if(r.content) s+=5;
+    if(bias==='no'&&decisions) r.gaps.push('gBias');
+    if(privacy!=='yes') r.gaps.push('gPriv');
+    if(oversight==='no'&&decisions) r.gaps.push('gOver');
+    if(docs!=='yes') r.gaps.push('gDocs');
+    if(logging==='no'&&decisions) r.gaps.push('gLog');
+    s+=Math.min(15,r.gaps.length*3);
+    if(r.prohibited.length) s=Math.max(s,80);
+    score=Math.min(95,Math.round(s));
+    band=bandOf(score);
+    r.verdict=L(band.verdict);
+  }
+  r.score=score; r.band=band;
+
+  /* obligations */
+  var ob=function(ta,s,da){r.obligations.push({t:ta,s:s,d:da});};
+  if(r.prohibited.length) ob(['Prohibited practices must stop','必须立即停止禁止性实践'],'now',['Banned since February 2025. Fines up to \u20ac35 million or 7% of worldwide annual turnover.','2025 年 2 月起已禁止。最高罚款 3500 万欧元或全球年营业额 7%。']);
+  if(r.inScope&&r.chatbot) ob(['Transparency \u2014 tell users they are talking to an AI','透明度义务——告知用户正在与 AI 对话'],'now',['In force since August 2026. Add a clear disclosure to every chat or voice interaction.','2026 年 8 月起生效。在每次对话或语音交互中明确披露。']);
+  if(r.inScope&&r.content) ob(['Mark AI-generated content and label deepfakes','为 AI 生成内容打标、标注深度伪造'],'now',['Visible labels plus machine-readable marks. Transition for pre-existing systems ends 2 December 2026.','可见标识 + 机器可读标记。存量系统过渡期至 2026 年 12 月 2 日。']);
+  if(r.inScope&&r.gpa) ob(['GPAI provider duties \u2014 documentation & copyright policy','通用大模型提供者义务——文档与版权政策'],'now',['In force since August 2025. The open-source exemption may apply \u2014 check your case.','2025 年 8 月起生效。开源豁免可能适用——请核实你的情况。']);
+  if(r.inScope&&r.hr) ob(['High-risk: conformity assessment, EU database registration, CE marking','高风险：合规评估、欧盟数据库注册、CE 标识'],'2027',['Required before placing on the market; obligations apply from 2 December 2027.','上市前必须完成；义务自 2027 年 12 月 2 日起适用。']);
+  if(r.inScope&&r.hr) ob(['High-risk quality requirements \u2014 risk mgmt, data quality, logging, docs, human oversight, robustness','高风险质量要求——风险管理、数据质量、日志、文档、人工监督、稳健性'],'2027',['The full set of high-risk duties applies from 2 December 2027.','全套高风险义务自 2027 年 12 月 2 日起适用。']);
+  if(r.inScope&&privacy!=='yes') ob(['Privacy notice and lawful basis under GDPR','GDPR 隐私声明与合法处理依据'],'check',['Ensure a privacy notice covers the EU personal data your AI processes.','确保隐私声明覆盖你的 AI 处理的欧盟个人数据。']);
+  if(r.inScope&&bias==='no'&&decisions) ob(['Bias and accuracy testing, documented','偏见与准确性测试并留档'],'2027',['Required for high-risk systems from 2 December 2027; recommended now for decision-making AI.','高风险系统自 2027 年 12 月 2 日起必须；做决策的 AI 现在就该做。']);
+  if(r.inScope&&logging==='no'&&decisions) ob(['Activity logging for traceability','运行日志以实现可追溯'],'2027',['Enable logs of inputs, decisions and timestamps.','记录输入、决策与时间戳。']);
+  if(r.inScope&&docs!=='yes') ob(['Technical documentation of model, data and testing','模型、数据与测试的技术文档'],'check',['Keep records of purpose, data sources and evaluation \u2014 your defence if questions come.','保留用途、数据来源与评估记录——这是被问询时的自保凭证。']);
+  if(!r.inScope) ob(['EU AI Act obligations','欧盟 AI 法案义务'],'na',['Your AI appears outside scope. GDPR may still apply to EU user data.','你的 AI 看似不在管辖范围内。GDPR 仍可能适用于欧盟用户数据。']);
+
+  /* actions */
+  var ac=function(ta,da,desc){r.actions.push({t:ta,due:da,desc:desc});};
+  if(r.prohibited.length) ac(['Remove the banned practice immediately','立即移除禁止性实践'],['Now','立即'],['Banned since February 2025 \u2014 highest penalty tier (\u20ac35M / 7% of turnover). Get legal help today.','2025 年 2 月起已禁止——最高罚款档（3500 万欧元 / 营业额 7%）。今天就寻求法律帮助。']);
+  if(r.inScope&&r.chatbot) ac(['Add an AI disclosure to every chat interface','在每个对话界面加入 AI 披露'],['Now','立即'],['Start each conversation with a clear statement such as \u201cYou are chatting with an AI assistant.\u201d','每段对话开头明确说明，例如\u201c你正在与 AI 助手对话\u201d。']);
+  if(r.inScope&&r.content) ac(['Label AI-generated content','为 AI 生成内容打标'],['By 2 Dec 2026','2026 年 12 月 2 日前'],['Visible labelling plus machine-readable marks for AI images, video, audio and text.','为 AI 生成的图片、视频、音频和文本添加可见标识与机器可读标记。']);
+  if(r.inScope&&r.gpa) ac(['Review your GPAI provider duties','核查你的通用大模型提供者义务'],['Now','立即'],['Model documentation and copyright policy; check whether the open-source exemption applies.','模型文档与版权政策；核实开源豁免是否适用。']);
+  if(r.inScope&&r.hr) ac(['Start a high-risk compliance programme','启动高风险合规项目'],['By 2 Dec 2027','2027 年 12 月 2 日前'],['Risk management, technical documentation, data quality, logging, human oversight, then conformity assessment and EU database registration.','风险管理、技术文档、数据质量、日志、人工监督，然后是合规评估与欧盟数据库注册。']);
+  if(r.inScope&&privacy!=='yes') ac(['Publish a privacy notice and confirm lawful basis','发布隐私声明并确认合法依据'],['Now','立即'],['Cover the EU personal data your AI processes; align with GDPR.','覆盖你的 AI 处理的欧盟个人数据，并与 GDPR 对齐。']);
+  if(r.inScope&&bias==='no'&&decisions) ac(['Run and document a bias / accuracy test','运行并记录偏见 / 准确性测试'],['Before 2 Dec 2027','2027 年 12 月 2 日前'],['Test across relevant user groups and keep the results.','覆盖相关用户群体进行测试并保留结果。']);
+  if(r.inScope&&docs!=='yes') ac(['Write down your technical documentation','补全技术文档'],['Within 30 days','30 天内'],['What the AI does, where data comes from, how it was tested.','AI 做什么、数据来自哪里、如何测试。']);
+  if(r.inScope&&logging==='no'&&decisions) ac(['Enable activity logging','开启运行日志'],['Before 2 Dec 2027','2027 年 12 月 2 日前'],['Inputs, decisions and timestamps so outcomes can be traced.','记录输入、决策与时间戳，使结果可追溯。']);
+  if(r.inScope&&r.prohibited.length===0&&!r.hr&&r.gaps.length===0) ac(['Keep this report on file and re-run quarterly','存档本报告并每季度重测'],['Ongoing','持续'],['Obligations are expanding (high-risk duties arrive 2 Dec 2027) \u2014 re-check every quarter.','义务在持续扩展（高风险义务将于 2027 年 12 月 2 日生效）——每季度复查一次。']);
+  if(!r.inScope) ac(['Check GDPR for EU user data','核查欧盟用户数据的 GDPR 合规'],['Now','立即'],['The AI Act may not apply, but processing EU personal data still triggers GDPR duties.','AI 法案可能不适用，但处理欧盟个人数据仍触发 GDPR 义务。']);
+
+  r.drivers=[];
+  if(r.inScope) r.drivers.push('chipIn');
+  if(r.prohibited.length) r.drivers.push('chipPro');
+  if(r.hr) r.drivers.push('chipHr');
+  if(r.gpa) r.drivers.push('chipGpa');
+  if(r.chatbot) r.drivers.push('chipBot');
+  if(r.content) r.drivers.push('chipCon');
+  return r;
+}
+
+/* ================= GAUGE ================= */
+function gaugeSVG(score,color){
+  var len=Math.PI*80,prog=len*Math.min(score,100)/100,deg=-90+1.8*Math.min(score,100),ticks='',i,a,x1,y1,x2,y2;
+  for(i=0;i<=10;i++){
+    a=(180-i*18)*Math.PI/180;
+    x1=110+70*Math.cos(a);y1=115-70*Math.sin(a);x2=110+77*Math.cos(a);y2=115-77*Math.sin(a);
+    ticks+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="#C4CFE0" stroke-width="1.6"/>';
+  }
+  return '<svg viewBox="0 0 220 130" role="img" aria-label="'+t('gaugeAria').replace('{s}',score)+'" style="width:100%;max-width:212px;display:block;margin:0 auto">'+
+    '<path d="M30,115 A80,80 0 0 1 190,115" fill="none" stroke="#E6EBF3" stroke-width="13" stroke-linecap="round"/>'+
+    '<path d="M30,115 A80,80 0 0 1 190,115" fill="none" stroke="'+color+'" stroke-width="13" stroke-linecap="round" stroke-dasharray="'+prog.toFixed(1)+' '+len.toFixed(1)+'"/>'+
+    ticks+
+    '<g transform="rotate('+deg+' 110 115)"><line x1="110" y1="118" x2="110" y2="44" stroke="'+color+'" stroke-width="3.4" stroke-linecap="round"/><circle cx="110" cy="115" r="6.5" fill="'+color+'"/></g>'+
+    '<text x="14" y="112" font-size="11" fill="#8A97AC" font-family="IBM Plex Sans,sans-serif">0</text>'+
+    '<text x="198" y="112" font-size="11" fill="#8A97AC" font-family="IBM Plex Sans,sans-serif">100</text>'+
+    '</svg>';
+}
+
+/* ================= VIEWS ================= */
+var answers={},qIdx=0;
+function showView(v){
+  ['landing','quiz','report'].forEach(function(name){
+    $('#view-'+name).hidden=name!==v;
+  });
+  $('#headNav').style.display=(v==='landing')?'':'none';
+  var cta=$('#headCta');
+  cta.textContent=(v==='landing')?t('ctaStart'):t('ctaHome');
+  window.scrollTo(0,0);
+  if(v==='landing'){location.hash='#/home';}
+  if(v==='quiz'){location.hash='#/quiz';}
+  if(v==='report'){location.hash='#/report';}
+}
+function startQuiz(fromIdx){
+  qIdx=fromIdx||0;
+  renderQuestion();
+  showView('quiz');
+}
+function renderQuestion(){
+  var q=QUESTIONS[qIdx];
+  $('#pLabel').textContent=(qIdx+1)+' / '+QUESTIONS.length;
+  $('#pFill').style.width=((qIdx)/(QUESTIONS.length-1)*100)+'%';
+  $('#qCat').textContent=L(q.cat);
+  $('#qText').textContent=L(q.q);
+  $('#qHelp').textContent=L(q.h);
+  $('#qExtra').textContent=L(q.extra);
+  var box=$('#qOpts'); box.innerHTML='';
+  q.opts.forEach(function(o,i){
+    var b=document.createElement('button');
+    b.type='button'; b.textContent=L(o.t); b.setAttribute('data-i',i);
+    if(answers[q.id]===i) b.classList.add('sel');
+    box.appendChild(b);
+  });
+  $('#qBack').hidden=(qIdx===0);
+  $('#qBack').style.visibility=(qIdx===0)?'hidden':'visible';
+}
+function selectOption(i){
+  var q=QUESTIONS[qIdx];
+  answers[q.id]=i;
+  renderQuestion();
+  setTimeout(function(){
+    if(qIdx<QUESTIONS.length-1){qIdx++;renderQuestion();}
+    else{renderReport();}
+  },240);
+}
+function renderReport(){
+  var r=compute(answers),c=bandColor(r.band.key);
+  var d=new Date().toLocaleDateString(LANG==='zh'?'zh-CN':'en-GB',{day:'numeric',month:'long',year:'numeric'});
+  $('#repMeta').textContent=t('repMetaPrefix').replace('{d}',d);
+  var roleTxt=t(r.role==='provider'?'roleProvider':r.role==='deployer'?'roleDeployer':'roleBoth');
+  var html='';
+
+  html+='<div class="card"><h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'+t('repScore')+'</h2>';
+  html+='<div class="gauge-row"><div class="gauge-wrap">'+gaugeSVG(r.score,c)+
+    '<div class="gauge-score" style="color:'+c+'">'+r.score+'<span style="font-size:18px">'+t('scoreOf')+'</span></div>'+
+    '<span class="gauge-band band-'+r.band.key+'">'+L(r.band.label)+'</span></div>'+
+    '<div><p class="band-verdict" style="font-size:15.5px"><b>'+r.verdict+'</b></p>'+
+    '<p class="gauge-desc" style="margin-top:10px">'+t('gaugeDesc')+'</p></div></div>';
+  if(r.drivers.length||r.gaps.length||r.ok.length){
+    html+='<div style="margin-top:18px"><p style="font-size:12.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--c-muted);margin-bottom:8px">'+t('repWhy')+'</p><div class="chips">';
+    r.drivers.forEach(function(k){html+='<span class="chip">'+t(k)+'</span>';});
+    r.gaps.forEach(function(k){html+='<span class="chip bad">'+t(k)+'</span>';});
+    r.ok.forEach(function(k){html+='<span class="chip ok">'+t(k)+'</span>';});
+    html+='</div></div>';
+  }
+  html+='</div>';
+
+  html+='<div class="card"><h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>'+t('repStand')+'</h2>';
+  html+='<p style="font-size:15px;color:var(--c-ink)">'+t('roleLabel')+'<b>'+roleTxt+'</b>. '+(r.inScope?t('scopeIn'):t('scopeOut'))+'</p>';
+  html+='<div class="timeline-mini">';
+  html+='<div class="tl-item"><b>'+t('tl1t')+'</b>'+t('tl1d')+'</div>';
+  html+='<div class="tl-item"><b>'+t('tl2t')+'</b>'+t('tl2d')+'</div>';
+  html+='<div class="tl-item"><b>'+t('tl3t')+'</b>'+t('tl3d')+'</div>';
+  html+='</div></div>';
+
+  html+='<div class="card"><h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>'+t('repOblig')+'</h2>';
+  html+='<table class="ob-table"><colgroup><col class="col-o"><col class="col-s"></colgroup><thead><tr><th>'+t('obCol1')+'</th><th>'+t('obCol2')+'</th></tr></thead><tbody>';
+  r.obligations.forEach(function(o){
+    var st=o.s==='now'?'<span class="st st-now">'+t('stNow')+'</span>':o.s==='2027'?'<span class="st st-2027">'+t('st2027')+'</span>':o.s==='check'?'<span class="st st-check">'+t('stCheck')+'</span>':'<span class="st st-na">'+t('stNa')+'</span>';
+    html+='<tr><td>'+L(o.t)+'<div style="font-size:13px;color:var(--c-muted);font-weight:400;margin-top:2px">'+L(o.d)+'</div></td><td>'+st+'</td></tr>';
+  });
+  html+='</tbody></table></div>';
+
+  html+='<div class="card"><h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><path d="M4 6h.01"/><path d="M4 12h.01"/><path d="M4 18h.01"/></svg>'+t('repAct')+'</h2>';
+  r.actions.forEach(function(a,i){
+    html+='<div class="action"><div class="a-ico">'+(i+1)+'</div><div><div class="a-title">'+L(a.t)+'</div><div class="a-due">'+t('duePrefix')+L(a.due)+'</div><div class="a-desc">'+L(a.desc)+'</div></div></div>';
+  });
+  html+='</div>';
+
+  html+='<div class="note-box">'+t('scoreMethod')+'</div>';
+
+  $('#repBody').innerHTML=html;
+  showView('report');
+}
+/* ================= BOOT ================= */
+T.en.ctaHome='Back to home'; T.zh.ctaHome='返回首页';
+function applyLang(){
+  document.documentElement.lang=(LANG==='zh')?'zh':'en';
+  document.title=(LANG==='zh')?t('titleZh'):t('titleEn');
+  document.querySelectorAll('[data-i18n]').forEach(function(el){el.textContent=t(el.getAttribute('data-i18n'));});
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-i18n-html'));});
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('active',b.getAttribute('data-lang')===LANG);
+  });
+  if(!$('#view-quiz').hidden) renderQuestion();
+  if(!$('#view-report').hidden) renderReport();
+  $('#headCta').textContent=($('#view-landing').hidden)?t('ctaHome'):t('ctaStart');
+}
+function setLang(l){
+  LANG=l;
+  try{localStorage.setItem('aiac-lang',l);}catch(e){}
+  applyLang();
+}
+function boot(){
+  try{var saved=localStorage.getItem('aiac-lang');if(saved==='zh'||saved==='en')LANG=saved;}catch(e){}
+  applyLang();
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});
+  });
+  $('#headCta').addEventListener('click',function(){
+    if($('#view-quiz').hidden&&$('#view-report').hidden){startQuiz(0);}else{showView('landing');}
+  });
+  $('#heroStart').addEventListener('click',function(){startQuiz(0);});
+  $('#ctaStart').addEventListener('click',function(){startQuiz(0);});
+  $('#demoYes').addEventListener('click',function(){answers.market=0;startQuiz(1);});
+  $('#demoNo').addEventListener('click',function(){answers.market=1;startQuiz(1);});
+  $('#demoReport').addEventListener('click',function(){
+    answers={market:0,role:1,type:0,manip:0,exploit:0,social:0,bio:0,hr:0,gpa:0,chatbot:1,content:1,bias:2,privacy:1,oversight:2,docs:2,logging:2};
+    renderReport();
+  });
+  $('#qOpts').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b)return;
+    selectOption(parseInt(b.getAttribute('data-i'),10));
+  });
+  $('#qBack').addEventListener('click',function(){if(qIdx>0){qIdx--;renderQuestion();}});
+  $('#repPrint').addEventListener('click',function(){window.print();});
+  $('#repRestart').addEventListener('click',function(){answers={};startQuiz(0);});
+  $('#brandLink').addEventListener('click',function(){showView('landing');});
+  document.querySelectorAll('a[data-sec]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      showView('landing');
+      var sec=a.getAttribute('data-sec');
+      setTimeout(function(){var el=document.getElementById(sec);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},60);
+    });
+  });
+  var h=location.hash||'';
+  if(h.indexOf('quiz')>-1){startQuiz(0);}else{showView('landing');}
+}
+document.addEventListener('DOMContentLoaded',boot);
+</script>
+</body>
+</html>

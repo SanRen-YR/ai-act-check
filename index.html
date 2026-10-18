@@ -505,20 +505,25 @@ button{font-family:var(--font-u)}
   </div>
 </main>
 
-<!-- ===== EMAIL GATE MODAL ===== -->
-<div class="modal-mask" id="emailModal" hidden>
+<!-- ===== EMAIL GATE MODAL (Netlify Forms) ===== -->
+<form name="ai-act-lead" method="POST" action="/" data-netlify="true" data-netlify-honeypot="bot-field" class="modal-mask" id="emailModal" hidden>
+  <input type="hidden" name="form-name" value="ai-act-lead">
+  <input type="hidden" name="score" id="emScore">
+  <input type="hidden" name="band" id="emBand">
+  <input type="hidden" name="role" id="emRole">
+  <p hidden><label>Don't fill this out: <input name="bot-field" style="font-size:16px"></label></p>
   <div class="modal" role="dialog" aria-modal="true">
     <h3 data-i18n="emTitle">Keep your report &amp; get updates</h3>
     <p data-i18n="emDesc">Enter your email to download the PDF and receive rare AI Act deadline reminders. No spam — unsubscribe anytime.</p>
-    <input type="email" id="emInput" data-i18n-ph="emPh" placeholder="you@company.com" autocomplete="email">
-    <label><input type="checkbox" id="emConsent"> <span data-i18n="emConsentText">I agree to receive this report and occasional AI Act compliance updates.</span></label>
+    <input type="email" name="email" id="emInput" data-i18n-ph="emPh" placeholder="you@company.com" autocomplete="email">
+    <label><input type="checkbox" id="emConsent" name="consent"> <span data-i18n="emConsentText">I agree to receive this report and occasional AI Act compliance updates.</span></label>
     <div class="modal-err" id="emErr"></div>
     <div class="modal-btns">
-      <button class="btn btn-ghost" id="emSkip" data-i18n="emSkip">Skip &amp; download</button>
-      <button class="btn btn-primary" id="emSubmit" data-i18n="emSend">Email me the PDF</button>
+      <button type="button" class="btn btn-ghost" id="emSkip" data-i18n="emSkip">Skip &amp; download</button>
+      <button type="submit" class="btn btn-primary" id="emSubmit" data-i18n="emSend">Email me the PDF</button>
     </div>
   </div>
-</div>
+</form>
 
 <script>
 'use strict';
@@ -1079,40 +1084,41 @@ function boot(){
     selectOption(parseInt(b.getAttribute('data-i'),10));
   });
   $('#qBack').addEventListener('click',function(){if(qIdx>0){qIdx--;renderQuestion();}});
-  /* ================= EMAIL GATE ================= */
-  var FORMSPREE_ENDPOINT='https://formspree.io/f/YOUR_FORM_ID'; /* ← 注册 formspree.io 后，把表单地址替换到这里（替换 YOUR_FORM_ID）。未替换前用户可直接下载，不影响使用。 */
+  /* ================= EMAIL GATE (Netlify Forms) ================= */
   function openEmailModal(){
     $('#emErr').style.display='none';
     $('#emailModal').hidden=false;
     setTimeout(function(){$('#emInput').focus();},60);
   }
   function closeEmailModal(){$('#emailModal').hidden=true;}
-  function submitEmailAndPrint(){
-    var em=$('#emInput').value.trim();
-    var ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
-    var er=$('#emErr');
-    if(!ok){er.textContent=t('emErrEmail');er.style.display='block';return;}
-    if(!$('#emConsent').checked){er.textContent=t('emErrConsent');er.style.display='block';return;}
-    var btn=$('#emSubmit');btn.textContent=t('emSending');btn.disabled=true;
-    var body={email:em,score:(lastReport?lastReport.score:''),band:(lastReport?lastReport.band.key:''),role:(lastReport?lastReport.role:''),timestamp:new Date().toISOString()};
-    var sent=function(){
-      try{localStorage.setItem('aiac-email',em);}catch(e){}
-      closeEmailModal();
-      btn.textContent=t('emSend');btn.disabled=false;
-      window.print();
-    };
-    if(FORMSPREE_ENDPOINT.indexOf('YOUR_FORM_ID')>-1){sent();return;}
-    fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:JSON.stringify(body)}).then(sent).catch(sent);
+  function finishLead(em,btn){
+    try{localStorage.setItem('aiac-email',em);}catch(e){}
+    closeEmailModal();
+    btn.textContent=t('emSend');btn.disabled=false;
+    window.print();
   }
   $('#repPrint').addEventListener('click',function(){
     var saved=null;try{saved=localStorage.getItem('aiac-email');}catch(e){}
     if(saved){window.print();return;}
     openEmailModal();
   });
-  $('#emSubmit').addEventListener('click',submitEmailAndPrint);
+  $('#emailModal').addEventListener('submit',function(e){
+    e.preventDefault();
+    var em=$('#emInput').value.trim();
+    var ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+    var er=$('#emErr');
+    if(!ok){er.textContent=t('emErrEmail');er.style.display='block';return;}
+    if(!$('#emConsent').checked){er.textContent=t('emErrConsent');er.style.display='block';return;}
+    var btn=$('#emSubmit');btn.textContent=t('emSending');btn.disabled=true;
+    $('#emScore').value=lastReport?lastReport.score:'';
+    $('#emBand').value=lastReport?lastReport.band.key:'';
+    $('#emRole').value=lastReport?lastReport.role:'';
+    var params=new URLSearchParams(new FormData(e.target)).toString();
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:params})
+      .then(function(){finishLead(em,btn);}).catch(function(){finishLead(em,btn);});
+  });
   $('#emSkip').addEventListener('click',function(){closeEmailModal();window.print();});
   $('#emailModal').addEventListener('click',function(e){if(e.target===this)closeEmailModal();});
-  $('#emInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitEmailAndPrint();});
   $('#repRestart').addEventListener('click',function(){answers={};startQuiz(0);});
   $('#brandLink').addEventListener('click',function(){showView('landing');});
   document.querySelectorAll('a[data-sec]').forEach(function(a){

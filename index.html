@@ -521,12 +521,14 @@
                     <option value="live" data-i18n="q10_extra_opt3">Already live and in production</option>
                 </select>
             </div>
-            <div class="email-form">
-                <label data-i18n="email_label">Business Email</label>
-                <input type="email" id="q29_email" required placeholder="your@company.com">
-            </div>
-            <div style="text-align:center; margin-top:24px;">
-                <button class="btn btn-primary btn-lg" style="width:100%;" onclick="pay29()" data-i18n="pay29_btn">Pay €29 & Get Report</button>
+            <form data-netlify="true" name="quiz29-form" id="quiz29Form" style="text-align:center; margin-top:24px;">
+                <input type="hidden" name="product" value="€29 Automated Report">
+                <div class="email-form" style="text-align:left; margin-bottom:16px;">
+                    <label data-i18n="email_label">Business Email</label>
+                    <input type="email" name="email" id="q29_email" required placeholder="your@company.com">
+                </div>
+                <button type="button" class="btn btn-primary btn-lg" style="width:100%;" onclick="submitQuiz29()" data-i18n="pay29_btn">Pay €29 & Get Report</button>
+            </form>
                 <p style="margin-top:12px; font-size:13px; color:#6b7280; cursor:pointer;" onclick="showView('home')" data-i18n="back_home">← Back to home</p>
             </div>
         </div>
@@ -694,14 +696,15 @@
                     <option value="gt250" data-i18n="q15_deep_opt4">250+ employees (large)</option>
                 </select>
             </div>
-            <div class="email-form">
-                <label data-i18n="email_label">Business Email</label>
-                <input type="email" id="q99_email" required placeholder="your@company.com">
-            </div>
-            <div style="text-align:center; margin-top:24px;">
-                <button class="btn btn-primary btn-lg" style="width:100%; background:#1a1a2e;" onclick="pay99()" data-i18n="pay99_btn">Pay €99 & Get Professional Review</button>
+            <form data-netlify="true" name="quiz99-form" id="quiz99Form" style="text-align:center; margin-top:24px;">
+                <input type="hidden" name="product" value="€99 Professional Review">
+                <div class="email-form" style="text-align:left; margin-bottom:16px;">
+                    <label data-i18n="email_label">Business Email</label>
+                    <input type="email" name="email" id="q99_email" required placeholder="your@company.com">
+                </div>
+                <button type="button" class="btn btn-primary btn-lg" style="width:100%; background:#1a1a2e;" onclick="submitQuiz99()" data-i18n="pay99_btn">Pay €99 & Get Professional Review</button>
                 <p style="margin-top:12px; font-size:13px; color:#6b7280; cursor:pointer;" onclick="showView('home')" data-i18n="back_home">← Back to home</p>
-            </div>
+            </form>
         </div>
     </div>
 </section>
@@ -719,6 +722,18 @@
                 <button type="submit" class="btn btn-primary btn-lg" style="width:100%;" data-i18n="submit_btn">Submit & Download PDF Report</button>
             </form>
         </div>
+    </div>
+</section>
+
+<section id="paymentSuccessSection" class="hidden">
+    <div class="container" style="text-align:center; padding:60px 20px;">
+        <div style="font-size:64px; margin-bottom:20px;">✅</div>
+        <h2 data-i18n="pay_success_title">Payment Received!</h2>
+        <p style="font-size:18px; color:#4b5563; margin:20px 0; line-height:1.6;" data-i18n="pay_success_desc">
+            Thank you for your purchase! Your compliance report will be generated and sent to your email within 24 hours.<br>
+            Please check your inbox (and spam folder).
+        </p>
+        <button class="btn" onclick="showView('home')" data-i18n="back_home2">← Back to Home</button>
     </div>
 </section>
 
@@ -957,6 +972,9 @@ const translations = {
         pay29_btn: "支付 €29 并获取报告",
         pay99_btn: "支付 €99 并获取专业复核",
         back_home: "← 返回首页",
+        pay_success_title: "支付成功！",
+        pay_success_desc: "感谢您的购买！您的合规报告将在24小时内生成并发送到您的邮箱。<br>请查收收件箱（也请检查垃圾邮件文件夹）。",
+        back_home2: "← 返回首页",
         disclaimer_title: "免责声明：",
         disclaimer_text: "本工具仅提供初步自查评估，不构成法律意见、审计或认证，不能替代与欧盟持证法律专业人士的咨询。AI生成的报告可能存在不准确之处。",
         faq_title: "常见问题",
@@ -1393,6 +1411,50 @@ function pay29() {
 
 function pay99() {
     window.open('https://www.paypal.com/ncp/payment/YHA65R2R7AS9N', '_blank');
+}
+
+function submitQuiz29() {
+    const email = document.getElementById('q29_email').value;
+    if (!email) { alert('请填写邮箱地址'); return; }
+
+    const answers = {};
+    for (let i = 1; i <= 10; i++) {
+        const el = document.getElementById('q29_' + i);
+        if (el) answers['Q' + i] = el.value;
+    }
+    answers['email'] = email;
+    answers['product'] = '€29 Automated Report';
+
+    fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ 'form-name': 'quiz29-form', ...answers })
+    }).finally(() => {
+        showView('paymentSuccess');
+        window.open('https://www.paypal.com/ncp/payment/5SNBXESRZ6JHJ', '_blank');
+    });
+}
+
+function submitQuiz99() {
+    const email = document.getElementById('q99_email').value;
+    if (!email) { alert('请填写邮箱地址'); return; }
+
+    const answers = {};
+    for (let i = 1; i <= 15; i++) {
+        const el = document.getElementById('q99_' + i);
+        if (el) answers['Q' + i] = el.value;
+    }
+    answers['email'] = email;
+    answers['product'] = '€99 Professional Review';
+
+    fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ 'form-name': 'quiz99-form', ...answers })
+    }).finally(() => {
+        showView('paymentSuccess');
+        window.open('https://www.paypal.com/ncp/payment/YHA65R2R7AS9N', '_blank');
+    });
 }
 
 function calcResult() {

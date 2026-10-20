@@ -3,178 +3,1441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EU AI Act Self-Check Tool | EU AI Compliance Check</title>
+    <title>EU AI Act Quick Check — 2-Minute Compliance Assessment for SMEs</title>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
-            line-height:1.6;
-            color:#222;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background: #f8f9fa;
         }
-        .box{
-            border:1px solid #ddd;
-            border-radius:8px;
-            padding:20px;
-            margin:18px 0;
-            background:#fff;
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .hidden{display:none;}
-        button{
-            background:#2563eb;
-            color:white;
-            border:none;
-            padding:12px 22px;
-            border-radius:6px;
-            cursor:pointer;
-            font-size:16px;
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        button:disabled{background:#94a3b8;cursor:not-allowed;}
-        input, select{
-            width:100%;
-            padding:10px;
-            margin:8px 0 16px;
-            border:1px solid #ccc;
-            border-radius:4px;
+        .logo { font-weight: 700; font-size: 18px; color: #1a1a2e; }
+        .logo span { color: #2563eb; }
+        .lang-switcher select {
+            padding: 6px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #fff;
+            cursor: pointer;
         }
-        .warning{background:#fffbeb;border-left:4px solid #f59e0b;}
-        .success{background:#f0fdf4;border-left:4px solid #10b981;}
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .hero h1 { font-size: 32px; margin-bottom: 16px; line-height: 1.3; }
+        .hero p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        section { padding: 40px 0; }
+        section h2 { font-size: 24px; margin-bottom: 24px; text-align: center; }
+        .comparison {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .comparison table { width: 100%; border-collapse: collapse; }
+        .comparison th, .comparison td {
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .comparison th { background: #f3f4f6; font-weight: 600; }
+        .comparison .highlight { background: #eff6ff; font-weight: 500; }
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .step-card {
+            background: #fff;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: #2563eb;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 12px;
+        }
+        .step-card h3 { margin-bottom: 8px; font-size: 16px; }
+        .step-card p { font-size: 14px; color: #6b7280; }
+        .question-box {
+            background: #fff;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .question {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .question:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .question-label { font-weight: 600; margin-bottom: 8px; font-size: 16px; }
+        .law-reference {
+            display: inline-block;
+            font-size: 12px;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .question select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+        .btn-primary { background: #2563eb; color: #fff; }
+        .btn-primary:hover { background: #1d4ed8; }
+        .btn-lg { padding: 14px 36px; font-size: 17px; }
+        .result-box {
+            background: #fff;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .risk-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 16px;
+            margin: 16px 0;
+        }
+        .risk-high { background: #fef2f2; color: #dc2626; }
+        .risk-medium { background: #fffbeb; color: #d97706; }
+        .risk-low { background: #f0fdf4; color: #16a34a; }
+        .pricing {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .price-card {
+            background: #fff;
+            padding: 28px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .price-card.featured {
+            border: 2px solid #2563eb;
+            transform: scale(1.03);
+        }
+        .price-card .popular-tag {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2563eb;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .price-card h3 { font-size: 18px; margin-bottom: 8px; }
+        .price-card .price { font-size: 36px; font-weight: 700; margin: 16px 0; }
+        .price-card .price small { font-size: 14px; color: #6b7280; font-weight: 400; }
+        .price-card ul {
+            list-style: none;
+            text-align: left;
+            margin: 20px 0;
+        }
+        .price-card ul li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: #4b5563;
+        }
+        .price-card ul li::before {
+            content: "✓ ";
+            color: #16a34a;
+            font-weight: bold;
+        }
+        .faq-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .faq-item h4 { margin-bottom: 8px; font-size: 16px; }
+        .faq-item p { font-size: 14px; color: #4b5563; }
+        .disclaimer {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 16px 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #92400e;
+        }
+        .email-form {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .email-form label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 14px; }
+        .email-form input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .hidden { display: none; }
+        footer {
+            background: #1a1a2e;
+            color: #9ca3af;
+            padding: 32px 0;
+            text-align: center;
+            font-size: 13px;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            .steps, .pricing { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 24px; }
+        }
     </style>
 </head>
 <body>
-    <h1>EU AI Act Self-Check Tool</h1>
-    <p>Free self-assessment for cross-border SMEs to classify your AI system under EU AI Act. After completing the questionnaire, enter your email to preview summary report and export PDF.</p>
 
-    <div class="box" id="questionSection">
-        <h3>Questionnaire</h3>
-        <div>
-            <label>1. What is your AI system used for?</label>
-            <select id="q1">
-                <option value="">Select</option>
-                <option value="biometric">Biometric identification</option>
-                <option value="infrastructure">Critical infrastructure</option>
-                <option value="education">Education / admission assessment</option>
-                <option value="employment">HR / employment screening</option>
-                <option value="customer">Customer service / chatbot</option>
-                <option value="marketing">Marketing & recommendation</option>
-                <option value="other">Other</option>
+<header>
+    <div class="container header-inner">
+        <div class="logo">EU AI Act <span>Quick Check</span></div>
+        <div class="lang-switcher">
+            <select id="langSelect" onchange="changeLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+                <option value="de">Deutsch</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+                <option value="it">Italiano</option>
+                <option value="nl">Nederlands</option>
+                <option value="pl">Polski</option>
             </select>
         </div>
-        <div>
-            <label>2. Does your AI make decisions that significantly impact people’s rights?</label>
-            <select id="q2">
-                <option value="">Select</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-        </div>
-        <div>
-            <label>3. Is your AI system placed on EU market or provided to EU users?</label>
-            <select id="q3">
-                <option value="">Select</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-        </div>
-        <div>
-            <label>4. Do you use personal data as training data?</label>
-            <select id="q4">
-                <option value="">Select</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-        </div>
-        <button onclick="calcResult()">Generate Preliminary Result</button>
     </div>
+</header>
 
-    <div class="box hidden" id="resultSection">
-        <h3>Your Preliminary AI Risk Classification</h3>
-        <div id="riskText"></div>
-        <p>To view full compliance checklist and export PDF report, please submit your email address.</p>
-
-        <!-- ========== NETLIFY 表单 ========== -->
-        <form data-netlify="true" name="ai-act-form" id="emailForm">
-            <label>Business Email</label>
-            <input type="email" name="email" id="userEmail" required placeholder="your@company.com">
-            <input type="hidden" name="riskLevel" id="riskLevelInput">
-            <button type="submit">Submit & Preview Report</button>
-        </form>
+<div id="homeView">
+<div class="hero">
+    <div class="container">
+        <h1 data-i18n="hero_title">EU AI Act Compliance Check in 2 Minutes</h1>
+        <p data-i18n="hero_subtitle">Official EU checker takes 30+ minutes. Get your quick, plain-English risk assessment with a clear action plan — built for busy SME founders.</p>
     </div>
+</div>
 
-    <div class="box hidden" id="pdfSection">
-        <h3>Full Compliance Report Preview</h3>
-        <div id="reportBody"></div>
-        <button onclick="exportPDF()">Export PDF Report</button>
-        <p style="margin-top:12px;color:#666;">This is preliminary self-check. Full professional report available for €99.</p>
+<section>
+    <div class="container">
+        <h2 data-i18n="compare_title">Why Choose Our Quick Check?</h2>
+        <div class="comparison">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-i18n="compare_feature">Feature</th>
+                        <th data-i18n="compare_official">Official EU Checker</th>
+                        <th data-i18n="compare_us">Our Quick Check</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-i18n="compare_time">Time needed</td>
+                        <td data-i18n="compare_time_official">30+ minutes</td>
+                        <td class="highlight" data-i18n="compare_time_us">2 minutes</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="compare_language">Language</td>
+                        <td data-i18n="compare_lang_official">Legal jargon, complex</td>
+                        <td class="highlight" data-i18n="compare_lang_us">Plain English, simple</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="compare_output">Output</td>
+                        <td data-i18n="compare_out_official">Risk category only</td>
+                        <td class="highlight" data-i18n="compare_out_us">Risk category + action checklist</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="compare_forwhom">Built for</td>
+                        <td data-i18n="compare_for_official">Legal teams, enterprises</td>
+                        <td class="highlight" data-i18n="compare_for_us">SME founders, non-lawyers</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="compare_cost">Cost</td>
+                        <td data-i18n="compare_cost_official">Free</td>
+                        <td class="highlight" data-i18n="compare_cost_us">Free quick check</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+</section>
+
+<section style="background:#fff;">
+    <div class="container">
+        <h2 data-i18n="steps_title">How It Works</h2>
+        <div class="steps">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3 data-i18n="step1_title">Answer 6 Questions</h3>
+                <p data-i18n="step1_desc">Quick, plain-language questions based on EU AI Act Article 6 and Annex III.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3 data-i18n="step2_title">Get Your Result</h3>
+                <p data-i18n="step2_desc">Instantly see your risk classification: High, Medium, or Low / Minimal Risk.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3 data-i18n="step3_title">Download PDF Report</h3>
+                <p data-i18n="step3_desc">Submit your email to get a full report with actionable next steps.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="quizSection">
+    <div class="container">
+        <h2 data-i18n="quiz_title">Start Your Free Assessment</h2>
+        <div class="question-box">
+            <div class="question">
+                <div class="question-label" data-i18n="q1">1. What is your role under the EU AI Act?</div>
+                <span class="law-reference" data-i18n="law1">Source: Article 2 — Definitions</span>
+                <select id="q1">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="provider" data-i18n="q1_opt1">AI system provider (I develop/launch the AI)</option>
+                    <option value="deployer" data-i18n="q1_opt2">AI system deployer (I use someone else's AI)</option>
+                    <option value="both" data-i18n="q1_opt3">Both</option>
+                    <option value="other" data-i18n="q1_opt4">Not sure / other</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q2">2. Is your AI system used in the EU or offered to EU users?</div>
+                <span class="law-reference" data-i18n="law2">Source: Article 2 — Scope of Application</span>
+                <select id="q2">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q2_opt1">Yes, placed on EU market / used by EU users</option>
+                    <option value="no" data-i18n="q2_opt2">No, only outside the EU</option>
+                    <option value="unsure" data-i18n="q2_opt3">Not sure yet</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q3">3. What is the main purpose of your AI system?</div>
+                <span class="law-reference" data-i18n="law3">Source: Article 6(2) + Annex III — High-Risk Use Cases</span>
+                <select id="q3">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="biometric" data-i18n="q3_opt1">Biometric identification / facial recognition</option>
+                    <option value="critical" data-i18n="q3_opt2">Critical infrastructure / safety systems</option>
+                    <option value="education" data-i18n="q3_opt3">Education / admission / exam scoring</option>
+                    <option value="employment" data-i18n="q3_opt4">HR / recruitment / employee screening</option>
+                    <option value="credit" data-i18n="q3_opt5">Credit scoring / financial services</option>
+                    <option value="law" data-i18n="q3_opt6">Law enforcement / migration / justice</option>
+                    <option value="customer" data-i18n="q3_opt7">Customer service / chatbot / marketing</option>
+                    <option value="other" data-i18n="q3_opt8">Other consumer / general use</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q4">4. Does your AI make decisions that significantly impact people's rights or opportunities?</div>
+                <span class="law-reference" data-i18n="law4">Source: Article 6(2) — Fundamental Rights Impact</span>
+                <select id="q4">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q4_opt1">Yes — e.g. hiring, credit, admission, sentencing</option>
+                    <option value="partial" data-i18n="q4_opt2">Partially — it assists but a human decides</option>
+                    <option value="no" data-i18n="q4_opt3">No — it's purely for entertainment / internal use</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q5">5. Do you use personal data as training data for your AI?</div>
+                <span class="law-reference" data-i18n="law5">Source: Article 10 — Data and Data Governance</span>
+                <select id="q5">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q5_opt1">Yes, personal data is used for training</option>
+                    <option value="sensitive" data-i18n="q5_opt2">Yes, including sensitive data (health, biometric, etc.)</option>
+                    <option value="no" data-i18n="q5_opt3">No, only public / anonymized data</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q6">6. Is your AI a safety component of a physical product (e.g. medical device, machinery, car)?</div>
+                <span class="law-reference" data-i18n="law6">Source: Article 6(1) + Annex I — Product Safety</span>
+                <select id="q6">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q6_opt1">Yes, it's part of a physical product's safety system</option>
+                    <option value="no" data-i18n="q6_opt2">No, it's purely software / digital</option>
+                </select>
+            </div>
+            <div style="text-align:center; margin-top:24px;">
+                <button class="btn btn-primary btn-lg" onclick="calcResult()" data-i18n="generate_btn">Generate My Result</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- €29 Automated Report Page -->
+<section id="quiz29Section" class="hidden">
+    <div class="container">
+        <h2 data-i18n="quiz29_title">Automated Report — €29</h2>
+        <p style="text-align:center; color:#6b7280; margin-bottom:24px;" data-i18n="quiz29_desc">Answer 10 detailed questions. Your AI-generated PDF report will be sent to your email after payment.</p>
+        <div class="question-box">
+            <div class="question">
+                <div class="question-label" data-i18n="q1">1. What is your role under the EU AI Act?</div>
+                <span class="law-reference" data-i18n="law1">Source: Article 2 — Definitions</span>
+                <select id="q29_1">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="provider" data-i18n="q1_opt1">AI system provider (I develop/launch the AI)</option>
+                    <option value="deployer" data-i18n="q1_opt2">AI system deployer (I use someone else's AI)</option>
+                    <option value="both" data-i18n="q1_opt3">Both</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q2">2. Is your AI system used in the EU or offered to EU users?</div>
+                <span class="law-reference" data-i18n="law2">Source: Article 2 — Scope of Application</span>
+                <select id="q29_2">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q2_opt1">Yes, placed on EU market / used by EU users</option>
+                    <option value="no" data-i18n="q2_opt2">No, only outside the EU</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q3">3. What is the main purpose of your AI system?</div>
+                <span class="law-reference" data-i18n="law3">Source: Article 6(2) + Annex III — High-Risk Use Cases</span>
+                <select id="q29_3">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="biometric" data-i18n="q3_opt1">Biometric identification / facial recognition</option>
+                    <option value="critical" data-i18n="q3_opt2">Critical infrastructure / safety systems</option>
+                    <option value="education" data-i18n="q3_opt3">Education / admission / exam scoring</option>
+                    <option value="employment" data-i18n="q3_opt4">HR / recruitment / employee screening</option>
+                    <option value="credit" data-i18n="q3_opt5">Credit scoring / financial services</option>
+                    <option value="law" data-i18n="q3_opt6">Law enforcement / migration / justice</option>
+                    <option value="customer" data-i18n="q3_opt7">Customer service / chatbot / marketing</option>
+                    <option value="other" data-i18n="q3_opt8">Other consumer / general use</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q4">4. Does your AI make decisions that significantly impact people's rights?</div>
+                <span class="law-reference" data-i18n="law4">Source: Article 6(2) — Fundamental Rights Impact</span>
+                <select id="q29_4">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q4_opt1">Yes — e.g. hiring, credit, admission, sentencing</option>
+                    <option value="partial" data-i18n="q4_opt2">Partially — it assists but a human decides</option>
+                    <option value="no" data-i18n="q4_opt3">No — purely entertainment / internal use</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q5">5. Do you use personal data as training data?</div>
+                <span class="law-reference" data-i18n="law5">Source: Article 10 — Data and Data Governance</span>
+                <select id="q29_5">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q5_opt1">Yes, personal data is used for training</option>
+                    <option value="sensitive" data-i18n="q5_opt2">Yes, including sensitive data</option>
+                    <option value="no" data-i18n="q5_opt3">No, only public / anonymized data</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q6">6. Is your AI a safety component of a physical product?</div>
+                <span class="law-reference" data-i18n="law6">Source: Article 6(1) + Annex I — Product Safety</span>
+                <select id="q29_6">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q6_opt1">Yes, part of a physical product's safety system</option>
+                    <option value="no" data-i18n="q6_opt2">No, purely software / digital</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q7_extra">7. Do you have a human oversight mechanism for your AI system?</div>
+                <span class="law-reference" data-i18n="law7_extra">Source: Article 14 — Human Oversight</span>
+                <select id="q29_7">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q7_extra_opt1">Yes, documented human oversight procedures</option>
+                    <option value="partial" data-i18n="q7_extra_opt2">Informal, not documented</option>
+                    <option value="no" data-i18n="q7_extra_opt3">No human oversight currently</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q8_extra">8. Have you conducted a risk assessment for your AI system?</div>
+                <span class="law-reference" data-i18n="law8_extra">Source: Article 9 — Risk Management System</span>
+                <select id="q29_8">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q8_extra_opt1">Yes, documented risk assessment exists</option>
+                    <option value="partial" data-i18n="q8_extra_opt2">Partially, informal assessment</option>
+                    <option value="no" data-i18n="q8_extra_opt3">No risk assessment done</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q9_extra">9. Do you maintain technical documentation for your AI system?</div>
+                <span class="law-reference" data-i18n="law9_extra">Source: Article 11 — Technical Documentation</span>
+                <select id="q29_9">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q9_extra_opt1">Yes, complete technical file</option>
+                    <option value="partial" data-i18n="q9_extra_opt2">Partial documentation only</option>
+                    <option value="no" data-i18n="q9_extra_opt3">No technical documentation</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q10_extra">10. What stage of development is your AI system at?</div>
+                <span class="law-reference" data-i18n="law10_extra">Source: Recital — Timeline & Deadlines</span>
+                <select id="q29_10">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="idea" data-i18n="q10_extra_opt1">Idea / planning stage</option>
+                    <option value="dev" data-i18n="q10_extra_opt2">In development, not launched yet</option>
+                    <option value="live" data-i18n="q10_extra_opt3">Already live and in production</option>
+                </select>
+            </div>
+            <div class="email-form">
+                <label data-i18n="email_label">Business Email</label>
+                <input type="email" id="q29_email" required placeholder="your@company.com">
+            </div>
+            <div style="text-align:center; margin-top:24px;">
+                <button class="btn btn-primary btn-lg" style="width:100%;" onclick="pay29()" data-i18n="pay29_btn">Pay €29 & Get Report</button>
+                <p style="margin-top:12px; font-size:13px; color:#6b7280; cursor:pointer;" onclick="showView('home')" data-i18n="back_home">← Back to home</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- €99 Professional Review Page -->
+<section id="quiz99Section" class="hidden">
+    <div class="container">
+        <h2 data-i18n="quiz99_title">Professional Review — €99</h2>
+        <p style="text-align:center; color:#6b7280; margin-bottom:24px;" data-i18n="quiz99_desc">15+ in-depth questions. Your report includes AI draft + quick human review. Priority email support included.</p>
+        <div class="question-box">
+            <div class="question">
+                <div class="question-label" data-i18n="q1">1. What is your role under the EU AI Act?</div>
+                <span class="law-reference" data-i18n="law1">Source: Article 2 — Definitions</span>
+                <select id="q99_1">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="provider" data-i18n="q1_opt1">AI system provider</option>
+                    <option value="deployer" data-i18n="q1_opt2">AI system deployer</option>
+                    <option value="both" data-i18n="q1_opt3">Both</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q2">2. Is your AI system used in the EU?</div>
+                <span class="law-reference" data-i18n="law2">Source: Article 2 — Scope</span>
+                <select id="q99_2">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q2_opt1">Yes</option>
+                    <option value="no" data-i18n="q2_opt2">No</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q3">3. What is the main purpose of your AI system?</div>
+                <span class="law-reference" data-i18n="law3">Source: Article 6(2) + Annex III</span>
+                <select id="q99_3">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="biometric" data-i18n="q3_opt1">Biometric / facial recognition</option>
+                    <option value="critical" data-i18n="q3_opt2">Critical infrastructure / safety</option>
+                    <option value="education" data-i18n="q3_opt3">Education / admission / exams</option>
+                    <option value="employment" data-i18n="q3_opt4">HR / recruitment / screening</option>
+                    <option value="credit" data-i18n="q3_opt5">Credit scoring / financial</option>
+                    <option value="law" data-i18n="q3_opt6">Law enforcement / justice</option>
+                    <option value="customer" data-i18n="q3_opt7">Customer service / marketing</option>
+                    <option value="other" data-i18n="q3_opt8">Other general use</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q4">4. Does your AI impact people's rights?</div>
+                <span class="law-reference" data-i18n="law4">Source: Article 6(2)</span>
+                <select id="q99_4">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q4_opt1">Yes, significant impact</option>
+                    <option value="partial" data-i18n="q4_opt2">Partial impact, human decides</option>
+                    <option value="no" data-i18n="q4_opt3">No, minimal impact</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q5">5. Do you use personal data for training?</div>
+                <span class="law-reference" data-i18n="law5">Source: Article 10</span>
+                <select id="q99_5">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q5_opt1">Yes, personal data</option>
+                    <option value="sensitive" data-i18n="q5_opt2">Yes, including sensitive data</option>
+                    <option value="no" data-i18n="q5_opt3">No, public only</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q6">6. Is your AI a safety component of a physical product?</div>
+                <span class="law-reference" data-i18n="law6">Source: Article 6(1) + Annex I</span>
+                <select id="q99_6">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q6_opt1">Yes</option>
+                    <option value="no" data-i18n="q6_opt2">No</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q7_extra">7. Human oversight mechanism?</div>
+                <span class="law-reference" data-i18n="law7_extra">Source: Article 14</span>
+                <select id="q99_7">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q7_extra_opt1">Documented procedures</option>
+                    <option value="partial" data-i18n="q7_extra_opt2">Informal, not documented</option>
+                    <option value="no" data-i18n="q7_extra_opt3">None</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q8_extra">8. Risk assessment conducted?</div>
+                <span class="law-reference" data-i18n="law8_extra">Source: Article 9</span>
+                <select id="q99_8">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q8_extra_opt1">Documented assessment exists</option>
+                    <option value="partial" data-i18n="q8_extra_opt2">Partial / informal</option>
+                    <option value="no" data-i18n="q8_extra_opt3">None</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q9_extra">9. Technical documentation ready?</div>
+                <span class="law-reference" data-i18n="law9_extra">Source: Article 11</span>
+                <select id="q99_9">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q9_extra_opt1">Complete technical file</option>
+                    <option value="partial" data-i18n="q9_extra_opt2">Partial documentation</option>
+                    <option value="no" data-i18n="q9_extra_opt3">None</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q10_extra">10. Development stage?</div>
+                <span class="law-reference" data-i18n="law10_extra">Source: Recital — Deadlines</span>
+                <select id="q99_10">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="idea" data-i18n="q10_extra_opt1">Idea / planning</option>
+                    <option value="dev" data-i18n="q10_extra_opt2">In development</option>
+                    <option value="live" data-i18n="q10_extra_opt3">Live in production</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q11_deep">11. How many EU users do you currently have?</div>
+                <span class="law-reference" data-i18n="law11_deep">Source: Recital — Market Scale</span>
+                <select id="q99_11">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="lt100" data-i18n="q11_deep_opt1">Less than 100</option>
+                    <option value="100_1k" data-i18n="q11_deep_opt2">100 – 1,000</option>
+                    <option value="1k_10k" data-i18n="q11_deep_opt3">1,000 – 10,000</option>
+                    <option value="gt10k" data-i18n="q11_deep_opt4">More than 10,000</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q12_deep">12. Do you have a data governance policy?</div>
+                <span class="law-reference" data-i18n="law12_deep">Source: Article 10 — Data Governance</span>
+                <select id="q99_12">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q12_deep_opt1">Yes, documented policy</option>
+                    <option value="partial" data-i18n="q12_deep_opt2">Partial / informal</option>
+                    <option value="no" data-i18n="q12_deep_opt3">No policy</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q13_deep">13. Have you registered in the EU database?</div>
+                <span class="law-reference" data-i18n="law13_deep">Source: Article 49 — EU Database</span>
+                <select id="q99_13">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q13_deep_opt1">Yes, registered</option>
+                    <option value="no" data-i18n="q13_deep_opt2">No, not yet</option>
+                    <option value="unsure" data-i18n="q13_deep_opt3">Not sure if required</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q14_deep">14. Do you provide transparency disclosures to users?</div>
+                <span class="law-reference" data-i18n="law14_deep">Source: Article 50 — Transparency</span>
+                <select id="q99_14">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="yes" data-i18n="q14_deep_opt1">Yes, users know they interact with AI</option>
+                    <option value="partial" data-i18n="q14_deep_opt2">Partially, some disclosures</option>
+                    <option value="no" data-i18n="q14_deep_opt3">No disclosures</option>
+                </select>
+            </div>
+            <div class="question">
+                <div class="question-label" data-i18n="q15_deep">15. Company size (number of employees)?</div>
+                <span class="law-reference" data-i18n="law15_deep">Source: Recommendation — SME Definition</span>
+                <select id="q99_15">
+                    <option value="" data-i18n="select">Select...</option>
+                    <option value="lt10" data-i18n="q15_deep_opt1">1 – 10 employees (micro)</option>
+                    <option value="10_50" data-i18n="q15_deep_opt2">10 – 50 employees (small)</option>
+                    <option value="50_250" data-i18n="q15_deep_opt3">50 – 250 employees (medium)</option>
+                    <option value="gt250" data-i18n="q15_deep_opt4">250+ employees (large)</option>
+                </select>
+            </div>
+            <div class="email-form">
+                <label data-i18n="email_label">Business Email</label>
+                <input type="email" id="q99_email" required placeholder="your@company.com">
+            </div>
+            <div style="text-align:center; margin-top:24px;">
+                <button class="btn btn-primary btn-lg" style="width:100%; background:#1a1a2e;" onclick="pay99()" data-i18n="pay99_btn">Pay €99 & Get Professional Review</button>
+                <p style="margin-top:12px; font-size:13px; color:#6b7280; cursor:pointer;" onclick="showView('home')" data-i18n="back_home">← Back to home</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="resultSection" class="hidden">
+    <div class="container">
+        <h2 data-i18n="result_title">Your Preliminary Risk Assessment</h2>
+        <div class="result-box">
+            <div id="riskText"></div>
+            <p style="margin: 16px 0;" data-i18n="result_desc">Based on your answers, here's your preliminary classification. To download the full report with a detailed action checklist, please submit your business email below.</p>
+            <form data-netlify="true" name="ai-act-form" class="email-form" id="emailForm">
+                <label data-i18n="email_label">Business Email</label>
+                <input type="email" name="email" id="userEmail" required placeholder="your@company.com">
+                <input type="hidden" name="riskLevel" id="riskLevelInput">
+                <button type="submit" class="btn btn-primary btn-lg" style="width:100%;" data-i18n="submit_btn">Submit & Download PDF Report</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="pricingSection" style="background:#fff;">
+    <div class="container">
+        <h2 data-i18n="pricing_title">Upgrade Options</h2>
+        <p style="text-align:center; color:#6b7280; margin-bottom:32px;" data-i18n="pricing_subtitle">Need a more detailed assessment? Choose the option that fits your needs.</p>
+        <div class="pricing">
+            <div class="price-card">
+                <h3 data-i18n="price1_name">Free Quick Check</h3>
+                <div class="price">€0<small data-i18n="price1_per"> / forever</small></div>
+                <ul>
+                    <li data-i18n="price1_f1">6-question quick assessment</li>
+                    <li data-i18n="price1_f2">Basic risk classification</li>
+                    <li data-i18n="price1_f3">1-page summary PDF</li>
+                    <li data-i18n="price1_f4">Email newsletter only</li>
+                </ul>
+                <button class="btn" style="background:#f3f4f6; color:#1a1a2e; width:100%;" onclick="showView('quizFree')" data-i18n="price1_btn">Start Free Check</button>
+            </div>
+            <div class="price-card featured">
+                <div class="popular-tag" data-i18n="popular">Most Popular</div>
+                <h3 data-i18n="price2_name">Automated Report</h3>
+                <div class="price">€29<small data-i18n="price2_per"> / one-time</small></div>
+                <ul>
+                    <li data-i18n="price2_f1">10-question detailed questionnaire</li>
+                    <li data-i18n="price2_f2">Full AI-generated PDF report</li>
+                    <li data-i18n="price2_f3">Compliance gap checklist</li>
+                    <li data-i18n="price2_f4">Required documents list</li>
+                    <li data-i18n="price2_f5">Automated email delivery</li>
+                </ul>
+                <button class="btn btn-primary" style="width:100%;" onclick="showView('quiz29')" data-i18n="price2_btn">Get Automated Report</button>
+            </div>
+            <div class="price-card">
+                <h3 data-i18n="price3_name">Professional Review</h3>
+                <div class="price">€99<small data-i18n="price3_per"> / one-time</small></div>
+                <ul>
+                    <li data-i18n="price3_f1">15+ in-depth questions</li>
+                    <li data-i18n="price3_f2">AI draft + quick human review</li>
+                    <li data-i18n="price3_f3">Prioritized remediation plan</li>
+                    <li data-i18n="price3_f4">Priority email support</li>
+                    <li data-i18n="price3_f5">Disclaimer & next-step guidance</li>
+                </ul>
+                <button class="btn" style="background:#1a1a2e; color:#fff; width:100%;" onclick="showView('quiz99')" data-i18n="price3_btn">Get Professional Review</button>
+            </div>
+        </div>
+        <div class="disclaimer" style="margin-top:32px;">
+            <strong data-i18n="disclaimer_title">Disclaimer:</strong>
+            <span data-i18n="disclaimer_text">This tool provides preliminary self-assessment only. It is not legal advice, not an audit, and not a certification. It cannot replace consultation with a qualified EU legal professional. AI-generated reports may contain inaccuracies.</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h4 data-i18n="faq1_q">Isn't there a free official EU AI Act checker?</h4>
+            <p data-i18n="faq1_a">Yes — the official EU Compliance Checker is excellent for deep legal review. But it takes 30+ minutes, uses complex legal language, and only tells you your risk category. Our tool is built for busy SME founders who want a quick, plain-English answer and a clear action plan.</p>
+        </div>
+        <div class="faq-item">
+            <h4 data-i18n="faq2_q">Is this a legal certification or audit?</h4>
+            <p data-i18n="faq2_a">No. This is a preliminary compliance self-assessment tool. It helps you understand your starting point and what you need to prepare. For formal legal compliance and certification, you must consult a qualified EU lawyer or notified body.</p>
+        </div>
+        <div class="faq-item">
+            <h4 data-i18n="faq3_q">When should I upgrade to the €99 Professional Review?</h4>
+            <p data-i18n="faq3_a">If your AI system is classified as High Risk, or if you're preparing for EU market entry and need a more detailed gap analysis with prioritized next steps, the Professional Review is recommended.</p>
+        </div>
+        <div class="faq-item">
+            <h4 data-i18n="faq4_q">What happens to my data?</h4>
+            <p data-i18n="faq4_a">We only use your email to send you the report you requested. We do not share your information with third parties. Your questionnaire answers are used solely to generate your assessment.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p data-i18n="footer_text">© 2026 EU AI Act Quick Check. This is a self-assessment tool, not legal advice. Not affiliated with the European Commission.</p>
+    </div>
+</footer>
 
 <script>
-let riskLevel = "";
-function calcResult(){
+const translations = {
+    en: {
+        hero_title: "EU AI Act Compliance Check in 2 Minutes",
+        hero_subtitle: "Official EU checker takes 30+ minutes. Get your quick, plain-English risk assessment with a clear action plan — built for busy SME founders.",
+        compare_title: "Why Choose Our Quick Check?",
+        compare_feature: "Feature", compare_official: "Official EU Checker", compare_us: "Our Quick Check",
+        compare_time: "Time needed", compare_time_official: "30+ minutes", compare_time_us: "2 minutes",
+        compare_language: "Language", compare_lang_official: "Legal jargon, complex", compare_lang_us: "Plain English, simple",
+        compare_output: "Output", compare_out_official: "Risk category only", compare_out_us: "Risk category + action checklist",
+        compare_forwhom: "Built for", compare_for_official: "Legal teams, enterprises", compare_for_us: "SME founders, non-lawyers",
+        compare_cost: "Cost", compare_cost_official: "Free", compare_cost_us: "Free quick check",
+        steps_title: "How It Works",
+        step1_title: "Answer 6 Questions", step1_desc: "Quick, plain-language questions based on EU AI Act Article 6 and Annex III.",
+        step2_title: "Get Your Result", step2_desc: "Instantly see your risk classification: High, Medium, or Low / Minimal Risk.",
+        step3_title: "Download PDF Report", step3_desc: "Submit your email to get a full report with actionable next steps.",
+        quiz_title: "Start Your Free Assessment",
+        q1: "1. What is your role under the EU AI Act?", law1: "Source: Article 2 — Definitions",
+        q1_opt1: "AI system provider (I develop/launch the AI)", q1_opt2: "AI system deployer (I use someone else's AI)", q1_opt3: "Both", q1_opt4: "Not sure / other",
+        q2: "2. Is your AI system used in the EU or offered to EU users?", law2: "Source: Article 2 — Scope of Application",
+        q2_opt1: "Yes, placed on EU market / used by EU users", q2_opt2: "No, only outside the EU", q2_opt3: "Not sure yet",
+        q3: "3. What is the main purpose of your AI system?", law3: "Source: Article 6(2) + Annex III — High-Risk Use Cases",
+        q3_opt1: "Biometric identification / facial recognition", q3_opt2: "Critical infrastructure / safety systems",
+        q3_opt3: "Education / admission / exam scoring", q3_opt4: "HR / recruitment / employee screening",
+        q3_opt5: "Credit scoring / financial services", q3_opt6: "Law enforcement / migration / justice",
+        q3_opt7: "Customer service / chatbot / marketing", q3_opt8: "Other consumer / general use",
+        q4: "4. Does your AI make decisions that significantly impact people's rights or opportunities?", law4: "Source: Article 6(2) — Fundamental Rights Impact",
+        q4_opt1: "Yes — e.g. hiring, credit, admission, sentencing", q4_opt2: "Partially — it assists but a human decides", q4_opt3: "No — it's purely for entertainment / internal use",
+        q5: "5. Do you use personal data as training data for your AI?", law5: "Source: Article 10 — Data and Data Governance",
+        q5_opt1: "Yes, personal data is used for training", q5_opt2: "Yes, including sensitive data (health, biometric, etc.)", q5_opt3: "No, only public / anonymized data",
+        q6: "6. Is your AI a safety component of a physical product (e.g. medical device, machinery, car)?", law6: "Source: Article 6(1) + Annex I — Product Safety",
+        q6_opt1: "Yes, it's part of a physical product's safety system", q6_opt2: "No, it's purely software / digital",
+        select: "Select...", generate_btn: "Generate My Result",
+        result_title: "Your Preliminary Risk Assessment",
+        result_desc: "Based on your answers, here's your preliminary classification. To download the full report with a detailed action checklist, please submit your business email below.",
+        email_label: "Business Email", submit_btn: "Submit & Download PDF Report",
+        pricing_title: "Upgrade Options", pricing_subtitle: "Need a more detailed assessment? Choose the option that fits your needs.",
+        price1_name: "Free Quick Check", price1_per: " / forever",
+        price1_f1: "6-question quick assessment", price1_f2: "Basic risk classification", price1_f3: "1-page summary PDF", price1_f4: "Email newsletter only",
+        price1_btn: "Start Free Check",
+        popular: "Most Popular", price2_name: "Automated Report", price2_per: " / one-time",
+        price2_f1: "10-question detailed questionnaire", price2_f2: "Full AI-generated PDF report", price2_f3: "Compliance gap checklist", price2_f4: "Required documents list", price2_f5: "Automated email delivery",
+        price2_btn: "Get Automated Report",
+        price3_name: "Professional Review", price3_per: " / one-time",
+        price3_f1: "15+ in-depth questions", price3_f2: "AI draft + quick human review", price3_f3: "Prioritized remediation plan", price3_f4: "Priority email support", price3_f5: "Disclaimer & next-step guidance",
+        price3_btn: "Get Professional Review",
+        disclaimer_title: "Disclaimer:",
+        disclaimer_text: "This tool provides preliminary self-assessment only. It is not legal advice, not an audit, and not a certification. It cannot replace consultation with a qualified EU legal professional. AI-generated reports may contain inaccuracies.",
+        faq_title: "Frequently Asked Questions",
+        faq1_q: "Isn't there a free official EU AI Act checker?",
+        faq1_a: "Yes — the official EU Compliance Checker is excellent for deep legal review. But it takes 30+ minutes, uses complex legal language, and only tells you your risk category. Our tool is built for busy SME founders who want a quick, plain-English answer and a clear action plan.",
+        faq2_q: "Is this a legal certification or audit?",
+        faq2_a: "No. This is a preliminary compliance self-assessment tool. It helps you understand your starting point and what you need to prepare. For formal legal compliance and certification, you must consult a qualified EU lawyer or notified body.",
+        faq3_q: "When should I upgrade to the €99 Professional Review?",
+        faq3_a: "If your AI system is classified as High Risk, or if you're preparing for EU market entry and need a more detailed gap analysis with prioritized next steps, the Professional Review is recommended.",
+        faq4_q: "What happens to my data?",
+        faq4_a: "We only use your email to send you the report you requested. We do not share your information with third parties. Your questionnaire answers are used solely to generate your assessment.",
+        footer_text: "© 2026 EU AI Act Quick Check. This is a self-assessment tool, not legal advice. Not affiliated with the European Commission.",
+        risk_high: "High Risk AI System", risk_medium: "Medium Risk AI System", risk_low: "Low / Minimal Risk AI System"
+    },
+    zh: {
+        hero_title: "欧盟AI法案合规自查，2分钟出结果",
+        hero_subtitle: "欧盟官方检查器要填30多分钟？我们用大白话，2分钟快速评估你的风险等级，并给出明确行动清单——专为中小企业创始人设计。",
+        compare_title: "为什么选我们的快速自查？",
+        compare_feature: "对比项", compare_official: "欧盟官方检查器", compare_us: "我们的快速自查",
+        compare_time: "所需时间", compare_time_official: "30分钟以上", compare_time_us: "2分钟",
+        compare_language: "语言风格", compare_lang_official: "法律术语，复杂难懂", compare_lang_us: "大白话，简单直接",
+        compare_output: "输出内容", compare_out_official: "只告诉你风险等级", compare_out_us: "风险等级 + 行动整改清单",
+        compare_forwhom: "目标用户", compare_for_official: "法务团队、大型企业", compare_for_us: "中小企业创始人、非法律人士",
+        compare_cost: "费用", compare_cost_official: "免费", compare_cost_us: "免费快速自查",
+        steps_title: "使用流程",
+        step1_title: "回答6个问题", step1_desc: "基于欧盟AI法案第6条和附件三设计的简明问题。",
+        step2_title: "获取评估结果", step2_desc: "立即查看你的风险分类：高风险、中风险或低风险/最低风险。",
+        step3_title: "下载PDF报告", step3_desc: "提交邮箱，获取完整报告和可执行的下一步行动方案。",
+        quiz_title: "开始免费评估",
+        q1: "1. 你在欧盟AI法案中的角色是什么？", law1: "法条依据：第2条 — 定义",
+        q1_opt1: "AI系统提供者（我开发/发布这个AI）", q1_opt2: "AI系统部署者（我使用别人开发的AI）", q1_opt3: "两者都是", q1_opt4: "不确定 / 其他",
+        q2: "2. 你的AI系统是否在欧盟使用或提供给欧盟用户？", law2: "法条依据：第2条 — 适用范围",
+        q2_opt1: "是，投放欧盟市场/有欧盟用户使用", q2_opt2: "否，仅在欧盟以外使用", q2_opt3: "目前还不确定",
+        q3: "3. 你的AI系统主要用途是什么？", law3: "法条依据：第6条第2款 + 附件三 — 高风险用例",
+        q3_opt1: "生物识别 / 人脸识别", q3_opt2: "关键基础设施 / 安全系统",
+        q3_opt3: "教育 / 招生 / 考试评分", q3_opt4: "人力资源 / 招聘 / 员工筛选",
+        q3_opt5: "信用评分 / 金融服务", q3_opt6: "执法 / 移民 / 司法",
+        q3_opt7: "客服 / 聊天机器人 / 营销", q3_opt8: "其他消费级 / 通用用途",
+        q4: "4. 你的AI是否会做出显著影响人们权利或机会的决策？", law4: "法条依据：第6条第2款 — 基本权利影响",
+        q4_opt1: "是——例如招聘、贷款、录取、量刑", q4_opt2: "部分——AI辅助，但最终由人决定", q4_opt3: "否——纯娱乐/内部使用",
+        q5: "5. 你的AI训练是否使用个人数据？", law5: "法条依据：第10条 — 数据与数据治理",
+        q5_opt1: "是，训练使用个人数据", q5_opt2: "是，包括敏感数据（健康、生物特征等）", q5_opt3: "否，仅使用公开/匿名数据",
+        q6: "6. 你的AI是否是实体产品（如医疗器械、机械、汽车）的安全组件？", law6: "法条依据：第6条第1款 + 附件一 — 产品安全",
+        q6_opt1: "是，属于实体产品安全系统的一部分", q6_opt2: "否，纯软件/数字产品",
+        select: "请选择...", generate_btn: "生成我的评估结果",
+        result_title: "你的初步风险评估",
+        result_desc: "根据你的回答，这是初步分类结果。要下载包含详细行动清单的完整报告，请在下方提交你的企业邮箱。",
+        email_label: "企业邮箱", submit_btn: "提交并下载PDF报告",
+        pricing_title: "升级选项", pricing_subtitle: "需要更详细的评估？选择适合你的方案。",
+        price1_name: "免费快速自查", price1_per: " / 永久免费",
+        price1_f1: "6题快速评估", price1_f2: "基础风险分类", price1_f3: "1页摘要PDF", price1_f4: "仅邮件通讯",
+        price1_btn: "开始免费自查",
+        popular: "最受欢迎", price2_name: "自动生成报告", price2_per: " / 一次性",
+        price2_f1: "10题详细问卷", price2_f2: "完整AI生成PDF报告", price2_f3: "合规差距清单", price2_f4: "所需文件清单", price2_f5: "自动邮件发送",
+        price2_btn: "获取自动报告",
+        price3_name: "专业人工复核", price3_per: " / 一次性",
+        price3_f1: "15+深度问题", price3_f2: "AI初稿 + 人工快速复核", price3_f3: "优先级整改方案", price3_f4: "优先邮件支持", price3_f5: "免责声明与下一步指导",
+        price3_btn: "获取专业复核",
+        quiz29_title: "自动生成报告 — €29",
+        quiz29_desc: "回答10个详细问题。支付后，AI生成的PDF报告将发送到您的邮箱。",
+        quiz99_title: "专业人工复核 — €99",
+        quiz99_desc: "15+深度问题。报告包含AI初稿 + 人工快速复核。优先邮件支持。",
+        q7_extra: "7. 你的AI系统有人工监督机制吗？",
+        law7_extra: "法条依据：第14条 — 人工监督",
+        q7_extra_opt1: "有，文档化的人工监督流程",
+        q7_extra_opt2: "非正式，未文档化",
+        q7_extra_opt3: "目前没有人工监督",
+        q8_extra: "8. 你是否对AI系统做过风险评估？",
+        law8_extra: "法条依据：第9条 — 风险管理体系",
+        q8_extra_opt1: "做过，有文档化的风险评估",
+        q8_extra_opt2: "部分做过，非正式评估",
+        q8_extra_opt3: "没有做过风险评估",
+        q9_extra: "9. 你是否为AI系统维护技术文档？",
+        law9_extra: "法条依据：第11条 — 技术文档",
+        q9_extra_opt1: "有，完整的技术档案",
+        q9_extra_opt2: "只有部分文档",
+        q9_extra_opt3: "没有技术文档",
+        q10_extra: "10. 你的AI系统处于哪个开发阶段？",
+        law10_extra: "法条依据：序言 — 时间节点",
+        q10_extra_opt1: "想法/规划阶段",
+        q10_extra_opt2: "开发中，尚未上线",
+        q10_extra_opt3: "已上线并投入使用",
+        q11_deep: "11. 你目前有多少欧盟用户？",
+        law11_deep: "法条依据：序言 — 市场规模",
+        q11_deep_opt1: "少于100人",
+        q11_deep_opt2: "100 – 1,000人",
+        q11_deep_opt3: "1,000 – 10,000人",
+        q11_deep_opt4: "超过10,000人",
+        q12_deep: "12. 你有数据治理政策吗？",
+        law12_deep: "法条依据：第10条 — 数据治理",
+        q12_deep_opt1: "有，文档化的政策",
+        q12_deep_opt2: "部分有/非正式",
+        q12_deep_opt3: "没有政策",
+        q13_deep: "13. 你是否已在欧盟数据库注册？",
+        law13_deep: "法条依据：第49条 — 欧盟数据库",
+        q13_deep_opt1: "是，已注册",
+        q13_deep_opt2: "没有，尚未注册",
+        q13_deep_opt3: "不确定是否需要注册",
+        q14_deep: "14. 你是否向用户提供透明度说明？",
+        law14_deep: "法条依据：第50条 — 透明度",
+        q14_deep_opt1: "是，用户知道自己在和AI交互",
+        q14_deep_opt2: "部分有，一些说明",
+        q14_deep_opt3: "没有任何说明",
+        q15_deep: "15. 公司规模（员工人数）？",
+        law15_deep: "法条依据：建议 — 中小企业定义",
+        q15_deep_opt1: "1 – 10人（微型企业）",
+        q15_deep_opt2: "10 – 50人（小型企业）",
+        q15_deep_opt3: "50 – 250人（中型企业）",
+        q15_deep_opt4: "250人以上（大型企业）",
+        pay29_btn: "支付 €29 并获取报告",
+        pay99_btn: "支付 €99 并获取专业复核",
+        back_home: "← 返回首页",
+        disclaimer_title: "免责声明：",
+        disclaimer_text: "本工具仅提供初步自查评估，不构成法律意见、审计或认证，不能替代与欧盟持证法律专业人士的咨询。AI生成的报告可能存在不准确之处。",
+        faq_title: "常见问题",
+        faq1_q: "欧盟官方不是有免费的AI法案检查器吗？",
+        faq1_a: "是的——欧盟官方合规检查器非常适合深度法律审查。但它需要30多分钟，使用复杂的法律术语，而且只告诉你风险类别。我们的工具专为忙碌的中小企业创始人设计，提供快速、大白话的答案和明确的行动计划。",
+        faq2_q: "这是法律认证或审计吗？",
+        faq2_a: "不是。这是一个初步的合规自查工具，帮助你了解自己的起点和需要准备的内容。正式的法律合规和认证，必须咨询合格的欧盟律师或公告机构。",
+        faq3_q: "我什么时候应该升级到99欧元专业复核？",
+        faq3_a: "如果你的AI系统被归类为高风险，或者你正在准备进入欧盟市场，需要更详细的差距分析和优先级下一步建议，建议选择专业复核版。",
+        faq4_q: "我的数据会怎样处理？",
+        faq4_a: "我们仅使用你的邮箱发送你申请的报告，不会与第三方分享你的信息。你的问卷答案仅用于生成你的评估。",
+        footer_text: "© 2026 欧盟AI法案快速自查。本工具为自查工具，不构成法律意见。与欧盟委员会无关联。",
+        risk_high: "高风险AI系统", risk_medium: "中风险AI系统", risk_low: "低风险/最低风险AI系统"
+    },
+    de: {
+        hero_title: "EU-KI-Gesetz Compliance-Check in 2 Minuten",
+        hero_subtitle: "Offizieller EU-Check dauert 30+ Minuten. Erhalte deine schnelle, verständliche Risikobewertung mit klarem Aktionsplan — für vielbeschäftigte KMU-Gründer.",
+        compare_title: "Warum unseren Schnell-Check wählen?",
+        compare_feature: "Merkmal", compare_official: "Offizieller EU-Check", compare_us: "Unser Schnell-Check",
+        compare_time: "Benötigte Zeit", compare_time_official: "30+ Minuten", compare_time_us: "2 Minuten",
+        compare_language: "Sprache", compare_lang_official: "Juristisches Deutsch, komplex", compare_lang_us: "Verständlich, einfach",
+        compare_output: "Ergebnis", compare_out_official: "Nur Risikoklasse", compare_out_us: "Risikoklasse + Aktionscheckliste",
+        compare_forwhom: "Gemacht für", compare_for_official: "Juristen, Großunternehmen", compare_for_us: "KMU-Gründer, Nicht-Juristen",
+        compare_cost: "Kosten", compare_cost_official: "Kostenlos", compare_cost_us: "Kostenloser Schnell-Check",
+        steps_title: "So funktioniert's",
+        step1_title: "6 Fragen beantworten", step1_desc: "Schnelle, verständliche Fragen basierend auf Art. 6 und Anhang III des EU-KI-Gesetzes.",
+        step2_title: "Ergebnis erhalten", step2_desc: "Sofortige Risikoeinstufung: Hoch, Mittel oder Niedrig / Minimal.",
+        step3_title: "PDF-Bericht herunterladen", step3_desc: "E-Mail eingeben für vollständigen Bericht mit konkreten nächsten Schritten.",
+        quiz_title: "Kostenlose Bewertung starten",
+        q1: "1. Was ist Ihre Rolle nach dem EU-KI-Gesetz?", law1: "Quelle: Art. 2 — Definitionen",
+        q1_opt1: "KI-Systemanbieter (ich entwickle/starte die KI)", q1_opt2: "KI-Systemverwender (ich nutze KI von Dritten)", q1_opt3: "Beides", q1_opt4: "Weiß nicht / anderes",
+        q2: "2. Wird Ihr KI-System in der EU eingesetzt oder EU-Nutzern angeboten?", law2: "Quelle: Art. 2 — Geltungsbereich",
+        q2_opt1: "Ja, auf EU-Markt gebracht / von EU-Nutzern verwendet", q2_opt2: "Nein, nur außerhalb der EU", q2_opt3: "Noch unsicher",
+        q3: "3. Was ist der Hauptzweck Ihres KI-Systems?", law3: "Quelle: Art. 6(2) + Anhang III — Hochrisiko-Anwendungen",
+        q3_opt1: "Biometrische Identifikation / Gesichtserkennung", q3_opt2: "Kritische Infrastruktur / Sicherheitssysteme",
+        q3_opt3: "Bildung / Zulassung / Prüfungswertung", q3_opt4: "Personalwesen / Rekrutierung / Mitarbeiterauswahl",
+        q3_opt5: "Bonitätsbewertung / Finanzdienstleistungen", q3_opt6: "Strafverfolgung / Migration / Justiz",
+        q3_opt7: "Kundenservice / Chatbot / Marketing", q3_opt8: "Andere Verbraucher-/Allgemeinanwendung",
+        q4: "4. Trifft Ihre KI Entscheidungen, die Rechte oder Chancen von Menschen erheblich beeinflussen?", law4: "Quelle: Art. 6(2) — Grundrechtebezug",
+        q4_opt1: "Ja — z.B. Einstellung, Kredit, Zulassung, Urteil", q4_opt2: "Teilweise — KI unterstützt, Mensch entscheidet", q4_opt3: "Nein — nur Unterhaltung / interner Einsatz",
+        q5: "5. Verwenden Sie personenbezogene Daten als Trainingsdaten?", law5: "Quelle: Art. 10 — Daten und Daten-governance",
+        q5_opt1: "Ja, personenbezogene Daten werden trainiert", q5_opt2: "Ja, einschließlich sensibler Daten (Gesundheit, Biometrie usw.)", q5_opt3: "Nein, nur öffentliche/anonymisierte Daten",
+        q6: "6. Ist Ihre KI eine Sicherheitskomponente eines physischen Produkts (z.B. Medizinprodukt, Maschine, Auto)?", law6: "Quelle: Art. 6(1) + Anhang I — Produktsicherheit",
+        q6_opt1: "Ja, Teil des Sicherheitssystems eines physischen Produkts", q6_opt2: "Nein, reine Software / digital",
+        select: "Bitte wählen...", generate_btn: "Mein Ergebnis generieren",
+        result_title: "Ihre vorläufige Risikobewertung",
+        result_desc: "Basierend auf Ihren Antworten ist dies Ihre vorläufige Einstufung. Um den vollständigen Bericht mit detaillierter Checkliste herunterzuladen, geben Sie bitte Ihre geschäftliche E-Mail ein.",
+        email_label: "Geschäftliche E-Mail", submit_btn: "Absenden & PDF-Bericht herunterladen",
+        pricing_title: "Upgrade-Optionen", pricing_subtitle: "Brauchen Sie eine detailliertere Bewertung? Wählen Sie die passende Option.",
+        price1_name: "Kostenloser Schnell-Check", price1_per: " / für immer",
+        price1_f1: "6-Fragen-Schnellbewertung", price1_f2: "Einfache Risikoklassifizierung", price1_f3: "1-seitige Zusammenfassung-PDF", price1_f4: "Nur E-Mail-Newsletter",
+        price1_btn: "Kostenloser Check starten",
+        popular: "Am beliebtesten", price2_name: "Automatisierter Bericht", price2_per: " / einmalig",
+        price2_f1: "10-Fragen-Detailfragebogen", price2_f2: "Vollständiger KI-generierter PDF-Bericht", price2_f3: "Compliance-Lücken-Checkliste", price2_f4: "Liste erforderlicher Dokumente", price2_f5: "Automatisierte E-Mail-Zustellung",
+        price2_btn: "Automatisierten Bericht erhalten",
+        price3_name: "Professionelle Prüfung", price3_per: " / einmalig",
+        price3_f1: "15+ vertiefende Fragen", price3_f2: "KI-Entwurf + kurze menschliche Prüfung", price3_f3: "Priorisierter Sanierungsplan", price3_f4: "Bevorzugter E-Mail-Support", price3_f5: "Hinweis & nächste Schritte",
+        price3_btn: "Professionelle Prüfung erhalten",
+        disclaimer_title: "Haftungsausschluss:",
+        disclaimer_text: "Dieses Tool dient nur der vorläufigen Selbstbewertung. Es ist keine Rechtsberatung, kein Audit und keine Zertifizierung. Es kann die Beratung durch einen qualifizierten EU-Rechtsanwalt nicht ersetzen. KI-generierte Berichte können Ungenauigkeiten enthalten.",
+        faq_title: "Häufig gestellte Fragen",
+        faq1_q: "Gibt es nicht einen kostenlosen offiziellen EU-KI-Gesetz-Checker?",
+        faq1_a: "Ja — der offizielle EU Compliance Checker ist hervorragend für eine tiefe rechtliche Prüfung. Aber er dauert 30+ Minuten, verwendet komplexe juristische Sprache und nennt nur Ihre Risikoklasse. Unser Tool ist für vielbeschäftigte KMU-Gründer gemacht, die eine schnelle, verständliche Antwort und einen klaren Aktionsplan wollen.",
+        faq2_q: "Ist das eine rechtliche Zertifizierung oder ein Audit?",
+        faq2_a: "Nein. Dies ist ein vorläufiges Self-Assessment-Tool für Compliance. Es hilft Ihnen, Ihren Ausgangspunkt zu verstehen und was Sie vorbereiten müssen. Für formelle rechtliche Compliance und Zertifizierung müssen Sie einen qualifizierten EU-Anwalt oder eine Benannte Stelle konsultieren.",
+        faq3_q: "Wann sollte ich auf die €99 Professionelle Prüfung upgraden?",
+        faq3_a: "Wenn Ihr KI-System als Hochrisiko eingestuft wird oder Sie sich auf den EU-Markteintritt vorbereiten und eine detailliertere Lückenanalyse mit priorisierten nächsten Schritten benötigen, wird die Professionelle Prüfung empfohlen.",
+        faq4_q: "Was passiert mit meinen Daten?",
+        faq4_a: "Wir verwenden Ihre E-Mail nur, um Ihnen den angeforderten Bericht zu senden. Wir geben Ihre Informationen nicht an Dritte weiter. Ihre Antworten im Fragebogen werden ausschließlich zur Erstellung Ihrer Bewertung verwendet.",
+        footer_text: "© 2026 EU KI-Gesetz Schnell-Check. Dies ist ein Self-Assessment-Tool, keine Rechtsberatung. Nicht mit der Europäischen Kommission verbunden.",
+        risk_high: "Hochrisiko-KI-System", risk_medium: "Mittelrisiko-KI-System", risk_low: "Niedriges / minimales Risiko-KI-System"
+    },
+    fr: {
+        hero_title: "Vérification de conformité IA UE en 2 minutes",
+        hero_subtitle: "L'outil officiel de l'UE prend 30+ minutes. Obtenez votre évaluation rapide en langage clair avec un plan d'action concret — pour les dirigeants de PME pressés.",
+        compare_title: "Pourquoi choisir notre vérification rapide ?",
+        compare_feature: "Caractéristique", compare_official: "Vérificateur officiel UE", compare_us: "Notre vérification rapide",
+        compare_time: "Temps nécessaire", compare_time_official: "30+ minutes", compare_time_us: "2 minutes",
+        compare_language: "Langage", compare_lang_official: "Juron juridique, complexe", compare_lang_us: "Langage clair, simple",
+        compare_output: "Résultat", compare_out_official: "Catégorie de risque uniquement", compare_out_us: "Catégorie de risque + liste d'actions",
+        compare_forwhom: "Conçu pour", compare_for_official: "Équipes juridiques, grandes entreprises", compare_for_us: "Dirigeants de PME, non-juristes",
+        compare_cost: "Coût", compare_cost_official: "Gratuit", compare_cost_us: "Vérification rapide gratuite",
+        steps_title: "Comment ça marche",
+        step1_title: "Répondez à 6 questions", step1_desc: "Questions rapides en langage clair basées sur l'Article 6 et l'Annexe III de l'IA Act.",
+        step2_title: "Obtenez votre résultat", step2_desc: "Découvrez instantanément votre classification : Risque élevé, moyen ou faible/minime.",
+        step3_title: "Téléchargez le rapport PDF", step3_desc: "Indiquez votre email pour recevoir un rapport complet avec les prochaines étapes concrètes.",
+        quiz_title: "Commencez votre évaluation gratuite",
+        q1: "1. Quel est votre rôle en vertu de l'IA Act ?", law1: "Source : Article 2 — Définitions",
+        q1_opt1: "Fournisseur de système d'IA (je développe/lance l'IA)", q1_opt2: "Déploiant de système d'IA (j'utilise l'IA d'autrui)", q1_opt3: "Les deux", q1_opt4: "Je ne sais pas / autre",
+        q2: "2. Votre système d'IA est-il utilisé dans l'UE ou proposé à des utilisateurs de l'UE ?", law2: "Source : Article 2 — Champ d'application",
+        q2_opt1: "Oui, mis sur le marché de l'UE / utilisé par des utilisateurs de l'UE", q2_opt2: "Non, uniquement en dehors de l'UE", q2_opt3: "Pas encore sûr",
+        q3: "3. Quel est l'objectif principal de votre système d'IA ?", law3: "Source : Article 6(2) + Annexe III — Cas d'usage à haut risque",
+        q3_opt1: "Identification biométrique / reconnaissance faciale", q3_opt2: "Infrastructure critique / systèmes de sécurité",
+        q3_opt3: "Éducation / admission / notation d'examens", q3_opt4: "RH / recrutement / évaluation des employés",
+        q3_opt5: "Score de crédit / services financiers", q3_opt6: "Application de la loi / migration / justice",
+        q3_opt7: "Service client / chatbot / marketing", q3_opt8: "Autre usage grand public / général",
+        q4: "4. Votre IA prend-elle des décisions qui impactent significativement les droits ou opportunités des personnes ?", law4: "Source : Article 6(2) — Impact sur les droits fondamentaux",
+        q4_opt1: "Oui — ex. recrutement, crédit, admission, condamnation", q4_opt2: "Partiellement — l'IA assiste mais un humain décide", q4_opt3: "Non — purement divertissement / usage interne",
+        q5: "5. Utilisez-vous des données personnelles comme données d'entraînement ?", law5: "Source : Article 10 — Données et gouvernance des données",
+        q5_opt1: "Oui, des données personnelles sont utilisées pour l'entraînement", q5_opt2: "Oui, y compris des données sensibles (santé, biométrie, etc.)", q5_opt3: "Non, uniquement des données publiques / anonymisées",
+        q6: "6. Votre IA est-elle un composant de sécurité d'un produit physique (ex. dispositif médical, machine, voiture) ?", law6: "Source : Article 6(1) + Annexe I — Sécurité des produits",
+        q6_opt1: "Oui, cela fait partie du système de sécurité d'un produit physique", q6_opt2: "Non, c'est purement logiciel / numérique",
+        select: "Sélectionnez...", generate_btn: "Générer mon résultat",
+        result_title: "Votre évaluation préliminaire des risques",
+        result_desc: "D'après vos réponses, voici votre classification préliminaire. Pour télécharger le rapport complet avec une liste d'actions détaillée, veuillez indiquer votre email professionnel ci-dessous.",
+        email_label: "Email professionnel", submit_btn: "Soumettre & Télécharger le rapport PDF",
+        pricing_title: "Options de mise à niveau", pricing_subtitle: "Besoin d'une évaluation plus détaillée ? Choisissez l'option adaptée.",
+        price1_name: "Vérification rapide gratuite", price1_per: " / gratuit",
+        price1_f1: "Évaluation rapide en 6 questions", price1_f2: "Classification basique des risques", price1_f3: "Résumé PDF d'1 page", price1_f4: "Newsletter email uniquement",
+        price1_btn: "Démarrer le check gratuit",
+        popular: "Le plus populaire", price2_name: "Rapport automatisé", price2_per: " / une fois",
+        price2_f1: "Questionnaire détaillé en 10 questions", price2_f2: "Rapport PDF complet généré par IA", price2_f3: "Liste des écarts de conformité", price2_f4: "Liste des documents requis", price2_f5: "Livraison automatisée par email",
+        price2_btn: "Obtenir le rapport automatisé",
+        price3_name: "Revue professionnelle", price3_per: " / une fois",
+        price3_f1: "15+ questions approfondies", price3_f2: "Brouillon IA + revue humaine rapide", price3_f3: "Plan de remédiation priorisé", price3_f4: "Support email prioritaire", price3_f5: "Avertissement & prochaines étapes",
+        price3_btn: "Obtenir la revue professionnelle",
+        disclaimer_title: "Avertissement :",
+        disclaimer_text: "Cet outil fournit uniquement une auto-évaluation préliminaire. Il ne constitue pas un avis juridique, un audit ou une certification. Il ne peut remplacer la consultation d'un professionnel juridique qualifié de l'UE. Les rapports générés par l'IA peuvent contenir des inexactitudes.",
+        faq_title: "Questions fréquentes",
+        faq1_q: "N'y a-t-il pas un vérificateur officiel gratuit de l'IA Act ?",
+        faq1_a: "Oui — le vérificateur officiel de conformité de l'UE est excellent pour un examen juridique approfondi. Mais il prend 30+ minutes, utilise un langage juridique complexe et ne fait que vous indiquer votre catégorie de risque. Notre outil est conçu pour les dirigeants de PME pressés qui veulent une réponse rapide et claire avec un plan d'action concret.",
+        faq2_q: "Est-ce une certification juridique ou un audit ?",
+        faq2_a: "Non. Il s'agit d'un outil d'auto-évaluation préliminaire de conformité. Il vous aide à comprendre votre point de départ et ce que vous devez préparer. Pour la conformité juridique formelle et la certification, vous devez consulter un avocat qualifié de l'UE ou un organisme notifié.",
+        faq3_q: "Quand dois-je passer à la revue professionnelle à 99 € ?",
+        faq3_a: "Si votre système d'IA est classé comme à haut risque, ou si vous préparez votre entrée sur le marché de l'UE et avez besoin d'une analyse des écarts plus détaillée avec des prochaines étapes priorisées, la revue professionnelle est recommandée.",
+        faq4_q: "Que deviennent mes données ?",
+        faq4_a: "Nous utilisons votre email uniquement pour vous envoyer le rapport demandé. Nous ne partageons pas vos informations avec des tiers. Vos réponses au questionnaire sont utilisées uniquement pour générer votre évaluation.",
+        footer_text: "© 2026 Vérification rapide IA Act UE. Ceci est un outil d'auto-évaluation, pas un avis juridique. Non affilié à la Commission européenne.",
+        risk_high: "Système d'IA à haut risque", risk_medium: "Système d'IA à risque moyen", risk_low: "Système d'IA à risque faible/minime"
+    },
+    es: {
+        hero_title: "Verificación de cumplimiento IA UE en 2 minutos",
+        hero_subtitle: "El verificador oficial de la UE tarda 30+ minutos. Obtén tu evaluación rápida en lenguaje claro con un plan de acción concreto — para directivos de PYMEs con poco tiempo.",
+        compare_title: "¿Por qué elegir nuestra verificación rápida?",
+        compare_feature: "Característica", compare_official: "Verificador oficial UE", compare_us: "Nuestra verificación rápida",
+        compare_time: "Tiempo necesario", compare_time_official: "30+ minutos", compare_time_us: "2 minutos",
+        compare_language: "Idioma", compare_lang_official: "Jerga jurídica, compleja", compare_lang_us: "Lenguaje claro, sencillo",
+        compare_output: "Resultado", compare_out_official: "Solo categoría de riesgo", compare_out_us: "Categoría de riesgo + lista de acciones",
+        compare_forwhom: "Diseñado para", compare_for_official: "Equipos legales, grandes empresas", compare_for_us: "Directivos de PYMEs, no juristas",
+        compare_cost: "Coste", compare_cost_official: "Gratis", compare_cost_us: "Verificación rápida gratuita",
+        steps_title: "Cómo funciona",
+        step1_title: "Responde 6 preguntas", step1_desc: "Preguntas rápidas en lenguaje claro basadas en el Artículo 6 y el Anexo III de la IA Act.",
+        step2_title: "Obtén tu resultado", step2_desc: "Consulta al instante tu clasificación: Riesgo alto, medio o bajo/mínimo.",
+        step3_title: "Descarga el informe PDF", step3_desc: "Indica tu email para recibir un informe completo con los próximos pasos concretos.",
+        quiz_title: "Comienza tu evaluación gratuita",
+        q1: "1. ¿Cuál es tu rol según la IA Act de la UE?", law1: "Fuente: Artículo 2 — Definiciones",
+        q1_opt1: "Proveedor de sistema de IA (desarrollo/lanzo la IA)", q1_opt2: "Desplegador de sistema de IA (uso la IA de terceros)", q1_opt3: "Ambos", q1_opt4: "No sé / otro",
+        q2: "2. ¿Tu sistema de IA se usa en la UE o se ofrece a usuarios de la UE?", law2: "Fuente: Artículo 2 — Ámbito de aplicación",
+        q2_opt1: "Sí, puesto en el mercado de la UE / usado por usuarios de la UE", q2_opt2: "No, solo fuera de la UE", q2_opt3: "Todavía no estoy seguro",
+        q3: "3. ¿Cuál es el propósito principal de tu sistema de IA?", law3: "Fuente: Artículo 6(2) + Anexo III — Casos de uso de alto riesgo",
+        q3_opt1: "Identificación biométrica / reconocimiento facial", q3_opt2: "Infraestructura crítica / sistemas de seguridad",
+        q3_opt3: "Educación / admisión / puntuación de exámenes", q3_opt4: "RRHH / reclutamiento / selección de empleados",
+        q3_opt5: "Evaluación crediticia / servicios financieros", q3_opt6: "Aplicación de la ley / migración / justicia",
+        q3_opt7: "Atención al cliente / chatbot / marketing", q3_opt8: "Otro uso de consumo / general",
+        q4: "4. ¿Tu IA toma decisiones que afectan significativamente los derechos u oportunidades de las personas?", law4: "Fuente: Artículo 6(2) — Impacto en derechos fundamentales",
+        q4_opt1: "Sí — ej. contratación, crédito, admisión, sentencia", q4_opt2: "Parcialmente — la IA asiste pero decide un humano", q4_opt3: "No — puramente entretenimiento / uso interno",
+        q5: "5. ¿Usas datos personales como datos de entrenamiento?", law5: "Fuente: Artículo 10 — Datos y gobernanza de datos",
+        q5_opt1: "Sí, se usan datos personales para el entrenamiento", q5_opt2: "Sí, incluidos datos sensibles (salud, biométrica, etc.)", q5_opt3: "No, solo datos públicos / anonimizados",
+        q6: "6. ¿Tu IA es un componente de seguridad de un producto físico (ej. dispositivo médico, maquinaria, coche)?", law6: "Fuente: Artículo 6(1) + Anexo I — Seguridad de productos",
+        q6_opt1: "Sí, forma parte del sistema de seguridad de un producto físico", q6_opt2: "No, es puramente software / digital",
+        select: "Selecciona...", generate_btn: "Generar mi resultado",
+        result_title: "Tu evaluación preliminar de riesgos",
+        result_desc: "Según tus respuestas, esta es tu clasificación preliminar. Para descargar el informe completo con una lista de acciones detallada, indica tu email profesional abajo.",
+        email_label: "Email profesional", submit_btn: "Enviar y descargar el informe PDF",
+        pricing_title: "Opciones de mejora", pricing_subtitle: "¿Necesitas una evaluación más detallada? Elige la opción que se ajuste.",
+        price1_name: "Verificación rápida gratis", price1_per: " / gratis",
+        price1_f1: "Evaluación rápida de 6 preguntas", price1_f2: "Clasificación básica de riesgos", price1_f3: "Resumen PDF de 1 página", price1_f4: "Solo boletín por email",
+        price1_btn: "Iniciar check gratuito",
+        popular: "Más popular", price2_name: "Informe automatizado", price2_per: " / único",
+        price2_f1: "Cuestionario detallado de 10 preguntas", price2_f2: "Informe PDF completo generado por IA", price2_f3: "Lista de brechas de cumplimiento", price2_f4: "Lista de documentos requeridos", price2_f5: "Entrega automatizada por email",
+        price2_btn: "Obtener informe automatizado",
+        price3_name: "Revisión profesional", price3_per: " / único",
+        price3_f1: "15+ preguntas en profundidad", price3_f2: "Borrador IA + revisión humana rápida", price3_f3: "Plan de remediación priorizado", price3_f4: "Soporte prioritario por email", price3_f5: "Aviso y próximos pasos",
+        price3_btn: "Obtener revisión profesional",
+        disclaimer_title: "Aviso legal:",
+        disclaimer_text: "Esta herramienta proporciona solo una autoevaluación preliminar. No es asesoramiento legal, ni una auditoría, ni una certificación. No puede sustituir la consulta con un profesional legal cualificado de la UE. Los informes generados por IA pueden contener inexactitudes.",
+        faq_title: "Preguntas frecuentes",
+        faq1_q: "¿No hay un verificador oficial gratuito de la IA Act?",
+        faq1_a: "Sí — el verificador oficial de cumplimiento de la UE es excelente para una revisión legal profunda. Pero tarda 30+ minutos, usa lenguaje jurídico complejo y solo te dice tu categoría de riesgo. Nuestra herramienta está diseñada para directivos de PYMEs ocupados que quieren una respuesta rápida y clara con un plan de acción concreto.",
+        faq2_q: "¿Es una certificación legal o una auditoría?",
+        faq2_a: "No. Esta es una herramienta de autoevaluación preliminar de cumplimiento. Te ayuda a entender tu punto de partida y qué necesitas preparar. Para el cumplimiento legal formal y la certificación, debes consultar a un abogado cualificado de la UE o un organismo notificado.",
+        faq3_q: "¿Cuándo debería mejorar a la Revisión Profesional de 99 €?",
+        faq3_a: "Si tu sistema de IA está clasificado como de Alto Riesgo, o si te estás preparando para entrar en el mercado de la UE y necesitas un análisis de brechas más detallado con próximos pasos priorizados, se recomienda la Revisión Profesional.",
+        faq4_q: "¿Qué pasa con mis datos?",
+        faq4_a: "Solo usamos tu email para enviarte el informe que solicitaste. No compartimos tu información con terceros. Tus respuestas al cuestionario se usan únicamente para generar tu evaluación.",
+        footer_text: "© 2026 Verificación rápida IA Act UE. Esta es una herramienta de autoevaluación, no asesoramiento legal. No afiliado a la Comisión Europea.",
+        risk_high: "Sistema de IA de Alto Riesgo", risk_medium: "Sistema de IA de Riesgo Medio", risk_low: "Sistema de IA de Riesgo Bajo/Mínimo"
+    },
+    it: {
+        hero_title: "Verifica conformità IA UE in 2 minuti",
+        hero_subtitle: "Il verificatore ufficiale UE richiede 30+ minuti. Ottieni la tua valutazione rapida in linguaggio chiaro con un piano d'azione concreto — per titolari di PMI indaffarati.",
+        compare_title: "Perché scegliere la nostra verifica rapida?",
+        compare_feature: "Caratteristica", compare_official: "Verificatore ufficiale UE", compare_us: "La nostra verifica rapida",
+        compare_time: "Tempo necessario", compare_time_official: "30+ minuti", compare_time_us: "2 minuti",
+        compare_language: "Lingua", compare_lang_official: "Gerghe legale, complessa", compare_lang_us: "Linguaggio chiaro, semplice",
+        compare_output: "Risultato", compare_out_official: "Solo categoria di rischio", compare_out_us: "Categoria di rischio + lista azioni",
+        compare_forwhom: "Progettato per", compare_for_official: "Team legali, grandi imprese", compare_for_us: "Titolari di PMI, non avvocati",
+        compare_cost: "Costo", compare_cost_official: "Gratis", compare_cost_us: "Verifica rapida gratuita",
+        steps_title: "Come funziona",
+        step1_title: "Rispondi a 6 domande", step1_desc: "Domande rapide in linguaggio chiaro basate sull'Articolo 6 e l'Allegato III dell'IA Act.",
+        step2_title: "Ottieni il tuo risultato", step2_desc: "Scopri subito la tua classificazione: Rischio alto, medio o basso/minimo.",
+        step3_title: "Scarica il rapporto PDF", step3_desc: "Inserisci la tua email per ricevere un rapporto completo con i prossimi passi concreti.",
+        quiz_title: "Inizia la tua valutazione gratuita",
+        q1: "1. Qual è il tuo ruolo ai sensi dell'IA Act UE?", law1: "Fonte: Articolo 2 — Definizioni",
+        q1_opt1: "Fornitore di sistema IA (sviluppo/lancio l'IA)", q1_opt2: "Utilizzatore di sistema IA (uso l'IA di terzi)", q1_opt3: "Entrambi", q1_opt4: "Non so / altro",
+        q2: "2. Il tuo sistema IA è utilizzato nell'UE o offerto a utenti UE?", law2: "Fonte: Articolo 2 — Ambito di applicazione",
+        q2_opt1: "Sì, immesso sul mercato UE / utilizzato da utenti UE", q2_opt2: "No, solo fuori dall'UE", q2_opt3: "Non ancora sicuro",
+        q3: "3. Qual è lo scopo principale del tuo sistema IA?", law3: "Fonte: Articolo 6(2) + Allegato III — Casi d'uso ad alto rischio",
+        q3_opt1: "Identificazione biometrica / riconoscimento facciale", q3_opt2: "Infrastruttura critica / sistemi di sicurezza",
+        q3_opt3: "Istruzione / ammissione / valutazione esami", q3_opt4: "Risorse umane / reclutamento / selezione dipendenti",
+        q3_opt5: "Punteggio creditizio / servizi finanziari", q3_opt6: "Applicazione della legge / migrazione / giustizia",
+        q3_opt7: "Servizio clienti / chatbot / marketing", q3_opt8: "Altro uso consumer / generale",
+        q4: "4. La tua IA prende decisioni che influenzano significativamente i diritti o le opportunità delle persone?", law4: "Fonte: Articolo 6(2) — Impatto sui diritti fondamentali",
+        q4_opt1: "Sì — es. assunzione, credito, ammissione, sentenza", q4_opt2: "Parzialmente — l'IA assiste ma decide un umano", q4_opt3: "No — puramente intrattenimento / uso interno",
+        q5: "5. Usi dati personali come dati di training per la tua IA?", law5: "Fonte: Articolo 10 — Dati e governance dei dati",
+        q5_opt1: "Sì, i dati personali sono utilizzati per il training", q5_opt2: "Sì, inclusi dati sensibili (salute, biometrici, ecc.)", q5_opt3: "No, solo dati pubblici / anonimizzati",
+        q6: "6. La tua IA è un componente di sicurezza di un prodotto fisico (es. dispositivo medico, macchinario, auto)?", law6: "Fonte: Articolo 6(1) + Allegato I — Sicurezza dei prodotti",
+        q6_opt1: "Sì, fa parte del sistema di sicurezza di un prodotto fisico", q6_opt2: "No, è puramente software / digitale",
+        select: "Seleziona...", generate_btn: "Genera il mio risultato",
+        result_title: "La tua valutazione preliminare del rischio",
+        result_desc: "In base alle tue risposte, ecco la tua classificazione preliminare. Per scaricare il rapporto completo con una lista dettagliata di azioni, inserisci la tua email professionale sotto.",
+        email_label: "Email professionale", submit_btn: "Invia e scarica il rapporto PDF",
+        pricing_title: "Opzioni di aggiornamento", pricing_subtitle: "Hai bisogno di una valutazione più dettagliata? Scegli l'opzione adatta.",
+        price1_name: "Verifica rapida gratuita", price1_per: " / gratis",
+        price1_f1: "Valutazione rapida a 6 domande", price1_f2: "Classificazione base del rischio", price1_f3: "Riepilogo PDF di 1 pagina", price1_f4: "Solo newsletter email",
+        price1_btn: "Inizia check gratuito",
+        popular: "Più popolare", price2_name: "Rapporto automatizzato", price2_per: " / una tantum",
+        price2_f1: "Questionario dettagliato a 10 domande", price2_f2: "Rapporto PDF completo generato da IA", price2_f3: "Lista delle lacune di conformità", price2_f4: "Lista dei documenti richiesti", price2_f5: "Consegna automatizzata via email",
+        price2_btn: "Ottieni rapporto automatizzato",
+        price3_name: "Revisione professionale", price3_per: " / una tantum",
+        price3_f1: "15+ domande approfondite", price3_f2: "Bozza IA + revisione umana rapida", price3_f3: "Piano di rimedazione prioritizzato", price3_f4: "Supporto email prioritario", price3_f5: "Disclaimer e prossimi passi",
+        price3_btn: "Ottieni revisione professionale",
+        disclaimer_title: "Dichiarazione di non responsabilità:",
+        disclaimer_text: "Questo strumento fornisce solo una autovalutazione preliminare. Non è consulenza legale, né un audit, né una certificazione. Non può sostituire la consulenza con un professionista legale qualificato dell'UE. I rapporti generati dall'IA possono contenere inesattezze.",
+        faq_title: "Domande frequenti",
+        faq1_q: "Non esiste già un verificatore ufficiale gratuito dell'IA Act?",
+        faq1_a: "Sì — il verificatore ufficiale di conformità dell'UE è eccellente per una revisione legale approfondita. Ma richiede 30+ minuti, usa linguaggio legale complesso e indica solo la tua categoria di rischio. Il nostro strumento è progettato per titolari di PMI indaffarati che vogliono una risposta rapida e chiara con un piano d'azione concreto.",
+        faq2_q: "È una certificazione legale o un audit?",
+        faq2_a: "No. Questo è uno strumento di autovalutazione preliminare della conformità. Ti aiuta a capire il tuo punto di partenza e cosa devi preparare. Per la conformità legale formale e la certificazione, devi consultare un avvocato qualificato dell'UE o un organismo notificato.",
+        faq3_q: "Quando dovrei passare alla Revisione Professionale da 99 €?",
+        faq3_a: "Se il tuo sistema IA è classificato come ad Alto Rischio, o se ti stai preparando per l'ingresso nel mercato UE e hai bisogno di un'analisi delle lacune più dettagliata con prossimi passi prioritizzati, è raccomandata la Revisione Professionale.",
+        faq4_q: "Cosa succede ai miei dati?",
+        faq4_a: "Usiamo la tua email solo per inviarti il rapporto richiesto. Non condividiamo le tue informazioni con terze parti. Le tue risposte al questionario sono utilizzate esclusivamente per generare la tua valutazione.",
+        footer_text: "© 2026 Verifica rapida IA Act UE. Questo è uno strumento di autovalutazione, non consulenza legale. Non affiliato alla Commissione Europea.",
+        risk_high: "Sistema IA ad Alto Rischio", risk_medium: "Sistema IA a Rischio Medio", risk_low: "Sistema IA a Rischio Basso/Minimo"
+    },
+    nl: {
+        hero_title: "EU AI Act Compliance Check in 2 minuten",
+        hero_subtitle: "De officiële EU-checker duurt 30+ minuten. Krijg je snelle, duidelijke risicobeoordeling met een concreet actieplan — voor drukke MKB-ondernemers.",
+        compare_title: "Waarom kiezen voor onze snelle check?",
+        compare_feature: "Kenmerk", compare_official: "Officiële EU-checker", compare_us: "Onze snelle check",
+        compare_time: "Benodigde tijd", compare_time_official: "30+ minuten", compare_time_us: "2 minuten",
+        compare_language: "Taal", compare_lang_official: "Juridisch jargon, complex", compare_lang_us: "Duidelijke taal, eenvoudig",
+        compare_output: "Resultaat", compare_out_official: "Alleen risicocategorie", compare_out_us: "Risicocategorie + actielijst",
+        compare_forwhom: "Gemaakt voor", compare_for_official: "Juridische teams, grote bedrijven", compare_for_us: "MKB-ondernemers, niet-juristen",
+        compare_cost: "Kosten", compare_cost_official: "Gratis", compare_cost_us: "Gratis snelle check",
+        steps_title: "Hoe het werkt",
+        step1_title: "Beantwoord 6 vragen", step1_desc: "Snelle, duidelijke vragen gebaseerd op Artikel 6 en Bijlage III van de AI Act.",
+        step2_title: "Krijg je resultaat", step2_desc: "Zie direct je classificatie: Hoog, Gemiddeld, of Laag/Minimaal risico.",
+        step3_title: "Download PDF-rapport", step3_desc: "Vul je email in voor een volledig rapport met concrete volgende stappen.",
+        quiz_title: "Start je gratis beoordeling",
+        q1: "1. Wat is je rol onder de EU AI Act?", law1: "Bron: Artikel 2 — Definities",
+        q1_opt1: "AI-systeemaanbieder (ik ontwikkel/lanceer de AI)", q1_opt2: "AI-systeemgebruiker (ik gebruik AI van derden)", q1_opt3: "Beide", q1_opt4: "Weet ik niet / anders",
+        q2: "2. Wordt je AI-systeem gebruikt in de EU of aangeboden aan EU-gebruikers?", law2: "Bron: Artikel 2 — Toepassingsgebied",
+        q2_opt1: "Ja, op de EU-markt gebracht / gebruikt door EU-gebruikers", q2_opt2: "Nee, alleen buiten de EU", q2_opt3: "Nog niet zeker",
+        q3: "3. Wat is het hoofddoel van je AI-systeem?", law3: "Bron: Artikel 6(2) + Bijlage III — Hoog-risico use cases",
+        q3_opt1: "Biometrische identificatie / gezichtsherkenning", q3_opt2: "Kritieke infrastructuur / veiligheidssystemen",
+        q3_opt3: "Onderwijs / toelating / examenbeoordeling", q3_opt4: "HR / recruitment / werknemersselectie",
+        q3_opt5: "Kredietwaardigheid / financiële diensten", q3_opt6: "Wetshandhaving / migratie / justitie",
+        q3_opt7: "Klantenservice / chatbot / marketing", q3_opt8: "Ander consumenten-/algemeen gebruik",
+        q4: "4. Neemt je AI beslissingen die aanzienlijke invloed hebben op rechten of kansen van mensen?", law4: "Bron: Artikel 6(2) — Impact op grondrechten",
+        q4_opt1: "Ja — bijv. aanwerving, krediet, toelating, vonnis", q4_opt2: "Deels — AI assisteert maar een mens beslist", q4_opt3: "Nee — puur entertainment / intern gebruik",
+        q5: "5. Gebruik je persoonsgegevens als trainingsdata voor je AI?", law5: "Bron: Artikel 10 — Data en data-governance",
+        q5_opt1: "Ja, persoonsgegevens worden gebruikt voor training", q5_opt2: "Ja, inclusief gevoelige data (gezondheid, biometrie, etc.)", q5_opt3: "Nee, alleen publieke / geanonimiseerde data",
+        q6: "6. Is je AI een veiligheidscomponent van een fysiek product (bijv. medisch apparaat, machine, auto)?", law6: "Bron: Artikel 6(1) + Bijlage I — Productveiligheid",
+        q6_opt1: "Ja, het maakt deel uit van het veiligheidssysteem van een fysiek product", q6_opt2: "Nee, het is puur software / digitaal",
+        select: "Selecteer...", generate_btn: "Genereer mijn resultaat",
+        result_title: "Je voorlopige risicobeoordeling",
+        result_desc: "Op basis van je antwoorden, hier is je voorlopige classificatie. Om het volledige rapport met gedetailleerde actielijst te downloaden, vul hieronder je zakelijke email in.",
+        email_label: "Zakelijke email", submit_btn: "Verstuur & Download PDF-rapport",
+        pricing_title: "Upgrade-opties", pricing_subtitle: "Wil je een gedetailleerdere beoordeling? Kies de optie die bij je past.",
+        price1_name: "Gratis Snelle Check", price1_per: " / gratis",
+        price1_f1: "Snelle beoordeling van 6 vragen", price1_f2: "Basis risicoclassificatie", price1_f3: "Samenvatting PDF van 1 pagina", price1_f4: "Alleen email nieuwsbrief",
+        price1_btn: "Start gratis check",
+        popular: "Meest populair", price2_name: "Geautomatiseerd Rapport", price2_per: " / eenmalig",
+        price2_f1: "Gedetailleerde vragenlijst van 10 vragen", price2_f2: "Volledig AI gegenereerd PDF-rapport", price2_f3: "Compliance gap checklist", price2_f4: "Lijst van vereiste documenten", price2_f5: "Geautomatiseerde email levering",
+        price2_btn: "Krijg geautomatiseerd rapport",
+        price3_name: "Professionele Review", price3_per: " / eenmalig",
+        price3_f1: "15+ diepgaande vragen", price3_f2: "AI concept + snelle menselijke review", price3_f3: "Geprioriteerd saneringsplan", price3_f4: "Prioritaire email support", price3_f5: "Disclaimer & volgende stappen",
+        price3_btn: "Krijg professionele review",
+        disclaimer_title: "Disclaimer:",
+        disclaimer_text: "Dit hulpmiddel biedt alleen een voorlopige zelfbeoordeling. Het is geen juridisch advies, geen audit en geen certificering. Het kan het consult van een gekwalificeerde EU-jurist niet vervangen. AI-gegenereerde rapporten kunnen onnauwkeurigheden bevatten.",
+        faq_title: "Veelgestelde vragen",
+        faq1_q: "Is er niet al een gratis officiële EU AI Act-checker?",
+        faq1_a: "Ja — de officiële EU Compliance Checker is uitstekend voor diepgaande juridische review. Maar hij duurt 30+ minuten, gebruikt complexe juridische taal en vertelt je alleen je risicocategorie. Onze tool is gemaakt voor drukke MKB-ondernemers die een snel, duidelijk antwoord willen met een concreet actieplan.",
+        faq2_q: "Is dit een juridische certificering of audit?",
+        faq2_a: "Nee. Dit is een voorlopig zelfbeoordelingshulpmiddel voor compliance. Het helpt je je startpunt te begrijpen en wat je moet voorbereiden. Voor formele juridische compliance en certificering moet je een gekwalificeerde EU-advocaat of aangemelde instantie raadplegen.",
+        faq3_q: "Wanneer moet ik upgraden naar de €99 Professionele Review?",
+        faq3_a: "Als je AI-systeem geclassificeerd is als Hoog Risico, of als je je voorbereidt op EU-markttoetreding en een gedetailleerdere gap-analyse nodig hebt met geprioriteerde volgende stappen, wordt de Professionele Review aanbevolen.",
+        faq4_q: "Wat gebeurt er met mijn gegevens?",
+        faq4_a: "We gebruiken je email alleen om je het gevraagde rapport te sturen. We delen je informatie niet met derden. Je antwoorden op de vragenlijst worden alleen gebruikt om je beoordeling te genereren.",
+        footer_text: "© 2026 EU AI Act Snelle Check. Dit is een zelfbeoordelingshulpmiddel, geen juridisch advies. Niet gelieerd aan de Europese Commissie.",
+        risk_high: "Hoog-risico AI-systeem", risk_medium: "Middel-risico AI-systeem", risk_low: "Laag/Minimaal risico AI-systeem"
+    },
+    pl: {
+        hero_title: "Kontrola zgodności AI UE w 2 minuty",
+        hero_subtitle: "Oficjalny checker UE zajmuje 30+ minut. Uzyskaj szybką, zrozumiałą ocenę ryzyka z jasnym planem działania — dla zapracowanych właścicieli MŚP.",
+        compare_title: "Dlaczego wybrać naszą szybką kontrolę?",
+        compare_feature: "Cecha", compare_official: "Oficjalny checker UE", compare_us: "Nasza szybka kontrola",
+        compare_time: "Czas potrzebny", compare_time_official: "30+ minut", compare_time_us: "2 minuty",
+        compare_language: "Język", compare_lang_official: "Żargon prawniczy, złożony", compare_lang_us: "Prosty język, zrozumiały",
+        compare_output: "Wynik", compare_out_official: "Tylko kategoria ryzyka", compare_out_us: "Kategoria ryzyka + lista działań",
+        compare_forwhom: "Stworzone dla", compare_for_official: "Zespoły prawne, duże firmy", compare_for_us: "Właściciele MŚP, nieprawnicy",
+        compare_cost: "Koszt", compare_cost_official: "Bezpłatnie", compare_cost_us: "Bezpłatna szybka kontrola",
+        steps_title: "Jak to działa",
+        step1_title: "Odpowiedz na 6 pytań", step1_desc: "Szybkie, zrozumiałe pytania oparte na Artykule 6 i Załączniku III AI Act.",
+        step2_title: "Uzyskaj wynik", step2_desc: "Natychmiast zobacz klasyfikację: Wysokie, Średnie lub Niskie/Minimalne ryzyko.",
+        step3_title: "Pobierz raport PDF", step3_desc: "Podaj email, aby otrzymać pełny raport z konkretnymi następnymi krokami.",
+        quiz_title: "Rozpocznij bezpłatną ocenę",
+        q1: "1. Jaka jest Twoja rola w rozumieniu AI Act?", law1: "Źródło: Artykuł 2 — Definicje",
+        q1_opt1: "Dostawca systemu AI (rozwijam/wprowadzam AI)", q1_opt2: "Użytkownik systemu AI (używam AI od osób trzecich)", q1_opt3: "Oba", q1_opt4: "Nie wiem / inne",
+        q2: "2. Czy Twój system AI jest używany w UE lub oferowany użytkownikom z UE?", law2: "Źródło: Artykuł 2 — Zakres stosowania",
+        q2_opt1: "Tak, wprowadzony na rynek UE / używany przez użytkowników z UE", q2_opt2: "Nie, tylko poza UE", q2_opt3: "Jeszcze nie jestem pewien",
+        q3: "3. Jaki jest główny cel Twojego systemu AI?", law3: "Źródło: Artykuł 6(2) + Załącznik III — Przypadki użycia wysokiego ryzyka",
+        q3_opt1: "Identyfikacja biometryczna / rozpoznawanie twarzy", q3_opt2: "Krytyczna infrastruktura / systemy bezpieczeństwa",
+        q3_opt3: "Edukacja / rekrutacja / ocenianie egzaminów", q3_opt4: "HR / rekrutacja / selekcja pracowników",
+        q3_opt5: "Ocena zdolności kredytowej / usługi finansowe", q3_opt6: "Egzekwowanie prawa / migracja / wymiar sprawiedliwości",
+        q3_opt7: "Obsługa klienta / chatbot / marketing", q3_opt8: "Inne zastosowanie konsumenckie / ogólne",
+        q4: "4. Czy Twoje AI podejmuje decyzje, które znacząco wpływają na prawa lub szanse ludzi?", law4: "Źródło: Artykuł 6(2) — Wpływ na podstawowe prawa",
+        q4_opt1: "Tak — np. rekrutacja, kredyt, przyjęcia, wyrok", q4_opt2: "Częściowo — AI wspomaga, ale człowiek decyduje", q4_opt3: "Nie — wyłącznie rozrywka / użytek wewnętrzny",
+        q5: "5. Czy używasz danych osobowych jako danych treningowych dla swojego AI?", law5: "Źródło: Artykuł 10 — Dane i zarządzanie danymi",
+        q5_opt1: "Tak, dane osobowe są używane do treningu", q5_opt2: "Tak, w tym dane wrażliwe (zdrowie, biometryczne, itp.)", q5_opt3: "Nie, tylko publiczne / zanonimizowane dane",
+        q6: "6. Czy Twoje AI jest komponentem bezpieczeństwa produktu fizycznego (np. urządzenie medyczne, maszyna, samochód)?", law6: "Źródło: Artykuł 6(1) + Załącznik I — Bezpieczeństwo produktów",
+        q6_opt1: "Tak, jest częścią systemu bezpieczeństwa produktu fizycznego", q6_opt2: "Nie, to wyłącznie oprogramowanie / produkt cyfrowy",
+        select: "Wybierz...", generate_btn: "Generuj mój wynik",
+        result_title: "Wstępna ocena ryzyka",
+        result_desc: "Na podstawie Twoich odpowiedzi, oto wstępna klasyfikacja. Aby pobrać pełny raport ze szczegółową listą działań, podaj swój służbowy email poniżej.",
+        email_label: "Służbowy email", submit_btn: "Wyślij i pobierz raport PDF",
+        pricing_title: "Opcje ulepszenia", pricing_subtitle: "Potrzebujesz bardziej szczegółowej oceny? Wybierz opcję dopasowaną do potrzeb.",
+        price1_name: "Bezpłatna szybka kontrola", price1_per: " / bezpłatnie",
+        price1_f1: "Szybka ocena na 6 pytań", price1_f2: "Podstawowa klasyfikacja ryzyka", price1_f3: "Podsumowanie PDF na 1 stronę", price1_f4: "Tylko newsletter email",
+        price1_btn: "Rozpocznij darmowy check",
+        popular: "Najpopularniejszy", price2_name: "Zautomatyzowany raport", price2_per: " / jednorazowo",
+        price2_f1: "Szczegółowa ankieta na 10 pytań", price2_f2: "Pełny raport PDF generowany przez AI", price2_f3: "Lista luk w zgodności", price2_f4: "Lista wymaganych dokumentów", price2_f5: "Zautomatyzowana dostawa emailem",
+        price2_btn: "Uzyskaj zautomatyzowany raport",
+        price3_name: "Profesjonalny przegląd", price3_per: " / jednorazowo",
+        price3_f1: "15+ pogłębionych pytań", price3_f2: "Projekt AI + szybki przegląd ludzki", price3_f3: "Spriorytetyzowany plan naprawczy", price3_f4: "Priorytetowe wsparcie email", price3_f5: "Disclaimer i następne kroki",
+        price3_btn: "Uzyskaj profesjonalny przegląd",
+        disclaimer_title: "Zastrzeżenie:",
+        disclaimer_text: "To narzędzie zapewnia wyłącznie wstępną samoocenę. Nie jest to porada prawna, audyt ani certyfikacja. Nie zastępuje konsultacji z wykwalifikowanym prawnikiem UE. Raporty generowane przez AI mogą zawierać nieścisłości.",
+        faq_title: "Często zadawane pytania",
+        faq1_q: "Czy nie ma już darmowego oficjalnego checkera AI Act?",
+        faq1_a: "Tak — oficjalny EU Compliance Checker jest doskonały do dogłębnego przeglądu prawnego. Ale zajmuje 30+ minut, używa złożonego języka prawniczego i tylko podaje kategorię ryzyka. Nasze narzędzie jest stworzone dla zapracowanych właścicieli MŚP, którzy chcą szybkiej, jasnej odpowiedzi z konkretnym planem działania.",
+        faq2_q: "Czy to jest certyfikacja prawna lub audyt?",
+        faq2_a: "Nie. To jest narzędzie wstępnej samooceny zgodności. Pomaga zrozumieć punkt wyjścia i co trzeba przygotować. Dla formalnej zgodności prawnej i certyfikacji musisz skonsultować się z wykwalifikowanym prawnikiem UE lub jednostką notyfikowaną.",
+        faq3_q: "Kiedy powinienem przejść do Profesjonalnego Przeglądu za 99 €?",
+        faq3_a: "Jeśli Twój system AI jest sklasyfikowany jako Wysokie Ryzyko, lub przygotowujesz się na wejście na rynek UE i potrzebujesz bardziej szczegółowej analizy luk ze spriorytetyzowanymi następnymi krokami, zalecany jest Profesjonalny Przegląd.",
+        faq4_q: "Co dzieje się z moimi danymi?",
+        faq4_a: "Używamy Twojego emaila wyłącznie do wysłania żądanego raportu. Nie udostępniamy Twoich informacji stronom trzecim. Twoje odpowiedzi w ankiecie są używane wyłącznie do wygenerowania Twojej oceny.",
+        footer_text: "© 2026 Szybka kontrola AI Act UE. To jest narzędzie samooceny, nie porada prawna. Niepowiązane z Komisją Europejską.",
+        risk_high: "System AI Wysokiego Ryzyka", risk_medium: "System AI Średniego Ryzyka", risk_low: "System AI Niskiego/Minimalnego Ryzyka"
+    }
+};
+
+let currentLang = 'en';
+let riskLevel = '';
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            el.textContent = translations[lang][key];
+        }
+    });
+    document.querySelectorAll('select option').forEach(opt => {
+        const key = opt.getAttribute('data-i18n');
+        if (key && translations[lang] && translations[lang][key]) {
+            opt.textContent = translations[lang][key];
+        }
+    });
+}
+
+function showView(view) {
+    // 先显示所有内容（重置）
+    document.querySelector('.hero').style.display = '';
+    document.querySelectorAll('section').forEach(s => {
+        s.style.display = '';
+        s.classList.remove('hidden');
+    });
+
+    // 需要隐藏的section列表
+    const allQuizSections = ['quizSection', 'quiz29Section', 'quiz99Section', 'resultSection'];
+
+    if (view === 'home') {
+        // 首页：隐藏所有问卷和结果页
+        allQuizSections.forEach(id => {
+            document.getElementById(id).classList.add('hidden');
+            document.getElementById(id).style.display = 'none';
+        });
+    } else {
+        // 非首页：隐藏hero + 所有无id的section + pricing + FAQ
+        document.querySelector('.hero').style.display = 'none';
+        document.querySelectorAll('section').forEach(s => {
+            if (!s.id || s.id === 'pricingSection') {
+                s.style.display = 'none';
+            }
+        });
+        // 隐藏其他问卷section
+        allQuizSections.forEach(id => {
+            if (id !== 'quiz' + view.replace('quiz','')) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.add('hidden');
+                    el.style.display = 'none';
+                }
+            }
+        });
+        // 显示当前视图
+        const targetId = view === 'quizFree' ? 'quizSection' : view + 'Section';
+        const target = document.getElementById(targetId);
+        if (target) {
+            target.classList.remove('hidden');
+            target.style.display = '';
+        }
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function pay29() {
+    alert('支付系统正在接入中（€29），请稍后再试！');
+}
+
+function pay99() {
+    alert('支付系统正在接入中（€99），请稍后再试！');
+}
+
+function calcResult() {
     const q1 = document.getElementById('q1').value;
     const q2 = document.getElementById('q2').value;
     const q3 = document.getElementById('q3').value;
     const q4 = document.getElementById('q4').value;
-    if(!q1||!q2||!q3){
-        alert("Please answer all required questions");
+    const q5 = document.getElementById('q5').value;
+    const q6 = document.getElementById('q6').value;
+    if (!q1 || !q2 || !q3 || !q4 || !q5 || !q6) {
+        alert('Please answer all questions');
         return;
     }
-    let score=0;
-    if(q1==="biometric"||q1==="infrastructure")score+=3;
-    if(q1==="education"||q1==="employment")score+=2;
-    if(q2==="yes")score+=2;
-    if(q3==="yes")score+=1;
-    if(q4==="yes")score+=1;
+    let score = 0;
+    if (q3 === 'biometric' || q3 === 'law') score += 4;
+    if (q3 === 'critical' || q3 === 'education' || q3 === 'employment' || q3 === 'credit') score += 3;
+    if (q3 === 'customer' || q3 === 'other') score += 1;
+    if (q4 === 'yes') score += 3;
+    if (q4 === 'partial') score += 1;
+    if (q5 === 'sensitive') score += 2;
+    if (q5 === 'yes') score += 1;
+    if (q6 === 'yes') score += 3;
+    if (q2 === 'no') score -= 2;
 
-    if(score >=4){
-        riskLevel = "High Risk AI System";
-    }else if(score>=2){
-        riskLevel = "Medium Risk AI System";
-    }else{
-        riskLevel = "Low / Minimal Risk AI System";
-    }
-    document.getElementById("riskText").innerHTML = `<strong>Risk Category: ${riskLevel}</strong>`;
-    document.getElementById("riskLevelInput").value = riskLevel;
-    document.getElementById("questionSection").classList.add("hidden");
-    document.getElementById("resultSection").classList.remove("hidden");
+    if (score >= 6) riskLevel = translations[currentLang].risk_high;
+    else if (score >= 3) riskLevel = translations[currentLang].risk_medium;
+    else riskLevel = translations[currentLang].risk_low;
+
+    document.getElementById('riskText').innerHTML = `<h3>${riskLevel}</h3>`;
+    document.getElementById('riskLevelInput').value = riskLevel;
+    document.getElementById('quizSection').classList.add('hidden');
+    document.getElementById('resultSection').classList.remove('hidden');
+    document.getElementById('pricingSection').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-document.getElementById("emailForm").addEventListener("submit", function(e){
+document.getElementById('emailForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    document.getElementById("resultSection").classList.add("hidden");
-    document.getElementById("pdfSection").classList.remove("hidden");
-    document.getElementById("reportBody").innerHTML = `
-        <p><strong>EU AI Act Self-Check Report</strong></p>
-        <p>Classification Result: ${riskLevel}</p>
-        <p>Obligations summary:</p>
-        <ul>
-            ${riskLevel==="High Risk AI System" ?
-            `<li>Mandatory conformity assessment before launch</li>
-            <li>Technical documentation required</li>
-            <li>Human oversight mechanism</li>
-            <li>Traceability & record keeping</li>`
-            : riskLevel==="Medium Risk AI System"?
-            `<li>Code of practice recommended</li>
-            <li>Transparency for end-users</li>
-            <li>Basic risk monitoring</li>`
-            :`<li>Very few mandatory obligations</li>
-            <li>Recommended transparency disclosure</li>`
-            }
-        </ul>
-        <p>Disclaimer: This self-check tool is for preliminary reference only and does not constitute legal advice. Professional paid review can provide full compliance document for EU market entry.</p>
-    `;
-    // 提交表单数据给Netlify
     const formData = new FormData(this);
-    fetch("/", {method:"POST",body:formData});
-})
+    fetch('/', { method: 'POST', body: formData });
+    alert('Thank you! Your report will be sent to your email shortly.');
+});
 
-function exportPDF(){
-    window.print();
-}
+changeLanguage('en');
 </script>
+
 </body>
 </html>
